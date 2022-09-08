@@ -30,6 +30,7 @@
             <h2 class="brand-text text-primary ms-1">Vuexy</h2>
         </a>
         <!-- /Brand logo-->
+
         <!-- Left Text-->
         <div class="d-none d-lg-flex col-lg-8 align-items-center p-5">
             <div class="w-100 d-lg-flex align-items-center justify-content-center px-5"><img class="img-fluid" src="{{asset('app-assets/images/illustration/two-steps-verification-illustration.svg')}}" alt="two steps verification" /></div>
@@ -67,11 +68,11 @@
             </div>
         </div>
     </div>
-                    
-                    
-                 @push('custom-script')   
+
+
+                 @push('custom-script')
                     <script>
-                        
+
                         $(".auth-input").keyup(function () {
     if (this.value.length == this.maxLength) {
       var $next = $(this).next('.auth-input');
