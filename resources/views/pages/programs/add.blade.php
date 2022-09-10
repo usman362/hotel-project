@@ -7,7 +7,7 @@
 
 
  <!-- BEGIN: Content-->
- 
+
     <div class="app-content content ">
       @if(session()->has('success'))
         <div class="alert alert-primary pd-4" role="alert">
@@ -17,13 +17,13 @@
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper container-xxl p-0">
-            
+
             <div class="content-header row">
             </div>
             <div class="content-body">
                 <!-- Horizontal Wizard -->
                 <section class="horizontal-wizard">
-                      
+
                     <div class="bs-stepper horizontal-wizard-example">
                         <div class="bs-stepper-header" role="tablist">
                             <div class="step" data-target="#account-details" role="tab" id="account-details-trigger">
@@ -73,16 +73,16 @@
                             </div>
                         </div>
                         <div class="bs-stepper-content">
-                          <form action="{{route('program.store')}}" id="program_form" method="POST" enctype="multipart/form-data">
+                          <form action="{{route('program.store')}}" id="second_form" method="POST" enctype="multipart/form-data">
                                     @csrf
                             <div id="account-details" class="content" role="tabpanel" aria-labelledby="account-details-trigger">
                                 <div class="content-header">
                                     <h5 class="mb-0">Program Overview</h5>
                                     <small class="text-muted">Enter tour outlines</small>
                                 </div>
-                               
-                                    
-                                        
+
+
+
                                     <div class="row">
                                         <div class="mb-1 col-md-4">
                                             <label class="form-label" for="tour_name">Tour Name</label>
@@ -120,7 +120,7 @@
                                     <div class="row">
                                         <div class="col-md-4 mb-1">
                                             <label class="form-label" for="select2-basic">Destination</label>
-                                            <select class="form-select" name="destination_id" id="select2-basic">
+                                            <select class="form-select destination_id" name="destination_id" id="select2-basic">
                                                 <option value="" selected>--------</option>
                                                 <option value="1">Nepal</option>
                                                 <option value="2">Tibet</option>
@@ -134,7 +134,7 @@
                                         </div>
                                         <div class="col-md-4 mb-1">
                                             <label class="form-label" for="select2-basic1">Activity</label>
-                                            <select class="form-select" name="activity_id" id="select2-basic1">
+                                            <select class="form-select activity_id" name="activity_id" id="select2-basic1">
                                                 <option value="" selected>--------</option>
                                                 <option value="1">Trekking</option>
                                                 <option value="3">Climbing</option>
@@ -163,7 +163,7 @@
                                         <div class="col-md-6 mb-1">
                                             <label class="form-label" for="id-duration">Duration</label>
                                             <div class="input-group">
-                                                <input type="number" class="form-control" name="duration" placeholder="02" aria-label="Duration" aria-describedby="id-duration">
+                                                <input type="number" class="form-control" name="duration" id="duration" placeholder="02" aria-label="Duration" aria-describedby="id-duration">
                                                 <span class="input-group-text" id="id-duration">Days</span>
                                             </div>
                                               @error('duration')
@@ -195,7 +195,7 @@
                                             <label class="form-label" for="">Minimum Participant</label>
 
                                             <div class="input-group">
-                                                <input type="number" min="1" name="min_participant" class="form-control" placeholder="1" aria-label="Group Min Size" aria-describedby="it-groupmin">
+                                                <input type="number" min="1" name="min_participant" id="min_participant" class="form-control" placeholder="1" aria-label="Group Min Size" aria-describedby="it-groupmin">
                                                 <span class="input-group-text" id="it-groupmin">Pax</span>
                                             </div>
                                               @error('min_participant')
@@ -206,7 +206,7 @@
                                             <label class="form-label" for="">Maximum Participant</label>
 
                                             <div class="input-group">
-                                                <input type="number" min="1" name="max_participant" class="form-control" placeholder="32" aria-label="Group Max Size" aria-describedby="it-groupmax">
+                                                <input type="number" min="1" name="max_participant" id="max_participant" class="form-control" placeholder="32" aria-label="Group Max Size" aria-describedby="it-groupmax">
                                                 <span class="input-group-text" id="it-groupmax">Pax</span>
                                             </div>
                                               @error('max_participant')
@@ -221,8 +221,8 @@
                                             <input type="text" class="form-control" name="meals" id="iti-meals" readonly="readonly" value="0B, 0L, 0D">
                                         </div>
                                         <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="iti-accommodation">Accommodation</label>
-                                            <input type="text" name="accommodation" id="iti-accommodation" class="form-control" placeholder="Hotel / Guest Houses" />
+                                            <label class="form-label" for="accommodation">Accommodation</label>
+                                            <input type="text" name="accommodation" id="accommodation" class="form-control" placeholder="Hotel / Guest Houses" />
                                              @error('accommodation')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
@@ -257,8 +257,8 @@
                                             <!--Form repeater example: https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/html/ltr/vertical-menu-template/form-repeater.html -->
                                             <div class="card">
                                                 <div class="card-body" >
-                                                   
-                                                        
+
+
                                                             <div  class="tour_highlight">
                                                                 <div class="row d-flex align-items-end">
                                                                     <div class="col-md-10">
@@ -277,7 +277,7 @@
                                                                     <!--</div>-->
                                                                 </div>
                                                             </div>
-                                                     
+
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <button class="btn btn-icon btn-primary" id="add_tour_highlight" type="button">
@@ -286,14 +286,14 @@
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                   
+
                                                 </div>
                                             </div>
                                         </div>
 
 
                                     </div>
-                                
+
                                 <div class="d-flex justify-content-between">
                                     <button  type="button" class="btn btn-outline-secondary btn-prev" disabled>
                                         <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
@@ -304,7 +304,7 @@
                                         <span class="align-middle d-sm-inline-block d-none">Next</span>
                                         <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
                                     </button>
-                                    
+
                                 </div>
                                 <span class="account-details-error text-danger"></span>
                             </div>
@@ -313,7 +313,7 @@
                                     <h5 class="mb-0">Package Details</h5>
                                     <small class="text-muted">Details about the tour</small>
                                 </div>
-                               
+
                                     <!-- full Editor start -->
 
                                     <div class="row">
@@ -321,8 +321,8 @@
                                             <div id="full-wrapper">
                                                 <label class="form-label" for="iti-daily-activity">Tour Overview</label>
                                                 <div id="full-container">
-                                                      <textarea class="tinymceTextEditor" name="tour_overview">
-                                                                            
+                                                      <textarea class="tinymceTextEditor tour_overview" name="tour_overview">
+
                                                     </textarea>
                                                      @error('tour_overview')
                                             <span class="text-danger">{{$message}}</span>
@@ -339,15 +339,15 @@
                                     <!-- full Editor end -->
                                     <div class="row">
                                         <div class="mb-1 col-md-6">
-                                            <label for="iti-thumbnail" class="form-label">Tour Thumbnail</label>
-                                            <input class="form-control" name="tour_thumbnail" type="file" id="iti-thumbnail">
+                                            <label for="tour_thumbnail" class="form-label">Tour Thumbnail</label>
+                                            <input class="form-control" name="tour_thumbnail" type="file" id="tour_thumbnail">
                                              @error('tour_thumbnail')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
                                         </div>
                                         <div class="mb-1 col-md-6">
-                                            <label for="iti-banner" class="form-label">Tour Banner</label>
-                                            <input class="form-control" name="tour_banner" type="file" id="iti-banner">
+                                            <label for="tour_banner" class="form-label">Tour Banner</label>
+                                            <input class="form-control" name="tour_banner" type="file" id="tour_banner">
                                              @error('tour_banner')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
@@ -470,11 +470,11 @@
                                                                         <div id="snow-wrapper">
                                                                             <div id="snow-container">
                                                                                  <textarea class="tinymceTextEditor" name="itinerary_description[]">
-                                                                            
+
                                                                             </textarea>
-                                                                            
+
                                                                             </textarea>
-                                                                                
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -532,7 +532,7 @@
                                                                     </div>
 
 
-                                                                  
+
                                                                 </div>
                                                         </div>
                                                         <div class="row">
@@ -564,10 +564,10 @@
                                         </div>
                                         <div class="col-md-1 mb-1">
 
-                                           
+
                                         </div>
                                         </div>
-                                   
+
 
 
                                     <div class="row mb-1">
@@ -597,7 +597,7 @@
                                         </div>
                                         <div class="col-md-1 mb-1">
 
-                                            
+
                                         </div>
                                     </div>
 
@@ -615,7 +615,7 @@
 
                                     </div>
                                     <!--costing ends -->
-                            
+
                                 <div class="d-flex justify-content-between">
                                     <button  type="button" class="btn btn-primary personal-info-prev">
                                         <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
@@ -632,7 +632,7 @@
                                     <h5 class="mb-0">Support</h5>
                                     <small class="text-muted">Enter additional information.</small>
                                 </div>
-                               
+
                                     <div class="row d-flex align-items-end">
                                         <div class="col-md-6 mb-2"><label for="" class="form-label">Equipment List <span class="badge rounded-pill bg-success">Upload Equipment List</span></label></div>
 
@@ -662,9 +662,9 @@
                                         <!--    </div>-->
                                         <!--</div>-->
                                     </div>
-                                    
+
                                     </div>
-                                    
+
                                     <div class="row">
                                         <div class="mb-1 col-12">
                                             <button class="btn btn-icon btn-primary" id="add_equipment" type="button" data-repeater-create>
@@ -673,7 +673,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="faqs">
                                     <div class="row d-flex align-items-end">
                                         <div class="mb-0 col-md-12">
@@ -686,9 +686,9 @@
                                             <textarea data-length="500" name="faq_answer[]" class="form-control faq_answer" data-id="1" id="faq_answer_1" data-id="1" rows="3" placeholder="Ex. The best time to visit Nepal is from March to May and from September to December. You can visit in other seasons as well but it isn't considered the best." style="height: 100px" spellcheck="true"></textarea>
                                             <span id="answer_error_1" class="text-danger" style="display:none">Answer is Required!</span>
                                         </div>
-                                       
+
                                     </div>
-                                    
+
                                     </div>
                                     <div class="row">
                                         <div class="mb-1 col-12">
@@ -698,7 +698,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                   
+
                                 <div class="d-flex justify-content-between">
                                     <button type="button" class="btn btn-primary address-step-prev">
                                         <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
@@ -715,7 +715,7 @@
                                     <h5 class="mb-0">Pricing </h5>
                                     <small>Flat price or prices based on number of people</small>
                                 </div>
-                             
+
                                     <div class="row custom-options-checkable g-1 mb-1">
                                         <div class="col-md-6">
                                             <input class="custom-option-item-check pricing_type" type="radio" name="pricing_type" value="Flat Rate" id="customOptionsCheckableRadios1" checked="">
@@ -743,9 +743,9 @@
                                         <div class="col-md-6">
 
 
-                                           
+
                                                 <div class="row">
-                                                    
+
                                                     <div class="col-md-6 tiered_section" style="display:none">
                                                         </div>
                                                 <div class="col-md-6 flat_section">
@@ -766,7 +766,7 @@
                                                     </div>
                                                 </div>
                                                 </div>
-                                           
+
                                         </div>
                                         <div class="col-md-6">
                                             <div class="tiered_section tiered_main" style="display:none">
@@ -820,7 +820,7 @@
                                                     <div class="mb-1">
                                                         <label class="form-label" for="iti-accommodates">Accommodates</label>
                                                         <div class="input-group">
-                                                            <input type="number" name="addon_accommodates[]" min="1" class="form-control accommodates_max" placeholder="1" aria-label="iti-accomodates" aria-describedby="iti-accommodates" value="1">
+                                                            <input type="number" name="addon_accommodates[]" min="1" class="form-control accommodates_max" placeholder="1" aria-label="iti-accomodates" aria-describedby="iti-accommodates" value="">
                                                             <span class="input-group-text" id="iti-accommodates">Pax</span>
                                                         </div>
                                                     </div>
@@ -828,7 +828,7 @@
 
 
 
-                                              
+
                                             </div>
                                             </div>
                                             <button class="btn btn-icon btn-primary" id="add_addon" type="button" data-repeater-create>
@@ -849,7 +849,7 @@
                                             <div class="d-flex flex-column">
                                                 <label class="form-label" for="linkedin">Activate Discounts?</label>
                                                 <div class="form-check form-check-primary form-switch">
-                                                    <input type="checkbox" name="activate_discounts" class="form-check-input active_discount" id="customSwitch3" checked>
+                                                    <input type="checkbox" name="activate_discounts" class="form-check-input active_discount" id="customSwitch3" >
                                                 </div>
                                             </div>
                                         </div>
@@ -878,10 +878,10 @@
                                                 </button>
                                             </div>
                                         </div>
-                                       
+
                                     </div>
                                     </div>
-                                    
+
                                     <div class="unavailables">
                                     <div class="row d-flex align-items-end">
 
@@ -889,7 +889,7 @@
                                             <div class="d-flex flex-column">
                                                 <label class="form-label" for="unavailable_dates">Unavailable Dates?</label>
                                                 <div class="form-check form-check-primary form-switch">
-                                                    <input type="checkbox" name="unavailable_dates" class="form-check-input unavailable_dates" id="unavailable_dates" checked>
+                                                    <input type="checkbox" name="unavailable_dates" class="form-check-input unavailable_dates" id="unavailable_dates" >
                                                 </div>
                                             </div>
                                         </div>
@@ -911,7 +911,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                       
+
 
                                     </div>
                                     </div>
@@ -921,7 +921,7 @@
                                             <div class="d-flex flex-column">
                                                 <label class="form-label" for="is_bookable">Is this Bookable?</label>
                                                 <div class="form-check form-check-primary form-switch">
-                                                    <input type="checkbox" name="is_bookable" class="form-check-input is_bookable" id="is_bookable" checked>
+                                                    <input type="checkbox" name="is_bookable" class="form-check-input is_bookable" id="is_bookable" >
                                                 </div>
                                             </div>
                                         </div>
@@ -944,10 +944,10 @@
 
                                             <input type="text" id="iti-related" name="related_trips" class="form-control" placeholder="DKYTMZ, KTMRWP, RNTMWP, RRQPER">
                                         </div>
-                                        
+
 
                                     </div>
-                                    
+
                                     <div class="divider divider-success">
                                             <div class="divider-text">Meta Information</div>
                                         </div>
@@ -991,9 +991,9 @@
                                             <small class="textarea-counter-value float-end mb-1"><span class="char-count">0</span> / 250 </small>
                                         </div>
                                     </div>
-                                    
+
                                     <!-- Meta data end -->
-                               
+
                                 <div class="d-flex justify-content-between">
                                     <button type="button" class="btn btn-primary social-links-prev">
                                         <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
@@ -1002,11 +1002,11 @@
                                     <button type="submit" class="btn btn-success">Submit</button>
                                 </div>
                             </div>
-                            
+
                             </form>
                         </div>
                     </div>
-                     
+
                 </section>
                 <!-- /Horizontal Wizard -->
             </div>
@@ -1036,15 +1036,53 @@
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/forms/form-quill-editor.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/forms/pickers/form-flat-pickr.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/forms/pickers/form-pickadate.css')}}">
-    
-   
-    
+
+
+
 @endpush
 
 
 @push('scripts')
 
 <script>
+
+
+$('form[id="second_form"]').validate({
+  rules: {
+    tour_name: 'required',
+    url_slug: 'required',
+    reference: 'required',
+    destination_id: 'required',
+    activity_id: 'required',
+    duration: 'required',
+    min_participant: 'required',
+    max_participant: 'required',
+    accommodation: 'required',
+    tour_overview: 'required',
+    tour_thumbnail: 'required',
+    tour_banner: 'required',
+    free_cancellation: 'required',
+  },
+  messages: {
+    tour_name: 'Tour Name is required',
+    url_slug: 'Url Slug is required',
+    reference: 'Reference is required',
+    destination_id: 'Destination is required',
+    activity_id: 'Activity is required',
+    duration: 'Duration is required',
+    min_participant: 'Max Participant is required',
+    max_participant: 'Min Participant is required',
+    accommodation: 'Accommodation is required',
+    tour_overview: 'Tour Overview is required',
+    tour_thumbnail: 'Tour Thumbnail is required',
+    tour_banner: 'Tour Banner is required',
+    free_cancellation: 'Select One Option',
+  },
+  submitHandler: function(form) {
+    form.submit();
+  }
+});
+
 
 
 var tiered_key = 1;
@@ -1088,41 +1126,41 @@ tiered_key++;
       changeMaxTiered();
      RemoveTiered();
    }
-   
+
    function RemoveTiered(){
        $('.remove_tiered').click(function(){
            $(this).parents('.tiered_child').remove();
            tiered_key--;
        })
-        
+
    }
-   
+
    changeMaxTiered();
   function changeMaxTiered(){
        $('.max_pax').keyup(function(){
         var id = $(this).data('id');
         $('.tiered_price_'+id).attr('data-id',$(this).val());
-          
-       });  
+
+       });
   };
 
 
 
 
 $(document).ready(function(){
-   
+
    $('.account-details-next').click(function(){
         var tour_name = $('#tour_name').val();
         var tour_url = $('#tour_url').val();
-        var destination_id = $('#destination_id').val();
-        var activity_id = $('#activity_id').val();
+        var destination_id = $('.destination_id').val();
+        var activity_id = $('.activity_id').val();
         var min_participant = $('#min_participant').val();
         var max_participant = $('#max_participant').val();
         var accommodation = $('#accommodation').val();
         var duration = $('#duration').val();
-        if(tour_name == '' || tour_url == '' || destination_id == '' || activity_id == '' || 
+        if(tour_name == '' || tour_url == '' || destination_id == '' || activity_id == '' ||
         min_participant == '' || max_participant == '' || accommodation == '' || duration == ''){
-            $('.account-details-error').text('Please Fill All Required Fields!');
+           $('form[id="second_form"]').submit();
         }else{
         $('#account-details-trigger').removeClass('active');
         $('#account-details-trigger-btn').prop('disabled',true);
@@ -1135,11 +1173,12 @@ $(document).ready(function(){
         $('#personal-info').addClass('dstepper-block');
         $('#personal-info').removeClass('dstepper-none');
         }
-       
+
    });
-   
-   
+
+
    $('.personal-info-prev').click(function(){
+
         $('#account-details-trigger').addClass('active');
         $('#account-details-trigger-btn').prop('disabled',false);
         $('#personal-info-trigger').removeClass('active');
@@ -1150,87 +1189,98 @@ $(document).ready(function(){
         $('#personal-info').removeClass('active');
         $('#personal-info').removeClass('dstepper-block');
         $('#personal-info').addClass('dstepper-none');
+
    });
-   
-   
+
+
    $('.personal-info-next').click(function(){
+
+    var tour_overview = $('.tour_overview').val();
+        var tour_thumbnail = $('#tour_thumbnail').val();
+        var tour_banner = $('#tour_banner').val();
+        var tour_cancellation = $('#tour_cancellation').val();
+        if(tour_overview == '' || tour_thumbnail == '' || tour_banner == '' || tour_cancellation == ''){
+           $('form[id="second_form"]').submit();
+        }else{
         $('#personal-info-trigger').removeClass('active');
         $('#personal-info-trigger-btn').prop('disabled',true);
-        
+
         $('#address-step-trigger').addClass('active');
         $('#address-step-trigger-btn').prop('disabled',false);
-        
+
         $('#personal-info').removeClass('active');
         $('#personal-info').removeClass('dstepper-block');
         $('#personal-info').addClass('dstepper-none');
-        
+
         $('#address-step').addClass('active');
         $('#address-step').addClass('dstepper-block');
         $('#address-step').removeClass('dstepper-none');
+
+        }
    });
-   
-   
+
+
     $('.address-step-prev').click(function(){
         $('#personal-info-trigger').addClass('active');
         $('#personal-info-trigger-btn').prop('disabled',false);
-        
+
         $('#address-step-trigger').removeClass('active');
         $('#address-step-trigger-btn').prop('disabled',true);
-        
+
         $('#personal-info').addClass('active');
         $('#personal-info').addClass('dstepper-block');
         $('#personal-info').removeClass('dstepper-none');
-        
+
         $('#address-step').removeClass('active');
         $('#address-step').removeClass('dstepper-block');
                 $('#address-step').addClass('dstepper-none');
    });
-   
-   
+
+
    $('.address-step-next').click(function(){
         $('#address-step-trigger').removeClass('active');
         $('#address-step-trigger-btn').prop('disabled',true);
-        
+
         $('#social-links-trigger').addClass('active');
         $('#social-links-trigger-btn').prop('disabled',false);
-        
+
         $('#address-step').removeClass('active');
         $('#address-step').removeClass('dstepper-block');
         $('#address-step').addClass('dstepper-none');
-        
+
         $('#social-links').addClass('active');
         $('#social-links').addClass('dstepper-block');
         $('#social-links').removeClass('dstepper-none');
    });
-   
-   
+
+
    $('.social-links-prev').click(function(){
         $('#address-step-trigger').addClass('active');
         $('#address-step-trigger-btn').prop('disabled',false);
-        
+
         $('#social-links-trigger').removeClass('active');
         $('#social-links-trigger-btn').prop('disabled',true);
-        
+
         $('#address-step').addClass('active');
         $('#address-step').addClass('dstepper-block');
         $('#address-step').removeClass('dstepper-none');
-        
+
         $('#social-links').removeClass('active');
         $('#social-links').removeClass('dstepper-block');
         $('#social-links').addClass('dstepper-none');
    });
-   
+
    mealFunction();
    function mealFunction(){
        $('.meals').change(function(){
         var breakfast = $("[name='itinerary_breakfast[]']:checked").length;
         var lunch = $("[name='itinerary_lunch[]']:checked").length;
         var dinner = $("[name='itinerary_dinner[]']:checked").length;
-          $('#iti-meals').val(breakfast+'B, '+lunch+'L, '+dinner+'D'); 
+          $('#iti-meals').val(breakfast+'B, '+lunch+'L, '+dinner+'D');
        });
    }
-   
-   
+
+
    $('#add_tour_highlight').on('click',function(){
       $('.tour_highlight').append(
     `
@@ -1251,22 +1301,22 @@ $(document).ready(function(){
     </div>
 </div>
 
-    `   
+    `
     );
     RemoveTourHighlights();
    });
-   
+
    function RemoveTourHighlights(){
    $('.remove_tour_highlight').click(function(){
     $(this).parents('.tour_highlight_child_row').remove();
    });
    }
-   
-   
-   
-   
-   
-   
+
+
+
+
+
+
    var num_day = 1;
     $('#add_day_itinerary').on('click',function(){
         if(num_day <= 0){
@@ -1274,9 +1324,9 @@ $(document).ready(function(){
         }
       num_day++;
     $('.day_itinerary').append(`
-    
-    
-    
+
+
+
     <div class="row d-flex align-items-end day_itinerary_child_row mt-2">
         <div class="col-md-6 mb-1">
 
@@ -1310,11 +1360,11 @@ $(document).ready(function(){
             <div id="snow-wrapper">
                 <div id="snow-container">
                      <textarea class="tinymceTextEditor" name="itinerary_description[]">
-                
+
                 </textarea>
-                
+
                 </textarea>
-                    
+
                 </div>
             </div>
         </div>
@@ -1363,11 +1413,11 @@ $(document).ready(function(){
                         <input type="text" class="form-control" value="Dinner" readonly="readonly">
                     </div>
                 </div>
-             
+
             </div>
-    
+
         </div>
-        
+
         <div class="col-md-1">
     <div class="mb-1">
         <button class="btn btn-outline-danger remove_day_itinerary text-nowrap px-1 waves-effect" data-repeater-delete="" type="button">
@@ -1376,26 +1426,26 @@ $(document).ready(function(){
         </button>
     </div></div>
     </div>
-    
-    
-    
-    
+
+
+
+
     `);
     RemoveDayItinerary();
       textEditor();
          mealFunction();
    });
-   
+
    function RemoveDayItinerary(){
    $('.remove_day_itinerary').click(function(){
     $(this).parents('.day_itinerary_child_row').remove();
     num_day--;
    });
    }
-   
-      
-   
-   
+
+
+
+
    var inc = 1;
     $('.add_includes').click(function(){
        inc++
@@ -1429,21 +1479,21 @@ $(document).ready(function(){
 </div>
 </div>
        `)
-       
+
        RemoveIncludes();
        IncludeExcludeValidate();
    })
-   
-   
+
+
      function RemoveIncludes(){
    $('.remove_includes').click(function(){
     $(this).parents('.includes_child_row').remove();
    });
    }
-   
-   
-   
-   
+
+
+
+
     var exc = 1;
     $('.add_excludes').click(function(){
        exc++
@@ -1478,25 +1528,25 @@ $(document).ready(function(){
         </div>
          </div>
        `)
-       
+
        RemoveExcludes();
        IncludeExcludeValidate();
    })
-   
+
      function RemoveExcludes(){
    $('.remove_excludes').click(function(){
     $(this).parents('.excludes_child_row').remove();
    });
    }
-   
-   
+
+
    IncludeExcludeValidate();
    function IncludeExcludeValidate(){
    $('.include,.inc_caption').keyup(function(){
        id = $(this).data('id');
        inc = $('.include_'+id).val();
        inc_caption = $('.inc_caption_'+id).val();
-       
+
        if(inc != '' && inc_caption == ''){
           $('.personal-info-next').prop('disabled',true);
           $('#inc_caption_error_'+id).css('display','block');
@@ -1508,15 +1558,15 @@ $(document).ready(function(){
              $('#include_error_'+id).css('display','none');
              $('#inc_caption_error_'+id).css('display','none');
       }
-       
+
    });
-   
-   
+
+
    $('.exclude,.exc_caption').keyup(function(){
        id = $(this).data('id');
        exclude = $('.exclude_'+id).val();
        exc_caption = $('.exc_caption_'+id).val();
-       
+
        if(exclude != '' && exc_caption == ''){
           $('.personal-info-next').prop('disabled',true);
           $('#exc_caption_error_'+id).css('display','block');
@@ -1528,10 +1578,10 @@ $(document).ready(function(){
             $('#exclude_error_'+id).css('display','none');
              $('#exc_caption_error_'+id).css('display','none');
       }
-       
+
    });
    }
-   
+
    $('#add_equipment').click(function(){
        $('.equipments').append(`
       <div class="row equipment_child_row">
@@ -1556,21 +1606,21 @@ $(document).ready(function(){
         </div>
        </div>
        `);
-       
+
        RemoveEquipment();
    });
-   
-   
+
+
    function RemoveEquipment(){
        $('.remove_equipment').click(function(){
            $(this).parents('.equipment_child_row').remove();
        })
    }
-   
-   
-   
+
+
+
     var faq = 1;
-   
+
    $('#add_faq').click(function(){
        faq++
         if(faq < 1){
@@ -1597,28 +1647,28 @@ $(document).ready(function(){
         </div>
     </div>
        `);
-       
+
        RemoveFaq();
         faqValidate()
    });
-   
-   
+
+
    function RemoveFaq(){
        $('.remove_faq').click(function(){
            $(this).parents('.faq_child_row').remove();
            faq--;
        })
    }
-   
+
    faqValidate();
    function faqValidate(){
    $('.faq_question,.faq_answer').keyup(function(){
-      
+
       id = $(this).data('id');
-      
+
       question = $('#faq_question_'+id).val();
       answer = $('#faq_answer_'+id).val();
-      
+
       if(question != '' && answer == ''){
           $('.address-step-next').prop('disabled',true);
           $('#answer_error_'+id).css('display','block');
@@ -1630,10 +1680,10 @@ $(document).ready(function(){
             $('#answer_error_'+id).css('display','none');
              $('#question_error_'+id).css('display','none');
       }
-       
+
    });
    }
-   
+
 
    $('#add_addon').click(function(){
        $('.addons').append(`
@@ -1678,27 +1728,27 @@ $(document).ready(function(){
        `);
        RemoveAddon();
    });
-   
-   
+
+
    function RemoveAddon(){
        $('.remove_addon').click(function(){
            $(this).parents('.addon_child_row').remove();
        })
    }
-   
-   
-   
-   
-   
-   
-   
-   
+
+
+
+
+
+
+
+
    $('#add_discount').click(function(){
        $('.discounts').append(`
       <div class="row d-flex discount_child_row align-items-end">
 
                                         <div class="mb-1 col-md-3">
-                                           
+
                                         </div>
 
                                         <div class="mb-1 col-md-2">
@@ -1718,7 +1768,7 @@ $(document).ready(function(){
                                         </div>
                                         <div class="col-md-2">
                                             <div class="mb-1">
-                                               
+
                                             </div>
                                         </div>
                                         <div class="col-md-1">
@@ -1731,28 +1781,28 @@ $(document).ready(function(){
                                         </div>
                                     </div>
        `);
-       
+
        RemoveDiscount();
         $('#social-links').find(".flatpickr-basic").flatpickr({});
    });
-   
-   
+
+
    function RemoveDiscount(){
        $('.remove_discount').click(function(){
            $(this).parents('.discount_child_row').remove();
        })
    }
-   
-   
-   
-   
-   
+
+
+
+
+
    $('#add_unavailable').click(function(){
        $('.unavailables').append(`
      <div class="row unavailable_child_row d-flex align-items-end">
 
         <div class="mb-1 col-md-3">
-           
+
         </div>
 
         <div class="mb-1 col-md-3">
@@ -1765,7 +1815,7 @@ $(document).ready(function(){
         </div>
         <div class="col-md-2">
             <div class="mb-1">
-                
+
             </div>
         </div>
         <div class="col-md-1">
@@ -1782,65 +1832,65 @@ $(document).ready(function(){
         $('#social-links').find(".flatpickr-basic").flatpickr({});
        RemoveUnavailable();
    });
-   
-   
+
+
    function RemoveUnavailable(){
        $('.remove_unavailable').click(function(){
            $(this).parents('.unavailable_child_row').remove();
        })
    }
-   
-   
-   
+
+
+
    $('.pricing_type').change(function(){
       if($(this).val() == 'Flat Rate'){
-          $('.tiered_section').css('display','none');   
+          $('.tiered_section').css('display','none');
           $('.flat_section').css('display','block');
       }else{
           $('.tiered_section').css('display','block');
           $('.flat_section').css('display','none');
       }
    });
-   
-   
-   $('.active_discount').change(function(){
-      if($(this).is(':checked')){
-        $('.discounts_input').prop('disabled',false);
-        $('.discounts_date').prop('disabled',false);
-        $('.discounts_date').prop('readonly',true);
-      }else{
-          $('.discounts_input').prop('disabled',true);
-          $('.discounts_date').prop('readonly',false);
-        $('.discounts_date').prop('disabled',true);
-      } 
-   });
-   
-   
-   
-   $('.unavailable_dates').change(function(){
-      if($(this).is(':checked')){
-        $('.unavailable_date').prop('disabled',false);
-        $('.unavailable_date').prop('readonly',true);
-         $('.unavailable_input').prop('disabled',false);
-      }else{
-          $('.unavailable_date').prop('readonly',false);
-        $('.unavailable_date').prop('disabled',true);
-          $('.unavailable_input').prop('disabled',true);
-      } 
-   });
-   
-   
-   $('.is_bookable').change(function(){
-      if($(this).is(':checked')){
-         $('.bookable_input').prop('disabled',false);
-      }else{
-          $('.bookable_input').prop('disabled',true);
-      } 
-   });
-   
-   
-   
-   
+
+
+//    $('.active_discount').change(function(){
+//       if($(this).is(':checked')){
+//         $('.discounts_input').prop('disabled',false);
+//         $('.discounts_date').prop('disabled',false);
+//         $('.discounts_date').prop('readonly',true);
+//       }else{
+//           $('.discounts_input').prop('disabled',true);
+//           $('.discounts_date').prop('readonly',false);
+//         $('.discounts_date').prop('disabled',true);
+//       }
+//    });
+
+
+
+//    $('.unavailable_dates').change(function(){
+//       if($(this).is(':checked')){
+//         $('.unavailable_date').prop('disabled',false);
+//         $('.unavailable_date').prop('readonly',true);
+//          $('.unavailable_input').prop('disabled',false);
+//       }else{
+//           $('.unavailable_date').prop('readonly',false);
+//         $('.unavailable_date').prop('disabled',true);
+//           $('.unavailable_input').prop('disabled',true);
+//       }
+//    });
+
+
+//    $('.is_bookable').change(function(){
+//       if($(this).is(':checked')){
+//          $('.bookable_input').prop('disabled',false);
+//       }else{
+//           $('.bookable_input').prop('disabled',true);
+//       }
+//    });
+
+
+
+
    function numberGenerator() {
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -1852,7 +1902,7 @@ $(document).ready(function(){
 }
 
 console.log($('#reference').val(numberGenerator()));
-     
+
 });
 
 
@@ -1861,7 +1911,7 @@ $('#tour_name').keyup(function(){
   var text =  textParent.toLowerCase()
              .replace(/ /g, '-')
              .replace(/[^\w-]+/g, '');
-             
+
    $('#tour_url').val(text);
 })
 
