@@ -75,55 +75,55 @@ class ProgramController extends Controller
             foreach($request->file('tour_gallery') as $image)
             {
                 $name=$image->getClientOriginalName();
-                $image->move(public_path().'/images/TourGallery', $name);  
-                $gallery[] = $name;  
+                $image->move(public_path().'/images/TourGallery', $name);
+                $gallery[] = $name;
             }
-            
+
         $program->tour_gallery = json_encode($gallery);
-        
+
         }else{
               $program->tour_gallery = 1;
          }
          if($request->hasfile('tour_brochure'))
          {
             $brochure=$request->tour_brochure->getClientOriginalName();
-            $request->tour_brochure->move(public_path().'/images/TourBrochure', $brochure); 
-            
+            $request->tour_brochure->move(public_path().'/images/TourBrochure', $brochure);
+
              $program->tour_brochure = $brochure;
          }else{
               $program->tour_brochure = 1;
          }
-       
-        
+
+
          if($request->hasfile('tour_thumbnail'))
          {
             $thumbnail=$request->tour_thumbnail->getClientOriginalName();
-            $request->tour_thumbnail->move(public_path().'/images/TourThumbnail', $thumbnail);  
+            $request->tour_thumbnail->move(public_path().'/images/TourThumbnail', $thumbnail);
              $program->tour_thumbnail = $thumbnail;
          }else{
               $program->tour_thumbnail = 1;
          }
-       
-        
+
+
          if($request->hasfile('tour_banner'))
          {
             $banner=$request->tour_banner->getClientOriginalName();
-            $request->tour_banner->move(public_path().'/images/TourBanner', $banner);  
+            $request->tour_banner->move(public_path().'/images/TourBanner', $banner);
              $program->tour_banner = $banner;
          }else{
              $program->tour_banner = 1;
          }
-       
-        
+
+
          if($request->hasfile('tour_map'))
          {
             $map=$request->tour_map->getClientOriginalName();
-            $request->tour_map->move(public_path().'/images/TourMap', $map);  
+            $request->tour_map->move(public_path().'/images/TourMap', $map);
               $program->tour_map = $map;
          }else{
               $program->tour_map = 1;
          }
-      
+
         $program->tour_highlights = json_encode($request->tour_highlights);
         $program->free_cancellation = $request->free_cancellation;
         $program->pricing_type = $request->pricing_type;
@@ -138,7 +138,7 @@ class ProgramController extends Controller
         $program->meta_description = $request->meta_description;
         $program->meta_keyword = $request->meta_keyword;
         $program->save();
-       
+
        if($request->pricing_type == 'Tiered Pricing'){
            $tr = 0;
            foreach($request->min_pax as $minpax){
@@ -150,14 +150,14 @@ class ProgramController extends Controller
                 $tiered->save();
                 $tr++;
            }
-           
-                   
+
+
        }
-       
+
         if($request->has('itinerary_day')){
             $i = 0;
             foreach($request->itinerary_day as $day){
-                
+
                 $days = new ProgramItinerary();
                 $days->program_id = $program->id;
                 $days->day = $day;
@@ -173,11 +173,11 @@ class ProgramController extends Controller
                 $i++;
             }
         }
-        
+
         if($request->has('includes') || $request->has('excludes')){
              $c = 0;
             foreach($request->includes as $include){
-                
+
                 $cost = new ProgramCosting();
                 $cost->program_id = $program->id;
                 $cost->includes = $include;
@@ -188,8 +188,8 @@ class ProgramController extends Controller
                 $c++;
             }
         }
-        
-        
+
+
         if($request->has('equipment_1')){
              $e = 0;
             foreach($request->equipment_1 as $equipment_1){
@@ -198,7 +198,7 @@ class ProgramController extends Controller
                 if($request->equipment_file[$e])
                  {
                     $equipment_file=$request->equipment_file[$e]->getClientOriginalName();
-                    $request->equipment_file[$e]->move(public_path().'/images/Equipments', $equipment_file);  
+                    $request->equipment_file[$e]->move(public_path().'/images/Equipments', $equipment_file);
                      $equipment->file = $equipment_file;
                  }else{
                      $equipment->file = 1;
@@ -211,12 +211,12 @@ class ProgramController extends Controller
                 $e++;
             }
         }
-        
-        
+
+
          if($request->has('faq_question')){
              $f = 0;
             foreach($request->faq_question as $question){
-               
+
                 $faq = new ProgramFaq();
                 $faq->program_id = $program->id;
                 $faq->question = $question;
@@ -225,11 +225,11 @@ class ProgramController extends Controller
                  $f++;
             }
         }
-        
+
         if($request->has('addon_name')){
              $a = 0;
             foreach($request->addon_name as $addonName){
-                
+
                 $addon = new ProgramAddon();
                 $addon->program_id = $program->id;
                 $addon->name = $addonName;
@@ -239,27 +239,27 @@ class ProgramController extends Controller
                 $a++;
             }
         }
-        
-        
+
+
         if($request->has('discount_from')){
              $d = 0;
             foreach($request->discount_from as $discountfrom){
-                
+
                 $discount = new ProgramDiscount();
                 $discount->program_id = $program->id;
                 $discount->discount_from = $discountfrom;
                 $discount->discount_until  = $request->discount_until[$d] != null ? $request->discount_until[$d] : '' ;
                 $discount->discounts = $request->discounts[$d] != null ? $request->discounts[$d] : '' ;
                 $discount->save();
-                
+
                 $d++;
             }
         }
-        
+
            if($request->has('unavailable_from')){
              $u = 0;
             foreach($request->unavailable_from as $unavailablefrom){
-               
+
                 $unavailable = new ProgramUnavailable();
                 $unavailable->program_id = $program->id;
                 $unavailable->unavailable_from = $discountfrom;
@@ -268,8 +268,8 @@ class ProgramController extends Controller
                  $u++;
             }
         }
-        
-        
+
+
         return back()->with('success','Program has been Successfully Added!');
 
     }
@@ -317,5 +317,11 @@ class ProgramController extends Controller
     public function destroy(Program $program)
     {
         //
+    }
+
+    public function tour_detail($slug){
+        $tour = Program::with(['program_itinerary','program_addon','program_costing','program_discount',
+        'program_faq','program_support','program_unavailable','activity','region','destination'])->where('url_slug',$slug)->first();
+        return view('frontend.pages.tour_detail',compact('tour'));
     }
 }

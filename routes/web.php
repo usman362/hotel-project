@@ -43,20 +43,22 @@ Route::get('/clear-cache', function() {
     // return what you want
 });
 
-$menu = theme()->getMenu();
-array_walk($menu, function ($val) {
-    if (isset($val['path'])) {
-        $route = Route::get($val['path'], [PagesController::class, 'index']);
+// $menu = theme()->getMenu();
+// array_walk($menu, function ($val) {
+//     if (isset($val['path'])) {
+//         $route = Route::get($val['path'], [PagesController::class, 'index']);
 
-        // Exclude documentation from auth middleware
-        if (!Str::contains($val['path'], 'documentation')) {
-            $route->middleware(['auth','2fa']);
-        }
-    }
-});
+//         // Exclude documentation from auth middleware
+//         if (!Str::contains($val['path'], 'documentation')) {
+//             $route->middleware(['auth','2fa']);
+//         }
+//     }
+// });
 
 
 Route::view('home','frontend.pages.index');
+
+Route::get('tour-details/{slug}', [ProgramController::class, 'tour_detail'])->name('tour.detail');
 
 // Documentations pages
 Route::prefix('documentation')->group(function () {
@@ -66,7 +68,8 @@ Route::prefix('documentation')->group(function () {
 Route::post('2fa', [TwoFAController::class, 'store'])->name('2fa.post');
 Route::get('2fa/reset', [TwoFAController::class, 'resend'])->name('2fa.resend');
 Route::get('2fa', [App\Http\Controllers\TwoFAController::class, 'index'])->name('2fa.index');
-Route::middleware(['auth','2fa'])->group(function () {
+// 2fa
+Route::middleware(['auth'])->group(function () {
 
     Route::get('global', [SettingController::class, 'global'])->name('setting.global');
     Route::post('global', [SettingController::class, 'globalPost'])->name('setting.Postglobal');
@@ -147,7 +150,7 @@ Route::middleware(['auth','2fa'])->group(function () {
     Route::get('program/edit/{id}', [ProgramController::class, 'edit'])->name('program.edit');
     Route::post('program/update/{id}', [ProgramController::class, 'update'])->name('program.update');
     Route::get('program/delete/{id}', [ProgramController::class, 'destroy'])->name('program.delete');
-    
+
     Route::get('teams', [TeamController::class, 'index'])->name('team.index');
     Route::get('team/add', [TeamController::class, 'create'])->name('team.create');
     Route::post('team/add', [TeamController::class, 'store'])->name('team.store');
@@ -161,7 +164,7 @@ Route::middleware(['auth','2fa'])->group(function () {
     Route::get('blogTags/add', [BlogCategoryController::class, 'addTags'])->name('tags.create');
     Route::get('blogPages', [BlogCategoryController::class, 'showPages'])->name('blogpages.index');
     Route::get('blogPages/add', [BlogCategoryController::class, 'addPages'])->name('blogpages.create');
-        
+
     Route::get('messages', [MesaageController::class, 'index'])->name('messages.index');
     Route::get('messages/show', [MesaageController::class, 'show'])->name('messages.view');
 
