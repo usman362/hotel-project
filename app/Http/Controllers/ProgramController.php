@@ -322,6 +322,9 @@ class ProgramController extends Controller
     public function tour_detail($slug){
         $tour = Program::with(['program_itinerary','program_addon','program_costing','program_discount',
         'program_faq','program_support','program_unavailable','activity','region','destination'])->where('url_slug',$slug)->first();
+        if($tour != true){
+            abort(404);
+        }
         return view('frontend.pages.tour_detail',compact('tour'));
     }
 }
