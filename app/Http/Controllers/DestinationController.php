@@ -17,8 +17,8 @@ class DestinationController extends Controller
      */
     public function index()
     {
-        $destination = Destination::all();
-        return view('pages.destination.index', ['destination'=> $destination]);
+        $destinations = Destination::paginate(10);
+        return view('pages.destination.index', compact('destinations'));
     }
 
     /**
@@ -119,6 +119,9 @@ class DestinationController extends Controller
         $destination->description = $request->description;
         $destination->longitude = $request->longitude;
         $destination->latitude = $request->latitude;
+        $destination->banner_text = $request->banner_text;
+        $destination->widget_code = $request->widget_code;
+        $destination->introduction = $request->introduction;
         $destination->meta_title = $request->meta_title;
         $destination->meta_desc = $request->meta_desc;
         $destination->meta_keywords = $request->meta_keywords;
@@ -135,7 +138,20 @@ class DestinationController extends Controller
             $destination->banner_image = $filename;
         }
         $destination->save();
-                $update = new WebUpdate();
+        if($request->has('weather_title')){
+
+            $wea = DestinationWeather::where('destination_id',$destination->id)->delete();
+            $i = 0;
+            foreach($request->weather_title as $title){
+                $weather = new DestinationWeather();
+                $weather->destination_id = $destination->id;
+                $weather->weather_title = isset($request->weather_title[$i]) ? $request->weather_title[$i] : '' ;
+                $weather->weather_description = isset($request->weather_description[$i]) ? $request->weather_description[$i] : '';
+                $weather->save();
+                $i++;
+            }
+        }
+        $update = new WebUpdate();
         $update->activity = 'Destination has been Updated';
         $update->save();
         return redirect(route('destination.index'));
@@ -155,7 +171,7 @@ class DestinationController extends Controller
         $update->activity = 'Destination has been Deleted';
         $update->save();
         }
-        
+
         return redirect(route('destination.index'));
     }
 }

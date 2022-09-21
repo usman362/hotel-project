@@ -6,7 +6,7 @@
 
 
    <div class="app-content content ">
-       
+
        @if(session()->has('success'))
         <div class="alert alert-primary pd-4" role="alert">
  {{ session()->get('success') }}
@@ -115,7 +115,7 @@
                                             <label class="form-label" for="accountLastName">URL Slug</label>
                                             <input type="text" class="form-control" id="url" name="url_slug" placeholder="/trekking" value="" data-msg="Please enter URL">
                                         </div>
-                                        
+
 
 
                                         <div class="col-12 col-md-10 mb-1">
@@ -132,9 +132,9 @@
                                             </div>
                                         </div>
                                         <!-- Additional tabs-->
-                                        
-                                        
-                                        
+
+
+
                                         <div class="divider divider-success">
                                             <div class="divider-text">Meta Information</div>
                                         </div>
@@ -142,7 +142,7 @@
                                             <div class="content-header">
                                             <h5 class="mb-0">Search Engine Optimization</h5>
                                         </div>
-                                            
+
                                             <div class="col-12 col-md-6">
                                                 <label class="form-label" for="title">Meta Title</label>
                                                 <div class="form-floating mb-0">
@@ -171,7 +171,7 @@
 
                                         <div class="col-12">
                                             <button type="submit" class="btn btn-primary mt-1 me-1 waves-effect waves-float waves-light">Save changes</button>
-                                           
+
                                         </div>
                                     </div>
                                 </form>
@@ -202,7 +202,7 @@
   var text =  textParent.toLowerCase()
              .replace(/ /g, '-')
              .replace(/[^\w-]+/g, '');
-             
+
    $('#url').val(text);
 })
 

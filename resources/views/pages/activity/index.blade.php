@@ -1,4 +1,4 @@
-@section('title','Add Destination')
+@section('title','Activities')
 
 @extends('layouts.app')
 
@@ -7,13 +7,13 @@
 
 <!-- BEGIN: Content-->
     <div class="app-content content ">
-        
+
          @if(session()->has('success'))
         <div class="alert alert-primary pd-4" role="alert">
  {{ session()->get('success') }}
 </div>
 @endif
-        
+
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper container-xxl p-0">
@@ -55,15 +55,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+
+                                        @foreach ($activities as $key => $activity)
+
                                         <tr>
                                             <td>
-                                                <img src="{{asset('app-assets/images/icons/angular.svg')}}" class="me-75" height="40" width="40" alt="Angular">
-                                                <span class="fw-bold">Trekking</span>
+                                                <img src="{{asset('images/'.$activity->thumbnail_image)}}" class="me-75" height="40" width="40" alt="">
+                                                <span class="fw-bold">{{$activity->name}}</span>
                                             </td>
-                                            <td>/trekking</td>
-                                            
+                                            <td>{{$activity->url_slug}}</td>
+
                                             <td>
-                                                XDMT
+                                                {{$activity->id}}
                                             </td>
                                             <td>
                                                 23 Tours
@@ -75,11 +78,11 @@
                                                         <i class="ficon" data-feather="more-horizontal"></i>
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item" href="#">
+                                                        <a class="dropdown-item" href="{{route('activity.edit',$activity->id)}}">
                                                             <i class="ficon" data-feather="edit"></i>
                                                             <span>Edit</span>
                                                         </a>
-                                                        <a class="dropdown-item" href="#">
+                                                        <a class="dropdown-item" href="{{route('activity.delete',$activity->id)}}">
                                                             <i class="ficon" data-feather="trash-2"></i>
                                                             <span>Delete</span>
                                                         </a>
@@ -87,46 +90,17 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        
-                                        <tr>
-                                            <td>
-                                                <img src="{{asset('app-assets/images/icons/bootstrap.svg')}}" class="me-75" height="40" width="40" alt="Bootstrap">
-                                                <span class="fw-bold">Climbing</span>
-                                            </td>
-                                            <td>/climbing</td>
-                                            
-                                            <td>
-                                                NEPQ
-                                            </td>
-                                            <td>
-                                                13 Tours
-                                            </td>
-                                            <td><span class="badge rounded-pill badge-light-warning me-1">Pending</span></td>
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0 waves-effect waves-float waves-light" data-bs-toggle="dropdown">
-                                                        <i class="ficon" data-feather="more-horizontal"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item" href="#">
-                                                            <i class="ficon" data-feather="edit"></i>
-                                                            <span>Edit</span>
-                                                        </a>
-                                                        <a class="dropdown-item" href="#">
-                                                            <i class="ficon" data-feather="trash-2"></i>
-                                                            <span>Delete</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    
+
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12"><ul class="pagination url1-links justify-content-end"><li class="page-item first disabled"><a href="" class="page-link">First</a></li><li class="page-item prev disabled"><a href="" class="page-link">Prev</a></li><li class="page-item active"><a href="" class="page-link">1</a></li><li class="page-item"><a href="" class="page-link">2</a></li><li class="page-item"><a href="" class="page-link">3</a></li><li class="page-item"><a href="" class="page-link">4</a></li><li class="page-item"><a href="" class="page-link">5</a></li><li class="page-item next"><a href="" class="page-link">Next</a></li><li class="page-item last"><a href="" class="page-link">Last</a></li></ul></div>
+                    <div class="col-md-12"><ul class="pagination url1-links justify-content-end">
+                    {{$activities->links()}}
+
+                    </ul></div>
                 </div>
                 <!-- Activity table ends -->
 

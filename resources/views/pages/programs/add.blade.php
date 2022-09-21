@@ -122,11 +122,9 @@
                                             <label class="form-label" for="select2-basic">Destination</label>
                                             <select class="form-select destination_id" name="destination_id" id="select2-basic">
                                                 <option value="" selected>--------</option>
-                                                <option value="1">Nepal</option>
-                                                <option value="2">Tibet</option>
-                                                <option value="3">Bhutan</option>
-                                                <option value="4">India</option>
-
+                                               @foreach ($destinations as $destination)
+                                               <option value="{{$destination->id}}">{{$destination->title}}</option>
+                                               @endforeach
                                             </select>
                                               @error('destination_id')
                                             <span class="text-danger">{{$message}}</span>
@@ -136,10 +134,9 @@
                                             <label class="form-label" for="select2-basic1">Activity</label>
                                             <select class="form-select activity_id" name="activity_id" id="select2-basic1">
                                                 <option value="" selected>--------</option>
-                                                <option value="1">Trekking</option>
-                                                <option value="3">Climbing</option>
-                                                <option value="3">Sightseeing</option>
-                                                <option value="5">Safari</option>
+                                                @foreach ($activities as $activity)
+                                               <option value="{{$activity->id}}">{{$activity->name}}</option>
+                                               @endforeach
 
                                             </select>
                                               @error('activity_id')
@@ -150,10 +147,9 @@
                                             <label class="form-label" for="iti-region">Region</label>
                                             <select class="form-select" name="region_id" id="iti-region">
                                                 <option value="" selected>--------</option>
-                                                <option value="1">Annapurna</option>
-                                                <option value="2">Langtang</option>
-                                                <option value="34">Everest</option>
-                                                <option value="4">Manaslu</option>
+                                                @foreach ($regions as $region)
+                                               <option value="{{$region->id}}">{{$region->title}}</option>
+                                               @endforeach
 
                                             </select>
                                         </div>

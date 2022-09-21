@@ -15,7 +15,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $activities = Activity::all();
+        $activities = Activity::paginate(10);
         return view('pages.activity.index', ['activities'=> $activities]);
     }
 
@@ -155,7 +155,7 @@ class ActivityController extends Controller
         $update->activity = 'Activity has been Deleted';
         $update->save();
         }
-                
+
         return redirect(route('activity.index'));
     }
 }

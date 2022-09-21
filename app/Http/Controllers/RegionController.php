@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Region;
 use App\Http\Requests\StoreRegionRequest;
 use App\Http\Requests\UpdateRegionRequest;
+use App\Models\Destination;
 use App\Models\WebUpdate;
 
 class RegionController extends Controller
@@ -16,7 +17,7 @@ class RegionController extends Controller
      */
     public function index()
     {
-        $regions = Region::all();
+        $regions = Region::paginate(10);
         return view('pages.region.index', ['regions' => $regions]);
     }
 
@@ -27,7 +28,8 @@ class RegionController extends Controller
      */
     public function create()
     {
-        return view('pages.region.add');
+        $destinations = Destination::all();
+        return view('pages.region.add',compact('destinations'));
     }
 
     /**
@@ -48,6 +50,7 @@ class RegionController extends Controller
         $region->destination_id = $request->destination_id;
         $region->url_slug = $request->url_slug;
         $region->description = $request->description;
+        $region->banner_text = $request->banner_text;
         $region->meta_title = $request->meta_title;
         $region->meta_desc = $request->meta_desc;
         $region->meta_keywords = $request->meta_keywords;
@@ -64,10 +67,7 @@ class RegionController extends Controller
             $region->banner_image = $filename;
         }
         $region->save();
-                $update = new WebUpdate();
-        $update->activity = 'New Activity has been Created';
-        $update->save();
-                $update = new WebUpdate();
+        $update = new WebUpdate();
         $update->activity = 'New Region has been Created';
         $update->save();
         return redirect(route('region.index'));
@@ -93,7 +93,8 @@ class RegionController extends Controller
     public function edit($id)
     {
         $region = Region::find($id);
-        return view('pages.region.edit', ['region'=> $region]);
+        $destinations = Destination::all();
+        return view('pages.region.edit',compact('destinations','region'));
     }
 
     /**
@@ -105,11 +106,16 @@ class RegionController extends Controller
      */
     public function update(UpdateRegionRequest $request, $id)
     {
+        $request->validate([
+            'title'=>'required',
+            'url_slug'=> 'required',
+        ]);
         $region = Region::find($id);
         $region->title = $request->title;
         $region->destination_id = $request->destination_id;
         $region->url_slug = $request->url_slug;
         $region->description = $request->description;
+        $region->banner_text = $request->banner_text;
         $region->meta_title = $request->meta_title;
         $region->meta_desc = $request->meta_desc;
         $region->meta_keywords = $request->meta_keywords;
@@ -126,8 +132,8 @@ class RegionController extends Controller
             $region->banner_image = $filename;
         }
         $region->save();
-                $update = new WebUpdate();
-        $update->activity = 'Region has been Updated';
+        $update = new WebUpdate();
+        $update->activity = 'New Region has been Updated';
         $update->save();
         return redirect(route('region.index'));
     }
@@ -138,14 +144,12 @@ class RegionController extends Controller
      * @param  \App\Models\Region  $region
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Region $region, $id)
+    public function destroy($id)
     {
-        if($destination->find($id)->delete()){
-            return redirect(route('destination.index'));
-                    $update = new WebUpdate();
+        $region = Region::find($id)->delete();
+        $update = new WebUpdate();
         $update->activity = 'Region has been Deleted';
         $update->save();
-        }
         return redirect(route('destination.index'));
     }
 }

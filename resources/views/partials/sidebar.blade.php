@@ -39,16 +39,10 @@
                 </li>
                 <li class=" navigation-header"><span>Product Modules</span><i data-feather="more-horizontal"></i>
                 </li>
-               
-                <li class=" nav-item"><a class="d-flex align-items-center" href=""><i data-feather="globe"></i><span class="menu-title text-truncate">Programs</span></a>
-                    <ul class="menu-content">
-                        <li><a class="d-flex align-items-center" href="{{url('program/add')}}"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
-                        </li>
-                        <li><a class="d-flex align-items-center" href="{{url('program')}}"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
-                        </li>
-                    </ul>
+
+
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href=""><i data-feather="globe"></i><span class="menu-title text-truncate">Destinations</span></a>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="globe"></i><span class="menu-title text-truncate">Destinations</span></a>
                     <ul class="menu-content">
                         <li><a class="d-flex align-items-center" href="{{route('destination.create')}}"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
                         </li>
@@ -56,7 +50,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href=""><i data-feather="github"></i><span class="menu-title text-truncate">Activities</span></a>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="github"></i><span class="menu-title text-truncate">Activities</span></a>
                     <ul class="menu-content">
                         <li><a class="d-flex align-items-center" href="{{route('activity.create')}}"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
                         </li>
@@ -64,27 +58,27 @@
                         </li>
                     </ul>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href=""><i data-feather="map-pin"></i><span class="menu-title text-truncate">Regions</span></a>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="map-pin"></i><span class="menu-title text-truncate">Regions</span></a>
                     <ul class="menu-content">
-                        <li><a class="d-flex align-items-center" href="#"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
+                        <li><a class="d-flex align-items-center" href="{{route('region.create')}}"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
                         </li>
-                        <li><a class="d-flex align-items-center" href="#"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
+                        <li><a class="d-flex align-items-center" href="{{route('region.index')}}"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
                         </li>
                     </ul>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href=""><i data-feather="package"></i><span class="menu-title text-truncate">Tours</span></a>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="package"></i><span class="menu-title text-truncate">Tours</span></a>
                     <ul class="menu-content">
-                        <li><a class="d-flex align-items-center" href="#"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
+                        <li><a class="d-flex align-items-center" href="{{route('program.create')}}"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
                         </li>
                         <li><a class="d-flex align-items-center" href="#"><i data-feather="tag"></i><span class="menu-item text-truncate">Tour Attributes</span></a>
                         </li>
-                        <li><a class="d-flex align-items-center" href="#"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
+                        <li><a class="d-flex align-items-center" href="{{route('program.index')}}"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
                         </li>
                     </ul>
                 </li>
                 <li class=" navigation-header"><span>Content Modules</span><i data-feather="more-horizontal"></i>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href=""><i data-feather="file-text"></i><span class="menu-title text-truncate">Pages</span></a>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="file-text"></i><span class="menu-title text-truncate">Pages</span></a>
                     <ul class="menu-content">
                         <li><a class="d-flex align-items-center" href="#"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
                         </li>
@@ -92,7 +86,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href=""><i data-feather="pen-tool"></i><span class="menu-title text-truncate">Blogs</span></a>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="pen-tool"></i><span class="menu-title text-truncate">Blogs</span></a>
                     <ul class="menu-content">
                         <li><a class="d-flex align-items-center" href="#"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
                         </li>
@@ -100,7 +94,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href=""><i data-feather="save"></i><span class="menu-title text-truncate">Files</span></a>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="save"></i><span class="menu-title text-truncate">Files</span></a>
                     <ul class="menu-content">
                         <li><a class="d-flex align-items-center" href="#"><i data-feather="file-plus"></i><span class="menu-item text-truncate">Add New</span></a>
                         </li>
@@ -108,7 +102,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href=""><i data-feather="star"></i><span class="menu-title text-truncate">Reviews</span></a>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="star"></i><span class="menu-title text-truncate">Reviews</span></a>
                     <ul class="menu-content">
                         <li><a class="d-flex align-items-center" href="#"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
                         </li>
@@ -116,7 +110,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href=""><i data-feather="users"></i><span class="menu-title text-truncate">Teams</span></a>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="users"></i><span class="menu-title text-truncate">Teams</span></a>
                     <ul class="menu-content">
                         <li><a class="d-flex align-items-center" href="#"><i data-feather="user-plus"></i><span class="menu-item text-truncate">Add New</span></a>
                         </li>
@@ -126,7 +120,7 @@
                 </li>
                 <li class=" navigation-header"><span>Revenue Modules</span><i data-feather="more-horizontal"></i>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href=""><i data-feather="shopping-cart"></i><span class="menu-title text-truncate">Bookings</span></a>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate">Bookings</span></a>
                     <ul class="menu-content">
                         <li><a class="d-flex align-items-center" href="#"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
                         </li>
@@ -134,7 +128,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href=""><i data-feather="shopping-cart"></i><span class="menu-title text-truncate">Invoices</span></a>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate">Invoices</span></a>
                     <ul class="menu-content">
                         <li><a class="d-flex align-items-center" href="#"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
                         </li>

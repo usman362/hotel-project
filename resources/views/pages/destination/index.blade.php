@@ -49,8 +49,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                       
-                                       @foreach($destination as $key => $destination)
+
+                                       @foreach($destinations as $key => $destination)
                                         <tr>
                                             <td>
                                                 <img src="{{asset('images/'.$destination->banner_image)}}" class="me-75" height="40" width="40" alt="Angular">
@@ -70,11 +70,11 @@
                                                         <i class="ficon" data-feather="more-horizontal"></i>
                                                     </button>
                                                     <div class="dropdown-menu dropdown-menu-end">
-                                                        <a class="dropdown-item" href="#">
+                                                        <a class="dropdown-item" href="{{route('destination.edit',$destination->id)}}">
                                                             <i class="ficon" data-feather="edit"></i>
                                                             <span>Edit</span>
                                                         </a>
-                                                        <a class="dropdown-item" href="#">
+                                                        <a class="dropdown-item" href="{{route('destination.delete',$destination->id)}}">
                                                             <i class="ficon" data-feather="trash-2"></i>
                                                             <span>Delete</span>
                                                         </a>
@@ -84,26 +84,28 @@
                                         </tr>
                                         @endforeach
                                     </tbody>
+
+
                                 </table>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <ul class="pagination url1-links justify-content-end">
-                            <li class="page-item first disabled"><a href="" class="page-link">First</a></li>
-                            <li class="page-item prev disabled"><a href="" class="page-link">Prev</a></li>
-                            <li class="page-item active"><a href="" class="page-link">1</a></li>
-                            <li class="page-item"><a href="" class="page-link">2</a></li>
-                            <li class="page-item"><a href="" class="page-link">3</a></li>
-                            <li class="page-item"><a href="" class="page-link">4</a></li>
-                            <li class="page-item"><a href="" class="page-link">5</a></li>
-                            <li class="page-item next"><a href="" class="page-link">Next</a></li>
-                            <li class="page-item last"><a href="" class="page-link">Last</a></li>
+                            {{$destinations->links()}}
                         </ul>
                     </div>
                 </div>
                 <!-- Destination table ends -->
-
+                {{-- <li class="page-item first disabled"><a href="" class="page-link">First</a></li>
+                <li class="page-item prev disabled"><a href="" class="page-link">Prev</a></li>
+                <li class="page-item active"><a href="" class="page-link">1</a></li>
+                <li class="page-item"><a href="" class="page-link">2</a></li>
+                <li class="page-item"><a href="" class="page-link">3</a></li>
+                <li class="page-item"><a href="" class="page-link">4</a></li>
+                <li class="page-item"><a href="" class="page-link">5</a></li>
+                <li class="page-item next"><a href="" class="page-link">Next</a></li>
+                <li class="page-item last"><a href="" class="page-link">Last</a></li> --}}
             </div>
         </div>
     </div>
