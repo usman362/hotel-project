@@ -80,17 +80,17 @@
                 </li>
                 <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="file-text"></i><span class="menu-title text-truncate">Pages</span></a>
                     <ul class="menu-content">
-                        <li><a class="d-flex align-items-center" href="#"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
+                        <li><a class="d-flex align-items-center" href="{{route('page.create')}}"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
                         </li>
-                        <li><a class="d-flex align-items-center" href="#"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
+                        <li><a class="d-flex align-items-center" href="{{route('page.index')}}"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
                         </li>
                     </ul>
                 </li>
                 <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="pen-tool"></i><span class="menu-title text-truncate">Blogs</span></a>
                     <ul class="menu-content">
-                        <li><a class="d-flex align-items-center" href="#"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
+                        <li><a class="d-flex align-items-center" href="{{route('blogpages.create')}}"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
                         </li>
-                        <li><a class="d-flex align-items-center" href="#"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
+                        <li><a class="d-flex align-items-center" href="{{route('blogpages.index')}}"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
                         </li>
                     </ul>
                 </li>
@@ -104,17 +104,17 @@
                 </li>
                 <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="star"></i><span class="menu-title text-truncate">Reviews</span></a>
                     <ul class="menu-content">
-                        <li><a class="d-flex align-items-center" href="#"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
+                        <li><a class="d-flex align-items-center" href="{{route('review.create')}}"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
                         </li>
-                        <li><a class="d-flex align-items-center" href="#"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
+                        <li><a class="d-flex align-items-center" href="{{route('review.index')}}"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
                         </li>
                     </ul>
                 </li>
                 <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="users"></i><span class="menu-title text-truncate">Teams</span></a>
                     <ul class="menu-content">
-                        <li><a class="d-flex align-items-center" href="#"><i data-feather="user-plus"></i><span class="menu-item text-truncate">Add New</span></a>
+                        <li><a class="d-flex align-items-center" href="{{route('team.create')}}"><i data-feather="user-plus"></i><span class="menu-item text-truncate">Add New</span></a>
                         </li>
-                        <li><a class="d-flex align-items-center" href="#"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
+                        <li><a class="d-flex align-items-center" href="{{route('team.index')}}"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
                         </li>
                     </ul>
                 </li>
