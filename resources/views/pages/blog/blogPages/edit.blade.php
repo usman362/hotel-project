@@ -1,4 +1,4 @@
-@section('title','Add Blog')
+@section('title','Edit Blog')
 
 @extends('layouts.app')
 
@@ -21,7 +21,7 @@
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-start mb-0">Blog Add</h2>
+                        <h2 class="content-header-title float-start mb-0">Blog Edit</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#">Home</a>
@@ -30,7 +30,7 @@
                                 </li>
                                 <li class="breadcrumb-item"><a href="#">Blog</a>
                                 </li>
-                                <li class="breadcrumb-item active">Add
+                                <li class="breadcrumb-item active">Edit
                                 </li>
                             </ol>
                         </div>
@@ -69,34 +69,34 @@
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label" for="blog-edit-title">Blog Title</label>
-                                                <input type="text" id="blog-edit-title" class="form-control" name="title" value="{{old('title')}}" placeholder="Blog Article Title" />
+                                                <input type="text" id="blog-edit-title" class="form-control" name="title" value="{{old('title',$blog->title)}}" placeholder="Blog Article Title" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label" for="blog-edit-category">Tags</label>
                                                 <select id="blog-edit-category" name="tags" class="select2 form-select" multiple>
-                                                    <option value="Fashion" @selected(old('tags') == 'Fashion' )>Fashion</option>
-                                                    <option value="Food" @selected(old('tags') == 'Food' )>Food</option>
-                                                    <option value="Gaming" @selected(old('tags') == 'Gaming' )>Gaming</option>
-                                                    <option value="Quote" @selected(old('tags') == 'Quote' )>Quote</option>
-                                                    <option value="Video" @selected(old('tags') == 'Video' )>Video</option>
+                                                    <option value="Fashion" @selected(old('tags',$blog->title) == 'Fashion' )>Fashion</option>
+                                                    <option value="Food" @selected(old('tags',$blog->title) == 'Food' )>Food</option>
+                                                    <option value="Gaming" @selected(old('tags',$blog->title) == 'Gaming' )>Gaming</option>
+                                                    <option value="Quote" @selected(old('tags',$blog->title) == 'Quote' )>Quote</option>
+                                                    <option value="Video" @selected(old('tags',$blog->title) == 'Video' )>Video</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label" for="blog-edit-slug">Slug</label>
-                                                <input type="text" id="blog-edit-slug" name="url_slug" class="form-control" value="the-best-features-coming-to-ios-and-web-design" />
+                                                <input type="text" id="blog-edit-slug" name="url_slug" class="form-control" value="{{old('url_slug',$blog->url_slug)}}" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label" for="blog-edit-status">Status</label>
                                                 <select class="form-select" name="status" id="blog-edit-status">
-                                                    <option value="Published" @selected(old('status') == 'Published')>Published</option>
-                                                    <option value="Pending" @selected(old('status') == 'Pending')>Pending</option>
-                                                    <option value="Draft" @selected(old('status') == 'Draft')>Draft</option>
+                                                    <option value="Published" @selected(old('status',$blog->status) == 'Published')>Published</option>
+                                                    <option value="Pending" @selected(old('status',$blog->status) == 'Pending')>Pending</option>
+                                                    <option value="Draft" @selected(old('status',$blog->status) == 'Draft')>Draft</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -123,7 +123,7 @@
                                             <div class="border rounded p-2">
                                                 <h4 class="mb-1">Featured Image</h4>
                                                 <div class="d-flex flex-column flex-md-row">
-                                                    <img src="{{asset('app-assets/images/slider/03.jpg')}}" id="image_output" class="rounded me-2 mb-1 mb-md-0" width="170" height="110" alt="Blog Featured Image" />
+                                                    <img src="{{asset('images/'.$blog->image)}}" id="image_output" class="rounded me-2 mb-1 mb-md-0" width="170" height="110" alt="Blog Featured Image" />
                                                     <div class="featured-info">
                                                         <small class="text-muted">Required image resolution 800x400, image size 10mb.</small>
                                                         <p class="my-50">

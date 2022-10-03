@@ -14,6 +14,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\MesaageController;
@@ -162,8 +163,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('blogCategory/add', [BlogCategoryController::class, 'addCategory'])->name('category.create');
     Route::get('blogTags', [BlogCategoryController::class, 'showTags'])->name('tags.index');
     Route::get('blogTags/add', [BlogCategoryController::class, 'addTags'])->name('tags.create');
-    Route::get('blogPages', [BlogCategoryController::class, 'showPages'])->name('blogpages.index');
-    Route::get('blogPages/add', [BlogCategoryController::class, 'addPages'])->name('blogpages.create');
+    Route::get('blogPages', [BlogController::class, 'index'])->name('blogpages.index');
+    Route::get('blogPages/add', [BlogController::class, 'create'])->name('blogpages.create');
+    Route::post('blogPages/add', [BlogController::class, 'store'])->name('blogpages.store');
+    Route::get('blogPages/edit/{id}', [BlogController::class, 'edit'])->name('blogpages.edit');
+    Route::post('blogPages/update/{id}', [BlogController::class, 'update'])->name('blogpages.update');
+    Route::get('blogPages/delete/{id}', [BlogController::class, 'destroy'])->name('blogpages.delete');
 
     Route::get('messages', [MesaageController::class, 'index'])->name('messages.index');
     Route::get('messages/show', [MesaageController::class, 'show'])->name('messages.view');

@@ -23,9 +23,9 @@
             </div>
             <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
                 <div class="mb-1 breadcrumb-right">
-                    <button onclick="#" type="button" class="btn btn-primary waves-effect waves-float waves-light">
+                    <a href="{{route('blogpages.create')}}" class="btn btn-primary waves-effect waves-float waves-light">
                         <i data-feather="plus" class="me-25"></i>
-                        <span>New Blog</span></button>
+                        <span>New Blog</span></a>
                 </div>
             </div>
         </div>
@@ -54,15 +54,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                  @foreach ($blogs as $key => $blog)
                                     <tr>
                                         <td>
-                                            <img src="../../../app-assets/images/icons/angular.svg" class="me-75" height="40" width="40" alt="Angular">
+                                            <img src="{{asset('images/'.$blog->image)}}" class="me-75" height="40" width="40" alt="Angular">
                                             <span class="fw-bold">When is the best time to visit Nepal?</span>
                                         </td>
-                                        <td>/when-is-the-best-time-to-visit-nepal</td>
+                                        <td>/{{$blog->url_slug}}</td>
 
                                         <td>
-                                            232
+                                            {{$blog->id}}
                                         </td>
 
                                         <td><span class="badge rounded-pill badge-light-primary me-1">Active</span></td>
@@ -72,11 +73,11 @@
                                                     <i class="ficon" data-feather="more-horizontal"></i>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">
+                                                    <a class="dropdown-item" href="{{route('blogpages.edit',$blog->id)}}">
                                                         <i class="ficon" data-feather="edit"></i>
                                                         <span>Edit</span>
                                                     </a>
-                                                    <a class="dropdown-item" href="#">
+                                                    <a class="dropdown-item" href="{{route('blogpages.delete',$blog->id)}}">
                                                         <i class="ficon" data-feather="trash-2"></i>
                                                         <span>Delete</span>
                                                     </a>
@@ -84,8 +85,7 @@
                                             </div>
                                         </td>
                                     </tr>
-
-
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
