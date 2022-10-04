@@ -39,23 +39,25 @@ class TeamController extends Controller
     public function store(StoreTeamRequest $request)
     {
         $request->validate([
-            'title'=>'required',
+            'name'=>'required',
         ]);
 
         $page = new Team();
-        $page->title = $request->title;
-        $page->post = $request->post;
+        $page->name = $request->name;
+        $page->designation = $request->designation;
         $page->description = $request->description;
         $page->status = $request->status;
-        $page->profile_order = $request->profile_order;
-        // $page->meta_desc = $request->meta_desc;
-        // $page->meta_keywords = $request->meta_keywords;
+        $page->joined_on = $request->joined_on;
+        $page->is_featured = isset($request->is_featured) ? true : false;
         if($request->hasFile('avatar')){
             $avatar = $request->file('avatar');
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
             $avatar->move(public_path('images'), $filename);
             $page->avatar_image = $filename;
         }
+        $page->meta_title = $request->meta_title;
+        $page->meta_keywords = $request->meta_keywords;
+        $page->meta_description = $request->meta_description;
         $page->save();
                 $update = new WebUpdate();
         $update->activity = 'New Activity has been Created';
@@ -99,13 +101,15 @@ class TeamController extends Controller
     public function update(UpdateTeamRequest $request, $id)
     {
         $page = Team::find($id);
-        $page->title = $request->title;
-        $page->post = $request->post;
+        $page->name = $request->name;
+        $page->designation = $request->designation;
         $page->description = $request->description;
         $page->status = $request->status;
-        $page->profile_order = $request->profile_order;
-        // $page->meta_desc = $request->meta_desc;
-        // $page->meta_keywords = $request->meta_keywords;
+        $page->joined_on = $request->joined_on;
+        $page->is_featured = isset($request->is_featured) ? true : false;
+        $page->meta_title = $request->meta_title;
+        $page->meta_keywords = $request->meta_keywords;
+        $page->meta_description = $request->meta_description;
         if($request->hasFile('avatar')){
             $avatar = $request->file('avatar');
             $filename = time() . '.' . $avatar->getClientOriginalExtension();

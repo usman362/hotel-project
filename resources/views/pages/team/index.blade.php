@@ -23,9 +23,9 @@
             </div>
             <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
                 <div class="mb-1 breadcrumb-right">
-                    <button onclick="#" type="button" class="btn btn-primary waves-effect waves-float waves-light">
+                    <a href="{{route('team.create')}}" class="btn btn-primary waves-effect waves-float waves-light">
                         <i data-feather="plus" class="me-25"></i>
-                        <span>New Member</span></button>
+                        <span>New Member</span></a>
                 </div>
             </div>
         </div>
@@ -54,29 +54,30 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($teams as $team)
                                     <tr>
                                         <td>
-                                            <img src="../../../app-assets/images/icons/angular.svg" class="me-75" height="40" width="40" alt="Angular">
+                                            <img src="{{asset('images/'.$team->avatar_image)}}" class="me-75" height="40" width="40" alt="Angular">
                                             <span class="fw-bold">Upendra Duwadi</span>
                                         </td>
-                                        <td>Director</td>
+                                        <td>{{$team->designation}}</td>
 
                                         <td>
-                                            10 July, 2013
+                                            {{$team->joined_on}}
                                         </td>
 
-                                        <td><span class="badge rounded-pill badge-light-primary me-1">Active</span></td>
+                                        <td><span class="badge rounded-pill badge-light-primary me-1">{{$team->status}}</span></td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0 waves-effect waves-float waves-light" data-bs-toggle="dropdown">
                                                     <i class="ficon" data-feather="more-horizontal"></i>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">
+                                                    <a class="dropdown-item" href="{{route('team.edit',$team->id)}}">
                                                         <i class="ficon" data-feather="edit"></i>
                                                         <span>Edit</span>
                                                     </a>
-                                                    <a class="dropdown-item" href="#">
+                                                    <a class="dropdown-item" href="{{route('team.delete',$team->id)}}">
                                                         <i class="ficon" data-feather="trash-2"></i>
                                                         <span>Delete</span>
                                                     </a>
@@ -84,8 +85,7 @@
                                             </div>
                                         </td>
                                     </tr>
-
-
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

@@ -4,7 +4,6 @@
 
 @section('content')
 
-
 <!-- BEGIN: Content-->
 <div class="app-content content ">
 
@@ -30,6 +29,8 @@
                         </div>
                         <div class="card-body py-2 my-25">
                             <!-- header section -->
+                            <form class="validate-form mt-2 pt-50" action="{{route('team.store')}}" enctype="multipart/form-data" method="POST" novalidate="novalidate">
+                                @csrf
                             <div class="row">
                                 <div class="col-md-4">
 
@@ -37,7 +38,7 @@
 
 
                                         <a href="#" class="me-25">
-                                            <img src="../../../app-assets/images/portrait/small/avatar-s-11.jpg" id="account-upload-img" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
+                                            <img src="{{asset('app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="avatar_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
                                         </a>
 
 
@@ -48,8 +49,8 @@
                                                     <div class="alert-body"><strong>Avatar</strong><code>(Only jpg or jpeg)</code></div>
                                                 </div>
                                                 <label for="account-upload" class="btn btn-sm btn-primary mb-75 me-75 waves-effect waves-float waves-light">Upload</label>
-                                                <input type="file" id="account-upload" hidden="" accept="image/*">
-                                                <button type="button" id="account-reset" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
+                                                <input type="file" name="avatar" id="account-upload" hidden="" onchange="loadAvatar(event)" accept="image/jpeg,jpg">
+                                                <button type="button" id="account-reset" onclick="resetAvatar()" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
                                             </div>
                                         </div>
 
@@ -60,7 +61,7 @@
                                     <div class="d-flex flex-column">
                                         <label class="form-check-label mb-50" for="customSwitch3">Featured Member?</label>
                                         <div class="form-check form-check-primary form-switch">
-                                            <input type="checkbox" class="form-check-input" id="customSwitch3">
+                                            <input type="checkbox" @checked(old('is_featured',true)) name="is_featured" class="form-check-input" id="customSwitch3">
                                         </div>
                                     </div>
 
@@ -72,28 +73,28 @@
                             <!--/ header section -->
 
                             <!-- form -->
-                            <form class="validate-form mt-2 pt-50" novalidate="novalidate">
+
                                 <div class="row">
                                     <div class="col-12 col-sm-4 mb-1">
                                         <label class="form-label" for="">Full Name</label>
-                                        <input type="text" class="form-control" id="" name="" placeholder="Upendra Duwadi" value="" data-msg="Please enter text">
+                                        <input type="text" class="form-control" id="" name="name" placeholder="Upendra Duwadi" value="{{old('name')}}" data-msg="Please enter text">
                                     </div>
                                     <div class="col-12 col-sm-3 mb-1">
                                         <label class="form-label" for="accountLastName">Designation</label>
-                                        <input type="text" class="form-control" id="" name="" placeholder="Director" value="" data-msg="Please enter text">
+                                        <input type="text" class="form-control" id="" name="designation" placeholder="Director" value="{{old('designation')}}" data-msg="Please enter text">
                                     </div>
 
                                     <div class="col-12 col-sm-3 mb-1">
                                         <label class="form-label" for="accountLastName">Joined on</label>
-                                        <input type="text" id="fp-default" class="form-control flatpickr-basic" placeholder="YYYY-MM-DD" />
+                                        <input type="text" id="fp-default" class="form-control flatpickr-basic" name="joined_on" value="{{old('joined_on')}}" placeholder="YYYY-MM-DD" />
 
                                     </div>
                                     <div class="col-12 col-sm-2 mb-1">
                                         <label class="form-label" for="status">Status</label>
-                                        <select class="form-select" id="basicSelect">
+                                        <select class="form-select" name="status" id="basicSelect">
                                             <option selected>---------</option>
-                                            <option>Enabled</option>
-                                            <option>Disabled</option>
+                                            <option value="Enabled" @selected(old('status') == 'Enabled')>Enabled</option>
+                                            <option value="Disabled" @selected(old('status') == 'Disabled')>Disabled</option>
                                         </select>
 
                                     </div>
@@ -104,10 +105,13 @@
                                         <div id="full-wrapper">
                                             <label class="form-label" for="iti-daily-activity">Review Content</label>
                                             <div id="full-container">
-                                                <div class="editor">
-                                                    <!-- full Editor Container -->
-                                                </div>
-                                            </div>
+                                                <textarea class="tinymceTextEditor description" name="description">
+                                                    {{old('description')}}
+                                              </textarea>
+                                               @error('description')
+                                      <span class="text-danger">{{$message}}</span>
+                                      @enderror
+                                          </div>
                                         </div>
                                     </div>
                                     <!-- Additional tabs-->
@@ -125,7 +129,7 @@
                                         <div class="col-12 col-md-6">
                                             <label class="form-label" for="title">Meta Title</label>
                                             <div class="form-floating mb-0">
-                                                <textarea data-length="60" class="form-control char-textarea" id="textarea-counter1" rows="1" placeholder="Meta Title" style="height: 25px"></textarea>
+                                                <textarea data-length="60" class="form-control char-textarea" name="meta_title" id="textarea-counter1" rows="1" placeholder="Meta Title" style="height: 25px"> {{old('meta_title')}}</textarea>
                                             </div>
                                             <small class="textarea-counter-value float-end"><span class="char-count">0</span> / 60 </small>
                                         </div>
@@ -133,14 +137,14 @@
                                         <div class="col-12">
                                             <label class="form-label" for="textarea">Meta Description</label>
                                             <div class="form-floating mb-0">
-                                                <textarea data-length="158" class="form-control char-textarea" id="textarea-counter" rows="2" placeholder="Meta Description" style="height: 50px"></textarea>
+                                                <textarea data-length="158" class="form-control char-textarea" name="meta_description" id="textarea-counter" rows="2" placeholder="Meta Description" style="height: 50px"> {{old('meta_description')}}</textarea>
                                             </div>
                                             <small class="textarea-counter-value float-end"><span class="char-count">0</span> / 158 </small>
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label" for="textarea">Meta Keywords</label>
                                             <div class="form-floating mb-0">
-                                                <textarea data-length="250" class="form-control char-textarea" id="textarea-counter2" rows="2" placeholder="Meta Keywords" style="height: 50px"></textarea>
+                                                <textarea data-length="250" class="form-control char-textarea" name="meta_keywords" id="textarea-counter2" rows="2" placeholder="Meta Keywords" style="height: 50px"> {{old('meta_keywords')}}</textarea>
                                             </div>
                                             <small class="textarea-counter-value float-end mb-1"><span class="char-count">0</span> / 250 </small>
                                         </div>
@@ -170,3 +174,21 @@
 <!-- END: Content-->
 
 @endsection
+
+@push('scripts')
+
+<script>
+
+function loadAvatar(event) {
+	var avatar_image = document.getElementById('avatar_image_output');
+	avatar_image.src = URL.createObjectURL(event.target.files[0]);
+};
+
+function resetAvatar() {
+	var avatar_image = document.getElementById('avatar_image_output');
+	avatar_image.src = "{{asset('app-assets/images/portrait/small/avatar-s-11.jpg')}}";
+};
+
+</script>
+
+@endpush
