@@ -68,6 +68,35 @@
     .tox-notifications-container,.tox-statusbar__branding{
             display:none !important;
         }
+        /* component */
+
+.star-rating {
+  display:flex;
+  flex-direction: row-reverse;
+  font-size:3.2em;
+  justify-content:space-around;
+  text-align:center;
+  width:4em;
+}
+
+.star-rating input {
+  display:none;
+}
+
+.star-rating label {
+  color:#ccc;
+  cursor:pointer;
+}
+
+.star-rating :checked ~ label {
+  color:#f90;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color:#fc0;
+}
+
 </style>
 
 </head>

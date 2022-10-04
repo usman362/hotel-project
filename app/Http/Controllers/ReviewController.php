@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Review;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
+use App\Models\Activity;
+use App\Models\Destination;
+use App\Models\Region;
 use App\Models\WebUpdate;
 
 class ReviewController extends Controller
@@ -27,7 +30,10 @@ class ReviewController extends Controller
      */
     public function create()
     {
-        return view('pages.review.add');
+        $activities = Activity::all();
+        $destinations = Destination::all();
+        $regions = Region::all();
+        return view('pages.review.add',compact('activities','destinations','regions'));
     }
 
     /**
@@ -40,18 +46,17 @@ class ReviewController extends Controller
     {
 
         $page = new Review();
-        $page->destination_id = $request->destination;
-        $page->activity_id = $request->activity;
-        $page->region_id = $request->region;
+        $page->destination_id = $request->destination_id;
+        $page->activity_id = $request->activity_id;
+        $page->region_id = $request->region_id;
         $page->trip = $request->trip;
-        $page->title = $request->review_title;
-        $page->name = $request->reviewer_name;
-        $page->country = $request->country;
+        $page->title = $request->title;
         $page->date = $request->date;
         $page->content = $request->content;
-        $page->status = $request->status;
-        $page->featured = $request->featured;
         $page->rating = $request->rating;
+        $page->meta_title = $request->meta_title;
+        $page->meta_description = $request->meta_description;
+        $page->meta_keywords = $request->meta_keywords;
         if($request->hasFile('avatar')){
             $avatar = $request->file('avatar');
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
@@ -62,7 +67,7 @@ class ReviewController extends Controller
                 $update = new WebUpdate();
         $update->activity = 'New Review has been Created';
         $update->save();
-        
+
         return redirect(route('review.index'));
     }
 
@@ -86,7 +91,10 @@ class ReviewController extends Controller
     public function edit($id)
     {
         $review = Review::find($id);
-        return view('pages.review.edit', ['review'=> $review]);
+        $activities = Activity::all();
+        $destinations = Destination::all();
+        $regions = Region::all();
+        return view('pages.review.edit', compact('activities','destinations','regions','review'));
     }
 
     /**
@@ -99,18 +107,17 @@ class ReviewController extends Controller
     public function update(UpdateReviewRequest $request, $id)
     {
         $page = Review::find($id);
-        $page->destination_id = $request->destination;
-        $page->activity_id = $request->activity;
-        $page->region_id = $request->region;
+        $page->destination_id = $request->destination_id;
+        $page->activity_id = $request->activity_id;
+        $page->region_id = $request->region_id;
         $page->trip = $request->trip;
-        $page->title = $request->review_title;
-        $page->name = $request->reviewer_name;
-        $page->country = $request->country;
+        $page->title = $request->title;
         $page->date = $request->date;
         $page->content = $request->content;
-        $page->status = $request->status;
-        $page->featured = $request->featured;
         $page->rating = $request->rating;
+        $page->meta_title = $request->meta_title;
+        $page->meta_description = $request->meta_description;
+        $page->meta_keywords = $request->meta_keywords;
         if($request->hasFile('avatar')){
             $avatar = $request->file('avatar');
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
