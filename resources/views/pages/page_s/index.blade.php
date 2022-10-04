@@ -22,9 +22,9 @@
             </div>
             <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
                 <div class="mb-1 breadcrumb-right">
-                    <button onclick="#" type="button" class="btn btn-primary waves-effect waves-float waves-light">
+                    <a href="{{route('page.create')}}" class="btn btn-primary waves-effect waves-float waves-light">
                         <i data-feather="plus" class="me-25"></i>
-                        <span>New Article</span></button>
+                        <span>New Article</span></a>
                 </div>
             </div>
         </div>
@@ -53,29 +53,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+
+                                    @foreach ($pages as $key => $page)
+
                                     <tr>
                                         <td>
-                                            <img src="../../../app-assets/images/icons/angular.svg" class="me-75" height="40" width="40" alt="Angular">
-                                            <span class="fw-bold">Read about Himalayan Leisure</span>
+                                            <img src="{{asset('images/'.$page->head_image)}}" class="me-75" height="40" width="40" alt="Angular">
+                                            <span class="fw-bold">{{$page->title}}</span>
                                         </td>
-                                        <td>/read-about-himalayan-leisure</td>
+                                        <td>{{$page->url_slug}}</td>
 
                                         <td>
-                                            232
+                                            {{$page->id}}
                                         </td>
 
-                                        <td><span class="badge rounded-pill badge-light-primary me-1">Active</span></td>
+                                        <td><span class="badge rounded-pill badge-light-primary me-1">{{$page->status}}</span></td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0 waves-effect waves-float waves-light" data-bs-toggle="dropdown">
                                                     <i class="ficon" data-feather="more-horizontal"></i>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">
+                                                    <a class="dropdown-item" href="{{route('page.edit',$page->id)}}">
                                                         <i class="ficon" data-feather="edit"></i>
                                                         <span>Edit</span>
                                                     </a>
-                                                    <a class="dropdown-item" href="#">
+                                                    <a class="dropdown-item" href="{{route('page.delete',$page->id)}}">
                                                         <i class="ficon" data-feather="trash-2"></i>
                                                         <span>Delete</span>
                                                     </a>
@@ -83,6 +86,7 @@
                                             </div>
                                         </td>
                                     </tr>
+                            @endforeach
 
 
                                 </tbody>

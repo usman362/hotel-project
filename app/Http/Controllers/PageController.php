@@ -47,15 +47,14 @@ class PageController extends Controller
         $page->url_slug = $request->url_slug;
         $page->description = $request->description;
         $page->status = $request->status;
-        $page->meta_title = $request->meta_title;
-        $page->meta_desc = $request->meta_desc;
-        $page->meta_keywords = $request->meta_keywords;
+
         if($request->hasFile('head_image')){
             $head_image = $request->file('head_image');
             $filename = time() . '.' . $head_image->getClientOriginalExtension();
             $head_image->move(public_path('images'), $filename);
             $page->head_image = $filename;
         }
+
         $page->save();
                 $update = new WebUpdate();
         $update->activity = 'New Page has been Created';
@@ -100,9 +99,7 @@ class PageController extends Controller
         $page->url_slug = $request->url_slug;
         $page->description = $request->description;
         $page->status = $request->status;
-        $page->meta_title = $request->meta_title;
-        $page->meta_desc = $request->meta_desc;
-        $page->meta_keywords = $request->meta_keywords;
+
         if($request->hasFile('head_image')){
             $head_image = $request->file('head_image');
             $filename = time() . '.' . $head_image->getClientOriginalExtension();

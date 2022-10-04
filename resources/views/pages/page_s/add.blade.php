@@ -20,16 +20,14 @@
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-start mb-0">Blog Edit</h2>
+                        <h2 class="content-header-title float-start mb-0">Page Add</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html">Home</a>
                                 </li>
                                 <li class="breadcrumb-item"><a href="#">Pages</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="#">Blog</a>
-                                </li>
-                                <li class="breadcrumb-item active">Edit
+                                <li class="breadcrumb-item active">Add
                                 </li>
                             </ol>
                         </div>
@@ -54,28 +52,29 @@
                             <div class="card-body">
 
                                 <!-- Form -->
-                                <form action="javascript:;" class="mt-2">
+                                <form action="{{route('page.store')}}" class="mt-2" method="POST" enctype="multipart/form-data">
+                                    @csrf
                                     <div class="row">
                                         <div class="col-md-5 col-12">
                                             <div class="mb-2">
-                                                <label class="form-label" for="blog-edit-title">Page Title</label>
-                                                <input type="text" id="blog-edit-title" class="form-control" value="" placeholder="Page Title" />
+                                                <label class="form-label" for="title">Page Title</label>
+                                                <input type="text" id="title" class="form-control" name="title" value="{{old('title')}}" placeholder="Page Title" />
                                             </div>
                                         </div>
 
                                         <div class="col-md-5 col-12">
                                             <div class="mb-2">
-                                                <label class="form-label" for="blog-edit-slug">URL Slug</label>
-                                                <input type="text" id="blog-edit-slug" class="form-control" value="" placeholder="/page-title" />
+                                                <label class="form-label" for="url_slug">URL Slug</label>
+                                                <input type="text" id="url_slug" class="form-control" value="{{old('url_slug')}}" name="url_slug" placeholder="/page-title" />
                                             </div>
                                         </div>
                                         <div class="col-md-2 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label" for="blog-edit-status">Status</label>
-                                                <select class="form-select" id="blog-edit-status">
-                                                    <option value="Published">Published</option>
-                                                    <option value="Pending">Pending</option>
-                                                    <option value="Draft">Draft</option>
+                                                <select class="form-select" id="blog-edit-status" name="status">
+                                                    <option value="Published" @selected(old('status') == 'Published')>Published</option>
+                                                    <option value="Pending" @selected(old('status') == 'Pending')>Pending</option>
+                                                    <option value="Draft" @selected(old('status') == 'Draft')>Draft</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -85,7 +84,14 @@
                                                 <div id="blog-editor-wrapper">
                                                     <div id="blog-editor-container">
                                                         <div class="editor">
-
+                                                            <div id="full-container">
+                                                                <textarea class="tinymceTextEditor description" name="description">
+                                                                    {{old('description')}}
+                                                              </textarea>
+                                                               @error('description')
+                                                      <span class="text-danger">{{$message}}</span>
+                                                      @enderror
+                                                          </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -95,14 +101,14 @@
                                             <div class="border rounded p-2">
                                                 <h4 class="mb-1">Banner Image</h4>
                                                 <div class="d-flex flex-column flex-md-row">
-                                                    <img src="../../../app-assets/images/slider/03.jpg" id="blog-feature-image" class="rounded me-2 mb-1 mb-md-0" width="170" height="110" alt="Blog Featured Image" />
+                                                    <img src="{{asset('app-assets/images/slider/03.jpg')}}" id="image_output" class="rounded me-2 mb-1 mb-md-0" width="170" height="110" alt="Blog Featured Image" />
                                                     <div class="featured-info">
                                                         <small class="text-muted">Required image resolution 800x400, image size 10mb.</small>
                                                         <p class="my-50">
-                                                            <a href="#" id="blog-image-text">C:\fakepath\banner.jpg</a>
+                                                            {{-- <a href="#" id="blog-image-text">C:\fakepath\banner.jpg</a> --}}
                                                         </p>
                                                         <div class="d-inline-block">
-                                                            <input class="form-control" type="file" id="blogCustomFile" accept="image/*" />
+                                                            <input class="form-control" type="file" id="blogCustomFile" onchange="loadImage(event)" name="head_image" accept="image/*" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -131,3 +137,25 @@
 
 
 @endsection
+
+
+@push('scripts')
+
+<script>
+    function loadImage(event) {
+	var image = document.getElementById('image_output');
+	image.src = URL.createObjectURL(event.target.files[0]);
+};
+
+
+$('#title').keyup(function(){
+      var textParent = $('#title').val();
+  var text =  textParent.toLowerCase()
+             .replace(/ /g, '-')
+             .replace(/[^\w-]+/g, '');
+
+   $('#url_slug').val(text);
+})
+</script>
+
+@endpush
