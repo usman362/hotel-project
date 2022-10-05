@@ -16,11 +16,10 @@ return new class extends Migration
         Schema::table('reviews', function (Blueprint $table) {
 
             $table->renameColumn('name','meta_title');
-            $table->renameColumn('country','meta_description');
+            $table->renameColumn('featured','meta_description');
             $table->renameColumn('gallery','meta_keywords');
             $table->string('date')->change();
-            $table->removeColumn('status');
-            $table->removeColumn('featured');
+            $table->string('status')->nullable()->change();
         });
     }
 
@@ -33,11 +32,10 @@ return new class extends Migration
     {
         Schema::table('reviews', function (Blueprint $table) {
             $table->renameColumn('meta_title','name');
-            $table->renameColumn('meta_description','country');
+            $table->renameColumn('meta_description','featured');
             $table->renameColumn('meta_keywords','gallery');
-            $table->date('date')->change();
-            $table->string('status');
-            $table->string('featured');
+            $table->integer('date')->change();
+            $table->string('status')->change();
         });
     }
 };

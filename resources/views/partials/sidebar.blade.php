@@ -128,11 +128,11 @@
                         </li>
                     </ul>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate">Invoices</span></a>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="file-text"></i><span class="menu-title text-truncate">Invoice</span></a>
                     <ul class="menu-content">
-                        <li><a class="d-flex align-items-center" href="#"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
+                        <li><a class="d-flex align-items-center" href="{{route('invoice.create')}}"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
                         </li>
-                        <li><a class="d-flex align-items-center" href="#"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
+                        <li><a class="d-flex align-items-center" href="{{route('invoice.index')}}"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
                         </li>
                     </ul>
                 </li>
@@ -150,7 +150,7 @@
                 </li>
                 <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="user-check"></i><span class="menu-title text-truncate">Users</span></a>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate">Invoice</span></a>
+                {{-- <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file-text"></i><span class="menu-title text-truncate">Invoice</span></a>
                     <ul class="menu-content">
                         <li><a class="d-flex align-items-center" href="#"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add</span></a>
                         </li>
@@ -162,7 +162,7 @@
                         </li>
 
                     </ul>
-                </li>
+                </li> --}}
 
 
                 <li class=" nav-item"><a class="d-flex align-items-center" href="#" target="_blank"><i data-feather="life-buoy"></i><span class="menu-title text-truncate" data-i18n="Raise Support">Raise Support</span></a>

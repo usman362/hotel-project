@@ -58,7 +58,7 @@
                                     <tr>
                                         <td>
                                             <img src="{{asset('images/'.$team->avatar_image)}}" class="me-75" height="40" width="40" alt="Angular">
-                                            <span class="fw-bold">Upendra Duwadi</span>
+                                            <span class="fw-bold">{{$team->name}}</span>
                                         </td>
                                         <td>{{$team->designation}}</td>
 

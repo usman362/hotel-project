@@ -15,6 +15,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\MesaageController;
@@ -158,6 +159,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('team/edit/{id}', [TeamController::class, 'edit'])->name('team.edit');
     Route::post('team/update/{id}', [TeamController::class, 'update'])->name('team.update');
     Route::get('team/delete/{id}', [TeamController::class, 'destroy'])->name('team.delete');
+
+    Route::get('invoices', [InvoiceController::class, 'index'])->name('invoice.index');
+    Route::get('invoice/add', [InvoiceController::class, 'create'])->name('invoice.create');
+    Route::post('invoice/add', [InvoiceController::class, 'store'])->name('invoice.store');
+    Route::get('invoice/edit/{id}', [InvoiceController::class, 'edit'])->name('invoice.edit');
+    Route::post('invoice/update/{id}', [InvoiceController::class, 'update'])->name('invoice.update');
+    Route::get('invoice/delete/{id}', [InvoiceController::class, 'destroy'])->name('invoice.delete');
+    Route::get('invoice/preview', [InvoiceController::class, 'preview'])->name('invoice.preview');
+    Route::get('invoice/print', [InvoiceController::class, 'print'])->name('invoice.print');
 
     Route::get('blogCategory', [BlogCategoryController::class, 'showCategory'])->name('category.index');
     Route::get('blogCategory/add', [BlogCategoryController::class, 'addCategory'])->name('category.create');
