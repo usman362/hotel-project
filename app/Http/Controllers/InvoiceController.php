@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Invoice;
 use App\Models\InvoicePayment;
 use Illuminate\Http\Request;
@@ -26,7 +27,8 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        return view('pages.invoice.add');
+        $customers = Customer::all();
+        return view('pages.invoice.add',compact('customers'));
     }
 
     /**
@@ -95,7 +97,8 @@ class InvoiceController extends Controller
     public function edit($id)
     {
         $invoice = Invoice::find($id);
-        return view('pages.invoice.edit',compact('invoice'));
+        $customers = Customer::all();
+        return view('pages.invoice.edit',compact('invoice','customers'));
     }
 
     /**

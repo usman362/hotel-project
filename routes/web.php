@@ -192,6 +192,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('review/delete/{id}', [ReviewController::class, 'destroy'])->name('review.delete');
 
     Route::resource('customers',CustomerController::class);
+    Route::get('getCustomer',[CustomerController::class,'getCustomer'])->name('get.Customer');
 
     Route::prefix('account')->group(function () {
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');

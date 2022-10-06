@@ -86,32 +86,32 @@ $(function () {
       dropdownParent: $('.invoice-customer')
     });
 
-    select2.on('change', function () {
-      var $this = $(this),
-        renderDetails =
-          '<div class="customer-details mt-1">' +
-          '<p class="mb-25">' +
-          customerDetails[$this.val()].name +
-          '</p>' +
-          '<p class="mb-25">' +
-          customerDetails[$this.val()].company +
-          '</p>' +
-          '<p class="mb-25">' +
-          customerDetails[$this.val()].address +
-          '</p>' +
-          '<p class="mb-25">' +
-          customerDetails[$this.val()].country +
-          '</p>' +
-          '<p class="mb-0">' +
-          customerDetails[$this.val()].tel +
-          '</p>' +
-          '<p class="mb-0">' +
-          customerDetails[$this.val()].email +
-          '</p>' +
-          '</div>';
-      $('.row-bill-to').find('.customer-details').remove();
-      $('.row-bill-to').find('.col-bill-to').append(renderDetails);
-    });
+    // select2.on('change', function () {
+    //   var $this = $(this),
+    //     renderDetails =
+    //       '<div class="customer-details mt-1">' +
+    //       '<p class="mb-25">' +
+    //       customerDetails[$this.val()].name +
+    //       '</p>' +
+    //       '<p class="mb-25">' +
+    //       customerDetails[$this.val()].company +
+    //       '</p>' +
+    //       '<p class="mb-25">' +
+    //       customerDetails[$this.val()].address +
+    //       '</p>' +
+    //       '<p class="mb-25">' +
+    //       customerDetails[$this.val()].country +
+    //       '</p>' +
+    //       '<p class="mb-0">' +
+    //       customerDetails[$this.val()].tel +
+    //       '</p>' +
+    //       '<p class="mb-0">' +
+    //       customerDetails[$this.val()].email +
+    //       '</p>' +
+    //       '</div>';
+    //   $('.row-bill-to').find('.customer-details').remove();
+    //   $('.row-bill-to').find('.col-bill-to').append(renderDetails);
+    // });
 
     select2.on('select2:open', function () {
       if (!$(document).find('.add-new-customer').length) {

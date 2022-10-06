@@ -31,4 +31,10 @@ class Invoice extends Model
     {
         return $this->hasMany(InvoicePayment::class, 'id', 'invoice_id');
     }
+
+
+    public function customer()
+    {
+        return $this->hasOne(Customer::class, 'id', 'invoice_to');
+    }
 }

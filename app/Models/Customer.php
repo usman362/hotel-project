@@ -16,4 +16,10 @@ class Customer extends Model
         'contact',
         'country'
     ];
+
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class, 'invoice_to', 'id');
+    }
 }

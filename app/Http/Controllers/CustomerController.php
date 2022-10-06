@@ -12,9 +12,10 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $customers = Customer::all();
+        return response()->json($customers);
     }
 
     /**
@@ -82,5 +83,10 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getCustomer(Request $request){
+        $customer = Customer::find($request->customer);
+        return response()->json($customer);
     }
 }

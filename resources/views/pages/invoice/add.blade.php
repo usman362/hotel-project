@@ -93,9 +93,15 @@
                                         <div class="invoice-customer">
                                             <select class="invoiceto form-select" name="invoice_to">
                                                 <option></option>
-                                                <option value="1">Shelby Company Limited</option>
-                                                <option value="2">Hunters Corp</option>
+                                                @foreach ($customers as $key => $customer)
+
+                                                <option value="{{$customer->id}}">{{$customer->name}}</option>
+
+                                                @endforeach
                                             </select>
+                                        </div>
+                                        <div class="customer-details mt-1">
+
                                         </div>
                                     </div>
                                     <div class="col-xl-4 p-0 ps-xl-2 mt-xl-0 mt-2">
@@ -152,11 +158,11 @@
                                                                 <option value="ABC Template">ABC Template</option>
                                                                 <option value="App Development">App Development</option>
                                                             </select>
-                                                            <textarea class="form-control mt-2" name="item_desc[]" rows="1">Customization & Bug Fixes</textarea>
+                                                            <textarea class="form-control mt-2" name="item_desc[]" rows="1" placeholder="Customization & Bug Fixes"></textarea>
                                                         </div>
                                                         <div class="col-lg-3 col-12 my-lg-0 my-2">
                                                             <p class="card-text col-title mb-md-2 mb-0">Cost</p>
-                                                            <input type="number" class="form-control cost0" onkeyup="itemFunction(0)" name="cost[]" value="24" placeholder="24" />
+                                                            <input type="number" class="form-control cost0" onkeyup="itemFunction(0)" name="cost[]" value="" placeholder="24" />
                                                             <div class="mt-2">
                                                                 <span>Discount:</span>
                                                                 <span class="discount discount_text0">0%</span>
@@ -166,11 +172,11 @@
                                                         </div>
                                                         <div class="col-lg-2 col-12 my-lg-0 my-2">
                                                             <p class="card-text col-title mb-md-2 mb-0">Qty</p>
-                                                            <input type="number"  name="quantity[]" onkeyup="itemFunction(0)" class="form-control qty0" value="1" placeholder="1" />
+                                                            <input type="number"  name="quantity[]" onkeyup="itemFunction(0)" class="form-control qty0" value="" placeholder="1" />
                                                         </div>
                                                         <div class="col-lg-2 col-12 mt-lg-0 mt-2">
                                                             <p class="card-text col-title mb-md-50 mb-0">Price</p>
-                                                            <p class="card-text mb-0 price_text0">$24.00</p>
+                                                            <p class="card-text mb-0 price_text0">$0</p>
                                                             <input type="hidden" class="price_val0" name="price[]" >
                                                         </div>
                                                     </div>
@@ -243,20 +249,20 @@
                                         <div class="invoice-total-wrapper">
                                             <div class="invoice-total-item">
                                                 <p class="invoice-total-title">Subtotal:</p>
-                                                <p class="invoice-total-amount">$1800</p>
+                                                <p class="invoice-total-amount">$0</p>
                                             </div>
                                             <div class="invoice-total-item">
                                                 <p class="invoice-total-title">Discount:</p>
-                                                <p class="invoice-total-amount">$28</p>
+                                                <p class="invoice-total-discount">$0</p>
                                             </div>
                                             <div class="invoice-total-item">
                                                 <p class="invoice-total-title">Tax:</p>
-                                                <p class="invoice-total-amount">21%</p>
+                                                <p class="invoice-total-tax">0%</p>
                                             </div>
                                             <hr class="my-50" />
                                             <div class="invoice-total-item">
                                                 <p class="invoice-total-title">Total:</p>
-                                                <p class="invoice-total-amount">$1690</p>
+                                                <p class="invoice-total">$0</p>
                                             </div>
                                         </div>
                                     </div>
@@ -345,22 +351,23 @@
                 </h5>
             </div>
             <div class="modal-body flex-grow-1">
-                <form>
+                <form method="post" id="customer_form" enctype="multipart/form-data">
+                   @csrf
                     <div class="mb-1">
                         <label for="customer-name" class="form-label">Customer Name</label>
-                        <input type="text" class="form-control" id="customer-name" placeholder="John Doe" />
+                        <input type="text" class="form-control" id="customer-name" name="name" placeholder="John Doe" />
                     </div>
                     <div class="mb-1">
                         <label for="customer-email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="customer-email" placeholder="example@domain.com" />
+                        <input type="email" class="form-control" id="customer-email" name="email" placeholder="example@domain.com" />
                     </div>
                     <div class="mb-1">
                         <label for="customer-address" class="form-label">Customer Address</label>
-                        <textarea class="form-control" id="customer-address" cols="2" rows="2" placeholder="1307 Lady Bug Drive New York"></textarea>
+                        <textarea class="form-control" id="customer-address" name="address" cols="2" rows="2" placeholder="1307 Lady Bug Drive New York"></textarea>
                     </div>
                     <div class="mb-1 position-relative">
                         <label for="customer-country" class="form-label">Country</label>
-                        <select class="form-select" id="customer-country" name="customer-country">
+                        <select class="form-select" id="customer-country" name="country">
                             <option label="select country"></option>
                             <option value="Australia">Australia</option>
                             <option value="Canada">Canada</option>
@@ -376,10 +383,10 @@
                     </div>
                     <div class="mb-1">
                         <label for="customer-contact" class="form-label">Contact</label>
-                        <input type="number" class="form-control" id="customer-contact" placeholder="763-242-9206" />
+                        <input type="number" class="form-control" id="customer-contact" name="contact" placeholder="763-242-9206" />
                     </div>
                     <div class="mb-1 d-flex flex-wrap mt-2">
-                        <button type="button" class="btn btn-primary me-1" data-bs-dismiss="modal">Add</button>
+                        <button type="submit" class="btn btn-primary me-1 add_customer" data-bs-dismiss="modal">Add</button>
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
@@ -401,7 +408,7 @@
     $('.add_item').click(function(){
         i++;
         $('.invoice_item').append(`
-        <div class="row">
+        <div class="row mt-4 item-child`+i+`">
         <div class="col-12 d-flex product-details-border position-relative pe-0">
             <div class="row w-100 pe-lg-0 pe-1 py-2">
                 <div class="col-lg-5 col-12 mb-lg-0 mb-2 mt-lg-0 mt-2">
@@ -412,11 +419,11 @@
                         <option value="ABC Template">ABC Template</option>
                         <option value="App Development">App Development</option>
                     </select>
-                    <textarea class="form-control mt-2" name="item_desc[]" rows="1">Customization & Bug Fixes</textarea>
+                    <textarea class="form-control mt-2" name="item_desc[]" rows="1" placeholder="Customization & Bug Fixes"></textarea>
                 </div>
                 <div class="col-lg-3 col-12 my-lg-0 my-2">
                     <p class="card-text col-title mb-md-2 mb-0">Cost</p>
-                    <input type="number" class="form-control cost`+i+`" onkeyup="itemFunction(`+i+`)" name="cost[]" value="24" placeholder="24" />
+                    <input type="number" class="form-control cost`+i+`" onkeyup="itemFunction(`+i+`)" name="cost[]" value="" placeholder="24" />
                     <div class="mt-2">
                         <span>Discount:</span>
                         <span class="discount discount_text`+i+`">0%</span>
@@ -426,16 +433,16 @@
                 </div>
                 <div class="col-lg-2 col-12 my-lg-0 my-2">
                     <p class="card-text col-title mb-md-2 mb-0">Qty</p>
-                    <input type="number"  name="quantity[]" onkeyup="itemFunction(`+i+`)" class="form-control qty`+i+`" value="1" placeholder="1" />
+                    <input type="number"  name="quantity[]" onkeyup="itemFunction(`+i+`)" class="form-control qty`+i+`" value="" placeholder="1" />
                 </div>
                 <div class="col-lg-2 col-12 mt-lg-0 mt-2">
                     <p class="card-text col-title mb-md-50 mb-0">Price</p>
-                    <p class="card-text mb-0 price_text`+i+`">$24.00</p>
+                    <p class="card-text mb-0 price_text`+i+`">$0</p>
                     <input type="hidden" class="price_val`+i+`" name="price[]" >
                 </div>
             </div>
             <div class="d-flex flex-column align-items-center justify-content-between border-start invoice-product-actions py-50 px-25">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x cursor-pointer font-medium-3" data-repeater-delete=""><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" onclick="removeItem(`+i+`)" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x cursor-pointer font-medium-3" data-repeater-delete=""><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                 <div class="dropdown">
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings cursor-pointer more-options-dropdown me-0" id="dropdownMenuButton" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                     <div class="dropdown-menu dropdown-menu-end item-options-menu p-50" aria-labelledby="dropdownMenuButton">
@@ -484,16 +491,84 @@
         var qty = $('.qty'+id).val();
         var discount_val = $('.discount_val'+id).val();
         if(discount_val == ''){discount_val = 0;}
-        var tax1_val = parseInt($('.tax1_val'+id).val());
-        var tax2_val = parseInt($('.tax2_val'+id).val());
+        var tax1_val = $('.tax1_val'+id).val();
+        var tax2_val = $('.tax2_val'+id).val();
         var total = cost * qty
         $('.discount_text'+id).text(discount_val+'%');
         $('.tax1_text'+id).text(tax1_val+'%');
         $('.tax2_text'+id).text(tax2_val+'%');
-        var charges = parseInt(discount_val) + tax1_val + tax2_val;
+        var charges = parseInt(discount_val) + parseInt(tax1_val) + parseInt(tax2_val);
         $('.price_val'+id).val(total);
         $('.price_text'+id).text('$'+total);
-        console.log(charges);
+
+        var totalAmount = 0;
+        var totalDiscount = 0;
+        var totalTax = 0;
+        $("input[name='price[]']").each(function(){
+            totalAmount += +$(this).val()
+        $('.invoice-total-amount').text('$'+totalAmount);
+         });
+
+         $("input[name='discount[]']").each(function(){
+            totalDiscount += +$(this).val()
+        $('.invoice-total-discount').text('$'+totalDiscount);
+         });
+
+         $("select[name='tax1[]'], select[name='tax2[]']").each(function(){
+            totalTax += +$(this).val()
+        $('.invoice-total-tax').text(totalTax+'%');
+         });
+         var Total = totalAmount - (totalDiscount + totalTax)
+         $('.invoice-total').text('$'+Total)
     }
+
+    function removeItem(id){
+       $('.item-child'+id).remove();
+    }
+
+$('#customer_form').submit(function(e){
+    e.preventDefault();
+    $.ajax({
+   url:"{{ route('customers.store') }}",
+   method:"POST",
+   data:new FormData(this),
+   dataType:'JSON',
+   contentType: false,
+   cache: false,
+   processData: false,
+   success:function(data)
+   {
+    $('#customer_form')[0].reset();
+    console.log(data)
+    $('.invoiceto').append(`
+    <option value="`+data.id+`">`+data.name+`</option>
+    `)
+   }
+  })
+});
+
+
+$('.invoiceto').change(function(){
+var customer_id = $(this).val();
+//console.log(customer_id);
+$.ajax({
+    url:"{{route('get.Customer')}}",
+    method:"GET",
+    dataType:'JSON',
+    data: {customer:customer_id},
+    success:function(data)
+   {
+   $('.customer-details').html(
+    `   <p class="mb-25">`+data.name+`</p>
+        <p class="mb-25">`+data.address+`</p>
+        <p class="mb-25">`+data.country+`</p>
+        <p class="mb-0">Tel: `+data.contact+`</p>
+        <p class="mb-0">`+data.email+`</p>`
+   )
+   }
+})
+
+});
+
 </script>
 @endpush
