@@ -1,7 +1,9 @@
+@push('styles')
+<link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/pages/app-invoice.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/forms/pickers/form-flat-pickr.css')}}">
+@endpush
 @section('title','Add Invoice')
-
 @extends('layouts.app')
-
 @section('content')
 
 <div class="app-content content ">
@@ -18,7 +20,9 @@
         </div>
         <div class="content-body">
             <section class="invoice-add-wrapper">
-                <div class="row invoice-add">
+                <form action="{{route('invoice.store')}}" method="post">
+                    @csrf
+                    <div class="row invoice-add">
                     <!-- Invoice Add Left starts -->
                     <div class="col-xl-9 col-md-8 col-12">
                         <div class="card invoice-preview-card">
@@ -63,7 +67,7 @@
                                                 <div class="input-group-text">
                                                     <i data-feather="hash"></i>
                                                 </div>
-                                                <input type="text" name="invoice_no" class="form-control invoice-edit-input" placeholder="53634" />
+                                                <input type="number" name="invoice_no" class="form-control invoice-edit-input" placeholder="53634" />
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-center mb-1">
@@ -89,8 +93,8 @@
                                         <div class="invoice-customer">
                                             <select class="invoiceto form-select" name="invoice_to">
                                                 <option></option>
-                                                <option value="shelby">Shelby Company Limited</option>
-                                                <option value="hunters">Hunters Corp</option>
+                                                <option value="1">Shelby Company Limited</option>
+                                                <option value="2">Hunters Corp</option>
                                             </select>
                                         </div>
                                     </div>
@@ -105,7 +109,7 @@
                                                             <div class="input-group-text">
                                                                 $
                                                             </div>
-                                                            <input type="text" class="form-control invoice-edit-input" name="total_due" placeholder="23" />
+                                                            <input type="number" class="form-control invoice-edit-input" name="total_due" placeholder="23" />
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -134,77 +138,77 @@
 
                             <!-- Product Details starts -->
                             <div class="card-body invoice-padding invoice-product-details">
-                                <form class="source-item">
-                                    <div data-repeater-list="group-a">
-                                        <div class="repeater-wrapper" data-repeater-item>
+                                <div class="source-item">
+                                    <div >
+                                        <div class="repeater-wrapper invoice_item" >
                                             <div class="row">
                                                 <div class="col-12 d-flex product-details-border position-relative pe-0">
                                                     <div class="row w-100 pe-lg-0 pe-1 py-2">
                                                         <div class="col-lg-5 col-12 mb-lg-0 mb-2 mt-lg-0 mt-2">
                                                             <p class="card-text col-title mb-md-50 mb-0">Item</p>
-                                                            <select class="form-select item-details" name="item">
+                                                            <select class="form-select item-details" name="item[]">
                                                                 <option value="App Design">App Design</option>
                                                                 <option value="App Customization" selected>App Customization</option>
                                                                 <option value="ABC Template">ABC Template</option>
                                                                 <option value="App Development">App Development</option>
                                                             </select>
-                                                            <textarea class="form-control mt-2" name="item_desc" rows="1">Customization & Bug Fixes</textarea>
+                                                            <textarea class="form-control mt-2" name="item_desc[]" rows="1">Customization & Bug Fixes</textarea>
                                                         </div>
                                                         <div class="col-lg-3 col-12 my-lg-0 my-2">
                                                             <p class="card-text col-title mb-md-2 mb-0">Cost</p>
-                                                            <input type="text" class="form-control" name="cost" value="24" placeholder="24" />
+                                                            <input type="number" class="form-control cost0" onkeyup="itemFunction(0)" name="cost[]" value="24" placeholder="24" />
                                                             <div class="mt-2">
                                                                 <span>Discount:</span>
-                                                                <span class="discount">0%</span>
-                                                                <span class="tax-1 ms-50" data-bs-toggle="tooltip" data-bs-placement="top" title="Tax 1">0%</span>
-                                                                <span class="tax-2 ms-50" data-bs-toggle="tooltip" data-bs-placement="top" title="Tax 2">0%</span>
+                                                                <span class="discount discount_text0">0%</span>
+                                                                <span class="tax-1 ms-50 tax1_text0" data-bs-toggle="tooltip" data-bs-placement="top" title="Tax 1">0%</span>
+                                                                <span class="tax-2 ms-50 tax2_text0" data-bs-toggle="tooltip" data-bs-placement="top" title="Tax 2">0%</span>
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-2 col-12 my-lg-0 my-2">
                                                             <p class="card-text col-title mb-md-2 mb-0">Qty</p>
-                                                            <input type="number" name="quantity" class="form-control" value="1" placeholder="1" />
+                                                            <input type="number"  name="quantity[]" onkeyup="itemFunction(0)" class="form-control qty0" value="1" placeholder="1" />
                                                         </div>
                                                         <div class="col-lg-2 col-12 mt-lg-0 mt-2">
                                                             <p class="card-text col-title mb-md-50 mb-0">Price</p>
-                                                            <p class="card-text mb-0">$24.00</p>
-                                                            <input type="hidden" name="price" >
+                                                            <p class="card-text mb-0 price_text0">$24.00</p>
+                                                            <input type="hidden" class="price_val0" name="price[]" >
                                                         </div>
                                                     </div>
                                                     <div class="d-flex flex-column align-items-center justify-content-between border-start invoice-product-actions py-50 px-25">
-                                                        <i data-feather="x" class="cursor-pointer font-medium-3" data-repeater-delete></i>
+                                                        {{-- <i data-feather="x" class="cursor-pointer font-medium-3" data-repeater-delete></i> --}}
                                                         <div class="dropdown">
                                                             <i class="cursor-pointer more-options-dropdown me-0" data-feather="settings" id="dropdownMenuButton" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             </i>
                                                             <div class="dropdown-menu dropdown-menu-end item-options-menu p-50" aria-labelledby="dropdownMenuButton">
                                                                 <div class="mb-1">
                                                                     <label for="discount-input" class="form-label">Discount(%)</label>
-                                                                    <input type="number" class="form-control" name="discount" id="discount-input" />
+                                                                    <input type="number" class="form-control discount_val0" name="discount[]" id="discount-input" />
                                                                 </div>
                                                                 <div class="form-row mt-50">
                                                                     <div class="mb-1 col-md-6">
                                                                         <label for="tax-1-input" class="form-label">Tax 1</label>
-                                                                        <select name="tax-1-input" id="tax-1-input" name="tax1" class="form-select tax-select">
-                                                                            <option value="0%" selected>0%</option>
-                                                                            <option value="1%">1%</option>
-                                                                            <option value="10%">10%</option>
-                                                                            <option value="18%">18%</option>
-                                                                            <option value="40%">40%</option>
+                                                                        <select name="tax1[]" id="tax-1-input" class="form-select tax-select tax1_val0">
+                                                                            <option value="0" selected>0%</option>
+                                                                            <option value="1">1%</option>
+                                                                            <option value="10">10%</option>
+                                                                            <option value="18">18%</option>
+                                                                            <option value="40">40%</option>
                                                                         </select>
                                                                     </div>
                                                                     <div class="mb-1 col-md-6">
                                                                         <label for="tax-2-input" class="form-label">Tax 2</label>
-                                                                        <select name="tax-2-input" id="tax-2-input" name="tax2" class="form-select tax-select">
-                                                                            <option value="0%" selected>0%</option>
-                                                                            <option value="1%">1%</option>
-                                                                            <option value="10%">10%</option>
-                                                                            <option value="18%">18%</option>
-                                                                            <option value="40%">40%</option>
+                                                                        <select name="tax2[]" id="tax-2-input" class="form-select tax-select tax2_val0">
+                                                                            <option value="0" selected>0%</option>
+                                                                            <option value="1">1%</option>
+                                                                            <option value="10">10%</option>
+                                                                            <option value="18">18%</option>
+                                                                            <option value="40">40%</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
                                                                 <div class="dropdown-divider my-1"></div>
                                                                 <div class="d-flex justify-content-between">
-                                                                    <button type="button" class="btn btn-outline-primary btn-apply-changes">Apply</button>
+                                                                    <button type="button" class="btn btn-outline-primary btn-apply-changes" onclick="itemFunction(0)">Apply</button>
                                                                     <button type="button" class="btn btn-outline-secondary">Cancel</button>
                                                                 </div>
                                                             </div>
@@ -216,13 +220,13 @@
                                     </div>
                                     <div class="row mt-1">
                                         <div class="col-12 px-0">
-                                            <button type="button" class="btn btn-primary btn-sm btn-add-new" data-repeater-create>
+                                            <button type="button" class="btn btn-primary add_item btn-sm btn-add-new" data-repeater-create>
                                                 <i data-feather="plus" class="me-25"></i>
                                                 <span class="align-middle">Add Item</span>
                                             </button>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                             <!-- Product Details ends -->
 
@@ -284,7 +288,7 @@
                             <div class="card-body">
                                 <button class="btn btn-primary w-100 mb-75" disabled>Send Invoice</button>
                                 <a href="./app-invoice-preview.html" class="btn btn-outline-primary w-100 mb-75">Preview</a>
-                                <button type="button" class="btn btn-outline-primary w-100">Save</button>
+                                <button type="submit" class="btn btn-outline-primary w-100">Save</button>
                             </div>
                         </div>
                         <div class="mt-2">
@@ -320,8 +324,9 @@
                         </div>
                     </div>
                     <!-- Invoice Add Right ends -->
-                </div>
 
+                </div>
+            </form>
             </section>
 
         </div>
@@ -329,4 +334,166 @@
 </div>
 <!-- END: Content-->
 
+ <!-- Add New Customer Sidebar -->
+ <div class="modal modal-slide-in fade" id="add-new-customer-sidebar" aria-hidden="true">
+    <div class="modal-dialog sidebar-lg">
+        <div class="modal-content p-0">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">×</button>
+            <div class="modal-header mb-1">
+                <h5 class="modal-title">
+                    <span class="align-middle">Add Customer</span>
+                </h5>
+            </div>
+            <div class="modal-body flex-grow-1">
+                <form>
+                    <div class="mb-1">
+                        <label for="customer-name" class="form-label">Customer Name</label>
+                        <input type="text" class="form-control" id="customer-name" placeholder="John Doe" />
+                    </div>
+                    <div class="mb-1">
+                        <label for="customer-email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="customer-email" placeholder="example@domain.com" />
+                    </div>
+                    <div class="mb-1">
+                        <label for="customer-address" class="form-label">Customer Address</label>
+                        <textarea class="form-control" id="customer-address" cols="2" rows="2" placeholder="1307 Lady Bug Drive New York"></textarea>
+                    </div>
+                    <div class="mb-1 position-relative">
+                        <label for="customer-country" class="form-label">Country</label>
+                        <select class="form-select" id="customer-country" name="customer-country">
+                            <option label="select country"></option>
+                            <option value="Australia">Australia</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Russia">Russia</option>
+                            <option value="Saudi Arabia">Saudi Arabia</option>
+                            <option value="Singapore">Singapore</option>
+                            <option value="Sweden">Sweden</option>
+                            <option value="Switzerland">Switzerland</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="United Arab Emirates">United Arab Emirates</option>
+                            <option value="United States of America">United States of America</option>
+                        </select>
+                    </div>
+                    <div class="mb-1">
+                        <label for="customer-contact" class="form-label">Contact</label>
+                        <input type="number" class="form-control" id="customer-contact" placeholder="763-242-9206" />
+                    </div>
+                    <div class="mb-1 d-flex flex-wrap mt-2">
+                        <button type="button" class="btn btn-primary me-1" data-bs-dismiss="modal">Add</button>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Add New Customer Sidebar -->
+
 @endsection
+
+@push('scripts')
+
+    <!-- BEGIN: Page JS-->
+    <script src="{{asset('app-assets/js/scripts/pages/app-invoice.js')}}"></script>
+
+<script>
+    var i = 0;
+    $('.add_item').click(function(){
+        i++;
+        $('.invoice_item').append(`
+        <div class="row">
+        <div class="col-12 d-flex product-details-border position-relative pe-0">
+            <div class="row w-100 pe-lg-0 pe-1 py-2">
+                <div class="col-lg-5 col-12 mb-lg-0 mb-2 mt-lg-0 mt-2">
+                    <p class="card-text col-title mb-md-50 mb-0">Item</p>
+                    <select class="form-select item-details" name="item[]">
+                        <option value="App Design">App Design</option>
+                        <option value="App Customization" selected>App Customization</option>
+                        <option value="ABC Template">ABC Template</option>
+                        <option value="App Development">App Development</option>
+                    </select>
+                    <textarea class="form-control mt-2" name="item_desc[]" rows="1">Customization & Bug Fixes</textarea>
+                </div>
+                <div class="col-lg-3 col-12 my-lg-0 my-2">
+                    <p class="card-text col-title mb-md-2 mb-0">Cost</p>
+                    <input type="number" class="form-control cost`+i+`" onkeyup="itemFunction(`+i+`)" name="cost[]" value="24" placeholder="24" />
+                    <div class="mt-2">
+                        <span>Discount:</span>
+                        <span class="discount discount_text`+i+`">0%</span>
+                        <span class="tax-1 ms-50 tax1_text`+i+`" data-bs-toggle="tooltip" data-bs-placement="top" title="Tax 1">0%</span>
+                        <span class="tax-2 ms-50 tax2_text`+i+`" data-bs-toggle="tooltip" data-bs-placement="top" title="Tax 2">0%</span>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-12 my-lg-0 my-2">
+                    <p class="card-text col-title mb-md-2 mb-0">Qty</p>
+                    <input type="number"  name="quantity[]" onkeyup="itemFunction(`+i+`)" class="form-control qty`+i+`" value="1" placeholder="1" />
+                </div>
+                <div class="col-lg-2 col-12 mt-lg-0 mt-2">
+                    <p class="card-text col-title mb-md-50 mb-0">Price</p>
+                    <p class="card-text mb-0 price_text`+i+`">$24.00</p>
+                    <input type="hidden" class="price_val`+i+`" name="price[]" >
+                </div>
+            </div>
+            <div class="d-flex flex-column align-items-center justify-content-between border-start invoice-product-actions py-50 px-25">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x cursor-pointer font-medium-3" data-repeater-delete=""><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                <div class="dropdown">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings cursor-pointer more-options-dropdown me-0" id="dropdownMenuButton" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <div class="dropdown-menu dropdown-menu-end item-options-menu p-50" aria-labelledby="dropdownMenuButton">
+                        <div class="mb-1">
+                            <label for="discount-input" class="form-label">Discount(%)</label>
+                            <input type="number" class="form-control discount_val`+i+`" name="discount[]" id="discount-input" />
+                        </div>
+                        <div class="form-row mt-50">
+                            <div class="mb-1 col-md-6">
+                                <label for="tax-1-input" class="form-label">Tax 1</label>
+                                <select  name="tax1[]" id="tax-1-input" class="form-select tax-select tax1_val`+i+`">
+                                    <option value="0" selected>0%</option>
+                                    <option value="1">1%</option>
+                                    <option value="10">10%</option>
+                                    <option value="18">18%</option>
+                                    <option value="40">40%</option>
+                                </select>
+                            </div>
+                            <div class="mb-1 col-md-6">
+                                <label for="tax-2-input" class="form-label">Tax 2</label>
+                                <select  name="tax2[]" id="tax-2-input" class="form-select tax-select tax2_val`+i+`">
+                                    <option value="0" selected>0%</option>
+                                    <option value="1">1%</option>
+                                    <option value="10">10%</option>
+                                    <option value="18">18%</option>
+                                    <option value="40">40%</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="dropdown-divider my-1"></div>
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-outline-primary btn-apply-changes" onclick="itemFunction(`+i+`)">Apply</button>
+                            <button type="button" class="btn btn-outline-secondary">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        `)
+    });
+
+
+    function itemFunction(id){
+        var cost = $('.cost'+id).val();
+        var qty = $('.qty'+id).val();
+        var discount_val = $('.discount_val'+id).val();
+        if(discount_val == ''){discount_val = 0;}
+        var tax1_val = parseInt($('.tax1_val'+id).val());
+        var tax2_val = parseInt($('.tax2_val'+id).val());
+        var total = cost * qty
+        $('.discount_text'+id).text(discount_val+'%');
+        $('.tax1_text'+id).text(tax1_val+'%');
+        $('.tax2_text'+id).text(tax2_val+'%');
+        var charges = parseInt(discount_val) + tax1_val + tax2_val;
+        $('.price_val'+id).val(total);
+        $('.price_text'+id).text('$'+total);
+        console.log(charges);
+    }
+</script>
+@endpush

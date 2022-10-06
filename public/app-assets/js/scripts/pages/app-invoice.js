@@ -31,7 +31,7 @@ $(function () {
       'App Development': 'Native App Development.'
     },
     customerDetails = {
-      shelby: {
+      1: {
         name: 'Thomas Shelby',
         company: 'Shelby Company Limited',
         address: 'Small Heath, Birmingham',
@@ -40,7 +40,7 @@ $(function () {
         tel: 'Tel: 718-986-6062',
         email: 'peakyFBlinders@gmail.com'
       },
-      hunters: {
+      2: {
         name: 'Dean Winchester',
         company: 'Hunters Corp',
         address: '951  Red Hawk Road Minnesota,',

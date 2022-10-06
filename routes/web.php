@@ -15,6 +15,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ReviewController;
@@ -189,6 +190,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('review/edit/{id}', [ReviewController::class, 'edit'])->name('review.edit');
     Route::post('review/update/{id}', [ReviewController::class, 'update'])->name('review.update');
     Route::get('review/delete/{id}', [ReviewController::class, 'destroy'])->name('review.delete');
+
+    Route::resource('customers',CustomerController::class);
 
     Route::prefix('account')->group(function () {
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
