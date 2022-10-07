@@ -1,3 +1,7 @@
+@push('styles')
+<link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/pages/app-invoice.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/plugins/forms/pickers/form-flat-pickr.css')}}">
+@endpush
 @section('title','Invoice Preview')
 @extends('layouts.app')
 @section('content')
@@ -52,15 +56,15 @@
                                     <div class="mt-md-0 mt-2">
                                         <h4 class="invoice-title">
                                             Invoice
-                                            <span class="invoice-number">#3492</span>
+                                            <span class="invoice-number">#{{$invoice->invoice_no}}</span>
                                         </h4>
                                         <div class="invoice-date-wrapper">
                                             <p class="invoice-date-title">Date Issued:</p>
-                                            <p class="invoice-date">25/08/2020</p>
+                                            <p class="invoice-date">{{$invoice->date}}</p>
                                         </div>
                                         <div class="invoice-date-wrapper">
                                             <p class="invoice-date-title">Due Date:</p>
-                                            <p class="invoice-date">29/08/2020</p>
+                                            <p class="invoice-date">{{$invoice->due_date}}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -74,11 +78,10 @@
                                 <div class="row invoice-spacing">
                                     <div class="col-xl-8 p-0">
                                         <h6 class="mb-2">Invoice To:</h6>
-                                        <h6 class="mb-25">Thomas shelby</h6>
-                                        <p class="card-text mb-25">Shelby Company Limited</p>
-                                        <p class="card-text mb-25">Small Heath, B10 0HF, UK</p>
-                                        <p class="card-text mb-25">718-986-6062</p>
-                                        <p class="card-text mb-0">peakyFBlinders@gmail.com</p>
+                                        <h6 class="mb-25">{{$invoice->customer->name}}</h6>
+                                        <p class="card-text mb-25">{{$invoice->customer->address}}, {{$invoice->customer->country}}</p>
+                                        <p class="card-text mb-25">{{$invoice->customer->country}}</p>
+                                        <p class="card-text mb-0">{{$invoice->customer->contact}}</p>
                                     </div>
                                     <div class="col-xl-4 p-0 mt-xl-0 mt-2">
                                         <h6 class="mb-2">Payment Details:</h6>
@@ -86,23 +89,23 @@
                                             <tbody>
                                                 <tr>
                                                     <td class="pe-1">Total Due:</td>
-                                                    <td><span class="fw-bold">$12,110.55</span></td>
+                                                    <td><span class="fw-bold">${{$invoice->total_due}}</span></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="pe-1">Bank name:</td>
-                                                    <td>American Bank</td>
+                                                    <td>{{$invoice->bank_name}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="pe-1">Country:</td>
-                                                    <td>United States</td>
+                                                    <td>{{$invoice->country}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="pe-1">IBAN:</td>
-                                                    <td>ETD95476213874685</td>
+                                                    <td>{{$invoice->iban}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="pe-1">SWIFT code:</td>
-                                                    <td>BR91905</td>
+                                                    <td>{{$invoice->swift_code}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -118,43 +121,32 @@
                                         <tr>
                                             <th class="py-1">Task description</th>
                                             <th class="py-1">Rate</th>
-                                            <th class="py-1">Hours</th>
+                                            <th class="py-1">Qty</th>
                                             <th class="py-1">Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+
+                                        @foreach ($invoice->invoice_payments as $payment)
+
+                                        <tr class="border-bottom">
                                             <td class="py-1">
-                                                <p class="card-text fw-bold mb-25">Native App Development</p>
+                                                <p class="card-text fw-bold mb-25">{{$payment->item}}</p>
                                                 <p class="card-text text-nowrap">
-                                                    Developed a full stack native app using React Native, Bootstrap & Python
+                                                    {{$payment->item_desc}}
                                                 </p>
                                             </td>
                                             <td class="py-1">
-                                                <span class="fw-bold">$60.00</span>
+                                                <span class="fw-bold">${{$payment->cost}}</span>
                                             </td>
                                             <td class="py-1">
-                                                <span class="fw-bold">30</span>
+                                                <span class="fw-bold">{{$payment->quantity}}</span>
                                             </td>
                                             <td class="py-1">
-                                                <span class="fw-bold">$1,800.00</span>
+                                                <span class="fw-bold">${{$payment->cost * $payment->quantity}}</span>
                                             </td>
                                         </tr>
-                                        <tr class="border-bottom">
-                                            <td class="py-1">
-                                                <p class="card-text fw-bold mb-25">Ui Kit Design</p>
-                                                <p class="card-text text-nowrap">Designed a UI kit for native app using Sketch, Figma & Adobe XD</p>
-                                            </td>
-                                            <td class="py-1">
-                                                <span class="fw-bold">$60.00</span>
-                                            </td>
-                                            <td class="py-1">
-                                                <span class="fw-bold">20</span>
-                                            </td>
-                                            <td class="py-1">
-                                                <span class="fw-bold">$1200.00</span>
-                                            </td>
-                                        </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -163,27 +155,32 @@
                                 <div class="row invoice-sales-total-wrapper">
                                     <div class="col-md-6 order-md-1 order-2 mt-md-0 mt-3">
                                         <p class="card-text mb-0">
-                                            <span class="fw-bold">Salesperson:</span> <span class="ms-75">Alfie Solomons</span>
+                                            <span class="fw-bold">Salesperson:</span> <span class="ms-75">{{$invoice->sales_person}}</span>
                                         </p>
                                     </div>
                                     <div class="col-md-6 d-flex justify-content-end order-md-2 order-1">
                                         <div class="invoice-total-wrapper">
                                             <div class="invoice-total-item">
                                                 <p class="invoice-total-title">Subtotal:</p>
-                                                <p class="invoice-total-amount">$1800</p>
+                                                <p class="invoice-total-amount">${{$invoice->invoice_payments->sum('price')}}</p>
                                             </div>
+                                            @php
+                                                $discount = $invoice->invoice_payments->sum('discount') ?? 0;
+                                                $tax1 = $invoice->invoice_payments->sum('tax1') ?? 0;
+                                                $tax2 = $invoice->invoice_payments->sum('tax2') ?? 0;
+                                            @endphp
                                             <div class="invoice-total-item">
                                                 <p class="invoice-total-title">Discount:</p>
-                                                <p class="invoice-total-amount">$28</p>
+                                                <p class="invoice-total-amount">${{$discount}}</p>
                                             </div>
                                             <div class="invoice-total-item">
                                                 <p class="invoice-total-title">Tax:</p>
-                                                <p class="invoice-total-amount">21%</p>
+                                                <p class="invoice-total-amount">{{ $tax1 + $tax2}}%</p>
                                             </div>
                                             <hr class="my-50" />
                                             <div class="invoice-total-item">
                                                 <p class="invoice-total-title">Total:</p>
-                                                <p class="invoice-total-amount">$1690</p>
+                                                <p class="invoice-total-amount">${{$invoice->invoice_payments->sum('price') - ($discount + $tax1 + $tax2)}}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -198,8 +195,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <span class="fw-bold">Note:</span>
-                                        <span>It was a pleasure working with you and your team. We hope you will keep us in mind for future freelance
-                                            projects. Thank You!</span>
+                                        <span>{{$invoice->note}}</span>
                                     </div>
                                 </div>
                             </div>
@@ -216,8 +212,8 @@
                                     Send Invoice
                                 </button>
                                 <button class="btn btn-outline-secondary w-100 btn-download-invoice mb-75">Download</button>
-                                <a class="btn btn-outline-secondary w-100 mb-75" href="./app-invoice-print.html" target="_blank"> Print </a>
-                                <a class="btn btn-outline-secondary w-100 mb-75" href="./app-invoice-edit.html"> Edit </a>
+                                <a class="btn btn-outline-secondary w-100 mb-75" href="{{route('invoice.print',$invoice->id)}}" target="_blank"> Print </a>
+                                <a class="btn btn-outline-secondary w-100 mb-75" href="{{route('invoice.edit',$invoice->id)}}"> Edit </a>
                                 <button class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#add-payment-sidebar">
                                     Add Payment
                                 </button>
@@ -335,3 +331,9 @@ We would appreciate payment of this invoice by 05/11/2019</textarea>
 <!-- END: Content-->
 
 @endsection
+
+@push('scripts')
+
+    <!-- BEGIN: Page JS-->
+    <script src="{{asset('app-assets/js/scripts/pages/app-invoice.js')}}"></script>
+@endpush

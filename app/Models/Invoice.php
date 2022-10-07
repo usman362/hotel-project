@@ -27,9 +27,9 @@ class Invoice extends Model
        'payment_sub',
     ];
 
-    public function payments()
+    public function invoice_payments()
     {
-        return $this->hasMany(InvoicePayment::class, 'id', 'invoice_id');
+        return $this->hasMany(InvoicePayment::class, 'invoice_id', 'id');
     }
 
 

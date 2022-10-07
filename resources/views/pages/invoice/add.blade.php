@@ -22,6 +22,7 @@
             <section class="invoice-add-wrapper">
                 <form action="{{route('invoice.store')}}" method="post">
                     @csrf
+                    <input type="hidden" name="invoice_type" id="invoice_type">
                     <div class="row invoice-add">
                     <!-- Invoice Add Left starts -->
                     <div class="col-xl-9 col-md-8 col-12">
@@ -292,8 +293,8 @@
                     <div class="col-xl-3 col-md-4 col-12">
                         <div class="card">
                             <div class="card-body">
-                                <button class="btn btn-primary w-100 mb-75" disabled>Send Invoice</button>
-                                <a href="./app-invoice-preview.html" class="btn btn-outline-primary w-100 mb-75">Preview</a>
+                                <button type="submit" class="btn btn-primary send_invoice w-100 mb-75" disabled>Send Invoice</button>
+                                <button type="submit" class="btn btn-outline-primary w-100 mb-75 preview_invoice">Preview</a>
                                 <button type="submit" class="btn btn-outline-primary w-100">Save</button>
                             </div>
                         </div>
@@ -485,6 +486,13 @@
         `)
     });
 
+    $('.preview_invoice').click(function(){
+        $('#invoice_type').val('preview');
+    });
+
+    $('.send_invoice').click(function(){
+        $('#invoice_type').val('send');
+    });
 
     function itemFunction(id){
         var cost = $('.cost'+id).val();

@@ -18,12 +18,12 @@ return new class extends Migration
             $table->integer('invoice_id');
             $table->string('item')->nullable();
             $table->string('item_desc')->nullable();
-            $table->string('cost')->nullable();
-            $table->string('discount')->nullable();
-            $table->string('tax1')->nullable();
-            $table->string('tax2')->nullable();
-            $table->string('quantity')->nullable();
-            $table->string('price')->nullable();
+            $table->integer('cost')->nullable();
+            $table->integer('discount')->default(0);
+            $table->integer('tax1')->default(0);
+            $table->integer('tax2')->default(0);
+            $table->integer('quantity')->nullable();
+            $table->integer('price')->nullable();
             $table->timestamps();
         });
     }

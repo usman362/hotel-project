@@ -167,8 +167,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('invoice/edit/{id}', [InvoiceController::class, 'edit'])->name('invoice.edit');
     Route::post('invoice/update/{id}', [InvoiceController::class, 'update'])->name('invoice.update');
     Route::get('invoice/delete/{id}', [InvoiceController::class, 'destroy'])->name('invoice.delete');
-    Route::get('invoice/preview', [InvoiceController::class, 'preview'])->name('invoice.preview');
-    Route::get('invoice/print', [InvoiceController::class, 'print'])->name('invoice.print');
+    Route::get('invoice/preview/{id}', [InvoiceController::class, 'preview'])->name('invoice.preview');
+    Route::get('invoice/print/{id}', [InvoiceController::class, 'print'])->name('invoice.print');
 
     Route::get('blogCategory', [BlogCategoryController::class, 'showCategory'])->name('category.index');
     Route::get('blogCategory/add', [BlogCategoryController::class, 'addCategory'])->name('category.create');
