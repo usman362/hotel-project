@@ -16,7 +16,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoice = Invoice::with(['invoice_payments','customer'])->get();
+        $invoices = Invoice::with(['invoice_payments','customer'])->get();
         return view('pages.invoice.index',compact('invoices'));
     }
 
