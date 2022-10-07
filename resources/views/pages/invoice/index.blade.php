@@ -36,6 +36,20 @@
                                     <th class="cell-fit">Actions</th>
                                 </tr>
                             </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
