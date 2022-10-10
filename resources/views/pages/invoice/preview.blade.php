@@ -235,29 +235,23 @@
                             </h5>
                         </div>
                         <div class="modal-body flex-grow-1">
-                            <form>
+                            <form action="{{route('invoice.mail')}}" enctype="multipart/form-data">
+                                <input type="hidden" name="invoice_id" id="">
                                 <div class="mb-1">
                                     <label for="invoice-from" class="form-label">From</label>
-                                    <input type="text" class="form-control" id="invoice-from" value="shelbyComapny@email.com" placeholder="company@email.com" />
+                                    <input type="email" class="form-control" name="invoice_from" id="invoice_from" value="" placeholder="company@email.com" />
                                 </div>
                                 <div class="mb-1">
                                     <label for="invoice-to" class="form-label">To</label>
-                                    <input type="text" class="form-control" id="invoice-to" value="qConsolidated@email.com" placeholder="company@email.com" />
+                                    <input type="email" class="form-control" name="invoice_to" id="invoice_to" value="" placeholder="company@email.com" />
                                 </div>
                                 <div class="mb-1">
                                     <label for="invoice-subject" class="form-label">Subject</label>
-                                    <input type="text" class="form-control" id="invoice-subject" value="Invoice of purchased Admin Templates" placeholder="Invoice regarding goods" />
+                                    <input type="text" class="form-control" name="invoice_subject" id="invoice_subject" value="" placeholder="Invoice regarding goods" />
                                 </div>
                                 <div class="mb-1">
                                     <label for="invoice-message" class="form-label">Message</label>
-                                    <textarea class="form-control" name="invoice-message" id="invoice-message" cols="3" rows="11" placeholder="Message...">
-Dear Queen Consolidated,
-
-Thank you for your business, always a pleasure to work with you!
-
-We have generated a new invoice in the amount of $95.59
-
-We would appreciate payment of this invoice by 05/11/2019</textarea>
+                                    <textarea class="form-control" name="invoice_message" id="invoice_message" cols="3" rows="11" placeholder="Message..."></textarea>
                                 </div>
                                 <div class="mb-1">
                                     <span class="badge badge-light-primary">
@@ -266,7 +260,7 @@ We would appreciate payment of this invoice by 05/11/2019</textarea>
                                     </span>
                                 </div>
                                 <div class="mb-1 d-flex flex-wrap mt-2">
-                                    <button type="button" class="btn btn-primary me-1" data-bs-dismiss="modal">Send</button>
+                                    <button type="submit" class="btn btn-primary me-1" >Send</button>
                                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                                 </div>
                             </form>

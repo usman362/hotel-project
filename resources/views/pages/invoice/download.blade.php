@@ -2,10 +2,371 @@
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
-@include('partials.header')
+<style>
+    html,
+body {
+  background: #fff !important; }
+
+.invoice-print {
+  min-width: 768px !important;
+  font-size: 15px !important; }
+
+.invoice-print .invoice-date-wrapper {
+  display: flex;
+  align-items: center; }
+
+.invoice-print .invoice-date-wrapper .invoice-date-title {
+  width: 8rem; }
+
+.invoice-print i,
+.invoice-print svg {
+  fill: #6e6b7b !important; }
+
+.invoice-print .invoice-total-wrapper .invoice-total-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; }
+
+.invoice-print .invoice-total-wrapper .invoice-total-item .invoice-total-title {
+  margin-bottom: 0.35rem; }
+
+.invoice-print .invoice-total-wrapper .invoice-total-item .invoice-total-amount {
+  margin-bottom: 0.35rem;
+  font-weight: 600; }
+
+@media print {
+  .invoice-print {
+    padding: 0px !important; }
+  .invoice-header {
+    border-bottom: 1px solid #ebe9f1;
+    flex-direction: row !important;
+    margin-bottom: 3rem;
+    padding-right: 5rem; }
+  .table-responsive {
+    overflow-x: hidden; }
+  hr {
+    display: none; } }
 
 
-<link rel="stylesheet" type="text/css" href="{{asset('app-assets/css/pages/app-invoice-print.css')}}">
+
+    .vertical-layout.vertical-menu-modern.menu-collapsed .app-content, .vertical-layout.vertical-menu-modern.menu-collapsed .footer {
+    margin-left: 80px;
+}
+
+html .blank-page .content.app-content {
+    overflow: overlay;
+    overflow-x: hidden;
+    padding: 0 !important;
+    transition: none;
+}
+
+html .content.app-content .content-overlay {
+    position: fixed;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(34, 41, 47, 0.5);
+    cursor: pointer;
+    transition: all 0.7s, z-index 0s;
+    z-index: -1;
+}
+
+html .blank-page .content-wrapper {
+    padding: 0 !important;
+}
+
+.p-3 {
+    padding: 3rem !important;
+}
+.invoice-print * {
+    border-color: rgba(34, 41, 47, 0.5) !important;
+    color: #6e6b7b !important;
+}
+
+.mb-1 {
+    margin-bottom: 1rem !important;
+}
+.d-flex {
+    display: flex !important;
+}
+.invoice-print i, .invoice-print svg {
+    fill: #6e6b7b !important;
+}
+
+.text-primary {
+    --bs-text-opacity: 1;
+    color: rgba(var(--bs-primary-rgb), var(--bs-text-opacity)) !important;
+}
+
+.fw-bold {
+    font-weight: 500 !important;
+}
+.ms-1 {
+    margin-left: 1rem !important;
+}
+
+.text-end {
+    text-align: right !important;
+}
+
+.invoice-print .invoice-date-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.invoice-print .invoice-date-wrapper .invoice-date-title {
+    width: 8rem;
+}
+
+hr:not([size]) {
+    height: 1px;
+}
+
+table {
+    caption-side: bottom;
+    border-collapse: collapse;
+}
+
+thead, tbody, tfoot, tr, td, th {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
+}
+
+.pe-1 {
+    padding-right: 1rem !important;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #ebe9f1 !important;
+}
+
+.table > :not(caption) > * > * {
+    padding: 0.72rem 2rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 1px;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+
+.py-1 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+}
+
+.card-text:last-child {
+    margin-bottom: 0;
+}
+
+.text-nowrap {
+    white-space: nowrap !important;
+}
+
+.mt-3 {
+    margin-top: 3rem !important;
+}
+
+.mt-2 {
+    margin-top: 1.5rem !important;
+}
+h4, .h4 {
+    font-size: calc(1.2536rem + 0.0432vw);
+}
+
+.row {
+    --bs-gutter-x: 2rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(var(--bs-gutter-y) * -1);
+    margin-right: calc(var(--bs-gutter-x) * -.5);
+    margin-left: calc(var(--bs-gutter-x) * -.5);
+}
+
+.pb-2 {
+    padding-bottom: 1.5rem !important;
+}
+.justify-content-between {
+    justify-content: space-between !important;
+}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #5e5873;
+}
+
+.my-2 {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+hr {
+    margin: 1rem 0;
+    color: #ebe9f1;
+    background-color: currentColor;
+    border: 0;
+    opacity: 1;
+}
+
+.d-flex {
+    display: flex !important;
+}
+
+@media (min-width: 576px){
+.col-sm-6 {
+    flex: 0 0 auto;
+    width: 50%;
+}
+.mt-sm-0 {
+    margin-top: 0 !important;
+}
+}
+
+@media (min-width: 768px){
+.order-md-2 {
+    order: 2 !important;
+}
+
+.mt-md-0 {
+margin-top: 0 !important;
+}
+.order-md-1 {
+order: 1 !important;
+}
+.col-md-6 {
+    flex: 0 0 auto;
+    width: 50%;
+}
+
+.order-md-1 {
+    order: 1 !important;
+}
+
+.mt-md-0 {
+    margin-top: 0 !important;
+}
+
+.col-md-6 {
+    flex: 0 0 auto;
+    width: 50%;
+}
+}
+.order-1 {
+    order: 1 ;
+}
+
+.mb-2 {
+    margin-bottom: 1.5rem !important;
+}
+
+h6, .h6 {
+    font-size: 1rem;
+}
+
+.mb-25 {
+    margin-bottom: 0.25rem !important;
+}
+
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
+.mb-1 {
+    margin-bottom: 1rem !important;
+}
+.mt-2 {
+    margin-top: 1.5rem !important;
+}
+
+
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-accent-bg: transparent;
+    --bs-table-striped-color: #6e6b7b;
+    --bs-table-striped-bg: #fafafc;
+    --bs-table-active-color: #6e6b7b;
+    --bs-table-active-bg: rgba(34, 41, 47, 0.1);
+    --bs-table-hover-color: #6e6b7b;
+    --bs-table-hover-bg: #f6f6f9;
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #6e6b7b;
+    vertical-align: middle;
+    border-color: #ebe9f1;
+}
+
+.table > thead {
+    vertical-align: bottom;
+}
+
+.table:not(.table-dark):not(.table-light) thead:not(.table-dark) th, .table:not(.table-dark):not(.table-light) tfoot:not(.table-dark) th {
+    background-color: #f3f2f7;
+}
+
+.table > :not(:last-child) > :last-child > * {
+    border-bottom-color: #ebe9f1;
+}
+.table thead th, .table tfoot th {
+    vertical-align: top;
+    text-transform: uppercase;
+    font-size: 0.857rem;
+    letter-spacing: 0.5px;
+}
+
+.table > tbody {
+    vertical-align: inherit;
+}
+
+@media (max-width: 768px){
+
+.flex-column {
+    flex-direction: column !important;
+}
+}
+
+@media (min-width: 1200px){
+h3, .h3 {
+    font-size: 1.5rem;
+}
+}
+
+.mt-3 {
+    margin-top: 3rem !important;
+}
+.order-2 {
+    order: 2 !important;
+}
+
+.ms-75 {
+    margin-left: 0.75rem !important;
+}
+
+.justify-content-end {
+    justify-content: flex-end !important;
+}
+
+.invoice-print .invoice-total-wrapper {
+    width: 100%;
+    max-width: 12rem;
+}
+
+.col-12 {
+    flex: 0 0 auto;
+    width: 100%;
+}
+</style>
 
 @section('title','Invoice Print')
 <!-- BEGIN: Body-->

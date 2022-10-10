@@ -203,8 +203,11 @@ class InvoiceController extends Controller
     {
         $invoice = Invoice::with(['invoice_payments','customer'])->find($id);
         $data = ['invoice' => $invoice];
-        $pdf = PDF::loadView('pages.invoice.print', $data)->setOptions(['defaultFont' => 'sans-serif']);
-
+        $pdf = PDF::loadView('pages.invoice.download', $data)->setOptions(['defaultFont' => 'sans-serif']);
         return $pdf->download('invoice.pdf');
+    }
+
+    public function mail(Request $request){
+        dd($request->invoice_message);
     }
 }

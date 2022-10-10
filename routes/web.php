@@ -171,6 +171,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('invoice/print/{id}', [InvoiceController::class, 'print'])->name('invoice.print');
     Route::post('invoice/payment', [InvoiceController::class, 'store_payment'])->name('invoice.payment');
     Route::get('invoice/pdf/{id}', [InvoiceController::class, 'pdf'])->name('invoice.pdf');
+    Route::get('invoice/mail', [InvoiceController::class, 'mail'])->name('invoice.mail');
 
     Route::get('blogCategory', [BlogCategoryController::class, 'showCategory'])->name('category.index');
     Route::get('blogCategory/add', [BlogCategoryController::class, 'addCategory'])->name('category.create');
