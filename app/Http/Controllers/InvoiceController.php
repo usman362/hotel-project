@@ -7,6 +7,7 @@ use App\Models\Invoice;
 use App\Models\InvoicePayment;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 class InvoiceController extends Controller
 {
     /**
@@ -188,4 +189,25 @@ class InvoiceController extends Controller
         return view('pages.invoice.print',compact('invoice'));
     }
 
+    public function store_payment(Request $request){
+        $invoice = Invoice::find($request->invoice_id);
+        $invoice->payment_amount = $request->payment_amount;
+        $invoice->payment_date = $request->payment_date;
+        $invoice->payment_type = $request->payment_type;
+        $invoice->internal_payment_note = $request->internal_payment_note;
+        $invoice->save();
+        return back()->with('success','Payment has been Added Successfully');
+    }
+
+    public function pdf($id)
+    {
+        $invoice = Invoice::with(['invoice_payments','customer'])->find($id);
+        $data = ['invoice' => $invoice];
+        $pdf = PDF::loadView('pages.invoice.download', $data)->setOptions(['defaultFont' => 'sans-serif']);
+        return $pdf->download('invoice.pdf');
+    }
+
+    public function mail(Request $request){
+        dd($request->invoice_message);
+    }
 }

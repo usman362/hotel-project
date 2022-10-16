@@ -391,7 +391,7 @@
                                 </button>
                                 <button type="submit" class="btn btn-outline-primary w-100 mb-75 preview_invoice">Preview</a>
                                 <button type="submit" class="btn btn-outline-primary w-100 mb-75">Save</button>
-                                <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#add-payment-sidebar">
+                                <button type="button" class="btn btn-success w-100 add_payment" data-bs-toggle="modal" data-balance="{{$invoice->invoice_payments->sum('price') - ($discount + $tax1 + $tax2)}}"  data-bs-target="#add-payment-sidebar">
                                     Add Payment
                                 </button>
                             </div>
@@ -557,21 +557,23 @@ We would appreciate payment of this invoice by 05/11/2019</textarea>
                 </h5>
             </div>
             <div class="modal-body flex-grow-1">
-                <form>
+                <form action="{{route('invoice.payment')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="invoice_id" value="{{$invoice->id}}">
                     <div class="mb-1">
                         <input id="balance" class="form-control" type="text" value="Invoice Balance: 5000.00" disabled />
                     </div>
                     <div class="mb-1">
-                        <label class="form-label" for="amount">Payment Amount</label>
-                        <input id="amount" class="form-control" type="number" placeholder="$1000" />
+                        <label class="form-label" for="payment_amount">Payment Amount</label>
+                        <input id="payment_amount" name="payment_amount" class="form-control" type="number" placeholder="$1000" />
                     </div>
                     <div class="mb-1">
-                        <label class="form-label" for="payment-date">Payment Date</label>
-                        <input id="payment-date" class="form-control date-picker" type="text" />
+                        <label class="form-label" for="payment_date">Payment Date</label>
+                        <input id="payment_date" name="payment_date" class="form-control date-picker" type="text" />
                     </div>
                     <div class="mb-1">
-                        <label class="form-label" for="payment-method">Payment Method</label>
-                        <select class="form-select" id="payment-method">
+                        <label class="form-label" for="payment_type">Payment Method</label>
+                        <select class="form-select" id="payment_type" name="payment_type">
                             <option value="" selected disabled>Select payment method</option>
                             <option value="Cash">Cash</option>
                             <option value="Bank Transfer">Bank Transfer</option>
@@ -581,11 +583,11 @@ We would appreciate payment of this invoice by 05/11/2019</textarea>
                         </select>
                     </div>
                     <div class="mb-1">
-                        <label class="form-label" for="payment-note">Internal Payment Note</label>
-                        <textarea class="form-control" id="payment-note" rows="5" placeholder="Internal Payment Note"></textarea>
+                        <label class="form-label" for="internal_payment_note">Internal Payment Note</label>
+                        <textarea class="form-control" id="internal_payment_note" name="internal_payment_note" rows="5" placeholder="Internal Payment Note"></textarea>
                     </div>
                     <div class="d-flex flex-wrap mb-0">
-                        <button type="button" class="btn btn-primary me-1" data-bs-dismiss="modal">Send</button>
+                        <button type="submit" class="btn btn-primary me-1" >Send</button>
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
@@ -775,6 +777,11 @@ $.ajax({
 })
 
 });
+
+$('.add_payment').click(function(){
+            var balance = $(this).data('balance');
+            $('#balance').val('Invoice Balance: '+balance);
+        })
 
 </script>
 @endpush
