@@ -16,6 +16,7 @@ use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\FileManagerController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ReviewController;
@@ -37,9 +38,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return redirect('program');
-});
+
 
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');
@@ -58,22 +57,32 @@ Route::get('/clear-cache', function() {
 //     }
 // });
 
-
+// Frontend Routes...
 Route::view('home','frontend.pages.index');
 
+// Tour Routes
 Route::get('tour-details/{slug}', [ProgramController::class, 'tour_detail'])->name('tour.detail');
+
+
+// Admin Panel Routes....
 
 // Documentations pages
 Route::prefix('documentation')->group(function () {
     Route::get('getting-started/references', [ReferencesController::class, 'index']);
     Route::get('getting-started/changelog', [PagesController::class, 'index']);
 });
+
+// 2fa
 Route::post('2fa', [TwoFAController::class, 'store'])->name('2fa.post');
 Route::get('2fa/reset', [TwoFAController::class, 'resend'])->name('2fa.resend');
 Route::get('2fa', [App\Http\Controllers\TwoFAController::class, 'index'])->name('2fa.index');
-// 2fa
-Route::middleware(['auth'])->group(function () {
 
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+        return redirect('program');
+    });
+
+    // Settings Routes..
     Route::get('global', [SettingController::class, 'global'])->name('setting.global');
     Route::post('global', [SettingController::class, 'globalPost'])->name('setting.Postglobal');
     Route::get('account', [SettingController::class, 'account'])->name('setting.account');
@@ -102,6 +111,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('users/update/{id}', [SettingController::class, 'UpdateUser'])->name('setting.UpdateUser');
     Route::get('users/delete/{id}', [SettingController::class, 'DeleteUser'])->name('setting.DeleteUser');
 
+    // Booking Routes
+
     Route::get('bookings', [BookingController::class, 'index'])->name('bookings.index');
     Route::get('booking/{id}', [BookingController::class, 'show'])->name('bookings.show');
     Route::get('booking/add', [BookingController::class, 'create'])->name('bookings.create');
@@ -110,6 +121,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('booking/update/{id}', [BookingController::class, 'update'])->name('bookings.update');
     Route::get('booking/delete/{id}', [BookingController::class, 'destroy'])->name('bookings.delete');
 
+    // Destination Routes
 
     Route::get('destination', [DestinationController::class, 'index'])->name('destination.index');
     Route::get('destination/add', [DestinationController::class, 'create'])->name('destination.create');
@@ -125,12 +137,16 @@ Route::middleware(['auth'])->group(function () {
     // Route::post('program/update/{id}', [ProgramController::class, 'update'])->name('program.update');
     // Route::get('program/delete/{id}', [ProgramController::class, 'destroy'])->name('program.delete');
 
+    //Activity Routes
+
     Route::get('activity', [ActivityController::class, 'index'])->name('activity.index');
     Route::get('activity/add', [ActivityController::class, 'create'])->name('activity.create');
     Route::post('activity/add', [ActivityController::class, 'store'])->name('activity.store');
     Route::get('activity/edit/{id}', [ActivityController::class, 'edit'])->name('activity.edit');
     Route::post('activity/update/{id}', [ActivityController::class, 'update'])->name('activity.update');
     Route::get('activity/delete/{id}', [ActivityController::class, 'destroy'])->name('activity.delete');
+
+    // Region Routes
 
     Route::get('region', [RegionController::class, 'index'])->name('region.index');
     Route::get('region/add', [RegionController::class, 'create'])->name('region.create');
@@ -139,6 +155,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('region/update/{id}', [RegionController::class, 'update'])->name('region.update');
     Route::get('region/delete/{id}', [RegionController::class, 'destroy'])->name('region.delete');
 
+    // Pages Routes
+
     Route::get('pages', [PageController::class, 'index'])->name('page.index');
     Route::get('page/add', [PageController::class, 'create'])->name('page.create');
     Route::post('page/add', [PageController::class, 'store'])->name('page.store');
@@ -146,6 +164,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('page/update/{id}', [PageController::class, 'update'])->name('page.update');
     Route::get('page/delete/{id}', [PageController::class, 'destroy'])->name('page.delete');
 
+    //Program Routes
 
     Route::get('program', [ProgramController::class, 'index'])->name('program.index');
     Route::get('program/add', [ProgramController::class, 'create'])->name('program.create');
@@ -154,12 +173,16 @@ Route::middleware(['auth'])->group(function () {
     Route::post('program/update/{id}', [ProgramController::class, 'update'])->name('program.update');
     Route::get('program/delete/{id}', [ProgramController::class, 'destroy'])->name('program.delete');
 
+    // Teams Routes
+
     Route::get('teams', [TeamController::class, 'index'])->name('team.index');
     Route::get('team/add', [TeamController::class, 'create'])->name('team.create');
     Route::post('team/add', [TeamController::class, 'store'])->name('team.store');
     Route::get('team/edit/{id}', [TeamController::class, 'edit'])->name('team.edit');
     Route::post('team/update/{id}', [TeamController::class, 'update'])->name('team.update');
     Route::get('team/delete/{id}', [TeamController::class, 'destroy'])->name('team.delete');
+
+    // Invoice Routes
 
     Route::get('invoices', [InvoiceController::class, 'index'])->name('invoice.index');
     Route::get('invoice/add', [InvoiceController::class, 'create'])->name('invoice.create');
@@ -169,6 +192,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('invoice/delete/{id}', [InvoiceController::class, 'destroy'])->name('invoice.delete');
     Route::get('invoice/preview/{id}', [InvoiceController::class, 'preview'])->name('invoice.preview');
     Route::get('invoice/print/{id}', [InvoiceController::class, 'print'])->name('invoice.print');
+
+    // Blog Routes
 
     Route::get('blogCategory', [BlogCategoryController::class, 'showCategory'])->name('category.index');
     Route::get('blogCategory/add', [BlogCategoryController::class, 'addCategory'])->name('category.create');
@@ -184,6 +209,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('messages', [MesaageController::class, 'index'])->name('messages.index');
     Route::get('messages/show', [MesaageController::class, 'show'])->name('messages.view');
 
+    // Review Routes
+
     Route::get('review', [ReviewController::class, 'index'])->name('review.index');
     Route::get('review/add', [ReviewController::class, 'create'])->name('review.create');
     Route::post('review/add', [ReviewController::class, 'store'])->name('review.store');
@@ -193,6 +220,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('customers',CustomerController::class);
     Route::get('getCustomer',[CustomerController::class,'getCustomer'])->name('get.Customer');
+
+    Route::resource('file-manager',FileManagerController::class);
 
     Route::prefix('account')->group(function () {
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
