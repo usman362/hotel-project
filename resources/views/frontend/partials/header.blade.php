@@ -539,9 +539,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="top-nav-item"><a href="./faqs.html">Support</a></div>
-                    <div class="top-nav-item"><a href="./blogs.html">Blog</a></div>
-                    <div class="top-nav-item"><a href="./contact.html">Contact</a></div>
+                    <div class="top-nav-item"><a href="{{route('faqs')}}">Support</a></div>
+                    <div class="top-nav-item"><a href="{{route('blogs')}}">Blog</a></div>
+                    <div class="top-nav-item"><a href="{{route('contact')}}">Contact</a></div>
 
                 </div>
                 <div class="d-flex">

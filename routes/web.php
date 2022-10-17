@@ -17,6 +17,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FileManagerController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ReviewController;
@@ -58,10 +59,23 @@ Route::get('/clear-cache', function() {
 // });
 
 // Frontend Routes...
-Route::view('home','frontend.pages.index');
-
-// Tour Routes
-Route::get('tour-details/{slug}', [ProgramController::class, 'tour_detail'])->name('tour.detail');
+Route::get('/',[HomeController::class,'index'])->name('home');
+Route::get('/about-us',[HomeController::class,'about'])->name('about');
+Route::get('/activities',[HomeController::class,'activities'])->name('activities');
+Route::get('/activities-2',[HomeController::class,'activities2'])->name('activities2');
+Route::get('/destinations',[HomeController::class,'destination'])->name('destinations');
+Route::get('/destinations-2',[HomeController::class,'destination2'])->name('destinations2');
+Route::get('/blogs',[HomeController::class,'blogs'])->name('blogs');
+Route::get('/blog-detail',[HomeController::class,'blogDetail'])->name('blog.detail');
+Route::get('/bookings',[HomeController::class,'booking'])->name('bookings');
+Route::get('/contact-us',[HomeController::class,'contact'])->name('contact');
+Route::get('/faqs',[HomeController::class,'faq'])->name('faqs');
+Route::get('/general',[HomeController::class,'general'])->name('general');
+Route::get('/our-clients',[HomeController::class,'our_client'])->name('our.client');
+Route::get('/our-teams',[HomeController::class,'our_team'])->name('our.team');
+Route::get('/reviews',[HomeController::class,'review'])->name('reviews');
+Route::get('/search',[HomeController::class,'search'])->name('search');
+Route::get('tour-details/{slug}', [HomeController::class, 'tour_detail'])->name('tour.detail');
 
 
 // Admin Panel Routes....
@@ -78,10 +92,6 @@ Route::get('2fa/reset', [TwoFAController::class, 'resend'])->name('2fa.resend');
 Route::get('2fa', [App\Http\Controllers\TwoFAController::class, 'index'])->name('2fa.index');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', function () {
-        return redirect('program');
-    });
-
     // Settings Routes..
     Route::get('global', [SettingController::class, 'global'])->name('setting.global');
     Route::post('global', [SettingController::class, 'globalPost'])->name('setting.Postglobal');
