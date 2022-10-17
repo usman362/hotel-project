@@ -13,15 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('file_managers', function (Blueprint $table) {
+        Schema::create('uploads', function (Blueprint $table) {
             $table->id();
-            $table->integer('folder_id')->nullable();
-            $table->string('name')->nullable();
-            $table->string('file');
-            $table->string('file_type')->nullable();
+            $table->integer('file_original_name')->nullable();
+            $table->string('file_name')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->string('extension')->nullable();
             $table->float('file_size')->nullable();
-            $table->string('date');
+            $table->string('type')->nullable();
+            $table->string('external_link')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -32,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('file_managers');
+        Schema::dropIfExists('uploads');
     }
 };
