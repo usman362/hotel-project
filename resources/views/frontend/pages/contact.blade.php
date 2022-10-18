@@ -55,19 +55,25 @@
             <div class="col-8">
                 <div class="ms-5">
                     <h2>Send a Message</h2>
-                    <form class="contact-form">
-                        <input type="text" placeholder="First Name" />
-                        <input type="text" placeholder="Last Name" />
-                        <input type="text" placeholder="Email" />
-                        <input type="text" placeholder="Phone" />
-                        <select class="form-control">
+                    @if (session('message'))
+
+                    <div class="alert alert-success mt-2">{{session('message')}}</div>
+
+                    @endif
+                    <form class="contact-form" action="{{route('contact.store')}}" method="POST">
+                        @csrf
+                        <input type="text" placeholder="First Name" name="first_name"/>
+                        <input type="text" placeholder="Last Name" name="last_name"/>
+                        <input type="email" placeholder="Email" name="email"/>
+                        <input type="tel" placeholder="Phone" name="phone"/>
+                        {{-- <select class="form-control">
                             <option>Company</option>
                             <option>Option 2</option>
                             <option>Option 3</option>
                             <option>Option 4</option>
-                        </select>
-                        <input type="text" placeholder="Subject" />
-                        <textarea class="w-100 mt-5" rows="7" placeholder="Message"></textarea>
+                        </select> --}}
+                        <input type="text" placeholder="Subject" name="subject"/>
+                        <textarea class="w-100 mt-5" rows="7" placeholder="Message" name="message"></textarea>
                         <button type="submit">Send Message</button>
                     </form>
                 </div>

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42f681e221384d0908bb65acbce92a2a",
+    "content-hash": "fcae08ce71fef8c540705619c429ef04",
     "packages": [
         {
             "name": "anlutro/l4-settings",
@@ -6351,6 +6351,56 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
+        },
+        {
+            "name": "yazan/laravel-settings",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yazan-alnugnugh/laravel-settings.git",
+                "reference": "16844335cd282421e448fb96af3a80e8f3cfd1a7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yazan-alnugnugh/laravel-settings/zipball/16844335cd282421e448fb96af3a80e8f3cfd1a7",
+                "reference": "16844335cd282421e448fb96af3a80e8f3cfd1a7",
+                "shasum": ""
+            },
+            "require-dev": {
+                "laravel/legacy-factories": "^1.0.4",
+                "mockery/mockery": "^1.3.3",
+                "orchestra/testbench": "^6.0 || ^7.0",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Yazan\\Setting\\SettingServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Yazan\\Setting\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yazan Alnughnugh",
+                    "email": "yazan.alnughnugh@hotmail.com"
+                }
+            ],
+            "description": "Laravel Settings to create your setting in easy way",
+            "support": {
+                "issues": "https://github.com/yazan-alnugnugh/laravel-settings/issues",
+                "source": "https://github.com/yazan-alnugnugh/laravel-settings/tree/v1.0"
+            },
+            "time": "2022-02-28T13:19:18+00:00"
         }
     ],
     "packages-dev": [

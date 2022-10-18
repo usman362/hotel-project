@@ -18,6 +18,7 @@ use App\Http\Controllers\AizUploadController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ReviewController;
@@ -77,6 +78,7 @@ Route::get('/reviews',[HomeController::class,'review'])->name('reviews');
 Route::get('/search',[HomeController::class,'search'])->name('search');
 Route::get('tour-details/{slug}', [HomeController::class, 'tour_detail'])->name('tour.detail');
 
+Route::post('contact-us',[InquiryController::class,'contact_store'])->name('contact.store');
 
 
 

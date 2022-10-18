@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\setting_global;
 use App\Http\Requests\Storesetting_globalRequest;
 use App\Http\Requests\Updatesetting_globalRequest;
+use Yazan\Setting\Setting;
 
 class SettingGlobalController extends Controller
 {
@@ -36,7 +37,8 @@ class SettingGlobalController extends Controller
      */
     public function store(Storesetting_globalRequest $request)
     {
-        //
+        $setting = Setting();
+        $setting->set('email',$request->email);
     }
 
     /**
