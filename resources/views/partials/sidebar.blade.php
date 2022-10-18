@@ -98,7 +98,7 @@
                     <ul class="menu-content">
                         {{-- <li><a class="d-flex align-items-center" href="#"><i data-feather="file-plus"></i><span class="menu-item text-truncate">Add New</span></a>
                         </li> --}}
-                        <li><a class="d-flex align-items-center" href="{{route('file-manager.index')}}"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
+                        <li><a class="d-flex align-items-center" href="{{route('uploaded-files.index')}}"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
                         </li>
                     </ul>
                 </li>

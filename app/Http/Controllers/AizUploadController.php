@@ -14,7 +14,7 @@ class AizUploadController extends Controller
 {
     public function index(Request $request){
 
-        $all_uploads = (auth()->user()->user_type == 'seller') ? Upload::where('user_id',auth()->user()->id) : Upload::query();
+        $all_uploads = Upload::query();
         $search = null;
         $sort_by = null;
 
@@ -45,22 +45,19 @@ class AizUploadController extends Controller
         $all_uploads = $all_uploads->paginate(60)->appends(request()->query());
 
 
-        return (auth()->user()->user_type == 'seller')
-            ? view('seller.uploads.index', compact('all_uploads', 'search', 'sort_by'))
-            : view('backend.uploaded_files.index', compact('all_uploads', 'search', 'sort_by'));
+        return view('pages.files.index', compact('all_uploads', 'search', 'sort_by'));
     }
 
     public function create(){
-        return (auth()->user()->user_type == 'seller')
-            ? view('seller.uploads.create')
-            : view('backend.uploaded_files.create');
+        return view('pages.files.create');
     }
 
 
     public function show_uploader(Request $request){
         return view('uploader.aiz-uploader');
     }
-    public function upload(Request $request){
+    public function store(Request $request){
+
         $type = array(
             "jpg"=>"image",
             "jpeg"=>"image",
@@ -98,6 +95,7 @@ class AizUploadController extends Controller
             "xlsx"=>"document"
         );
 
+
         if($request->hasFile('aiz_file')){
             $upload = new Upload;
             $extension = strtolower($request->file('aiz_file')->getClientOriginalExtension());
@@ -118,12 +116,12 @@ class AizUploadController extends Controller
                 $size = $request->file('aiz_file')->getSize();
 
                 // Return MIME type ala mimetype extension
-                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+              //  $finfo = finfo_open(FILEINFO_MIME_TYPE);
 
                 // Get the MIME type of the file
-                $file_mime = finfo_file($finfo, base_path('public/').$path);
-
-                if($type[$extension] == 'image' && get_setting('disable_image_optimization') != 1){
+                // $file_mime = finfo_file($finfo, base_path('public/').$path);
+                // dd($file_mime);
+                if($type[$extension] == 'image'){
                     try {
                         $img = Image::make($request->file('aiz_file')->getRealPath())->encode();
                         $height = $img->height();
@@ -137,6 +135,7 @@ class AizUploadController extends Controller
                                 $constraint->aspectRatio();
                             });
                         }
+
                         $img->save(base_path('public/').$path);
                         clearstatcache();
                         $size = $img->filesize();
@@ -167,7 +166,13 @@ class AizUploadController extends Controller
                 $upload->file_size = $size;
                 $upload->save();
             }
-            return '{}';
+            if ($request->ajax()) {
+                return response()->json(['message' => 'Uploaded'], 200);
+            } else {
+              return redirect(route('uploaded-files.index'));
+            }
+
+
         }
     }
 
@@ -203,10 +208,6 @@ class AizUploadController extends Controller
     {
         $upload = Upload::findOrFail($id);
 
-        if(auth()->user()->user_type == 'seller' && $upload->user_id != auth()->user()->id){
-            Flash::error("You don't have permission for deleting this!");
-            return back();
-        }
         try{
             if(env('FILESYSTEM_DRIVER') == 's3'){
                 Storage::disk('s3')->delete($upload->file_name);
@@ -261,9 +262,7 @@ class AizUploadController extends Controller
     {
         $file = Upload::findOrFail($request['id']);
 
-        return (auth()->user()->user_type == 'seller')
-            ? view('seller.uploads.info',compact('file'))
-            : view('backend.uploaded_files.info',compact('file'));
+        dd($file);
     }
 
 }

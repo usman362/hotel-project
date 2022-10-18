@@ -14,9 +14,9 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\AizUploadController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\FileManagerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\RegionController;
@@ -76,6 +76,8 @@ Route::get('/our-teams',[HomeController::class,'our_team'])->name('our.team');
 Route::get('/reviews',[HomeController::class,'review'])->name('reviews');
 Route::get('/search',[HomeController::class,'search'])->name('search');
 Route::get('tour-details/{slug}', [HomeController::class, 'tour_detail'])->name('tour.detail');
+
+
 
 
 // Admin Panel Routes....
@@ -234,7 +236,21 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('customers',CustomerController::class);
     Route::get('getCustomer',[CustomerController::class,'getCustomer'])->name('get.Customer');
 
-    Route::resource('file-manager',FileManagerController::class);
+    // Uploads Route
+
+    // Route::controller(AizUploadController::class)->group(function () {
+//     Route::post('/aiz-uploader', 'show_uploader');
+//     Route::post('/aiz-uploader/upload', 'upload');
+//     Route::get('/aiz-uploader/get_uploaded_files', 'get_uploaded_files');
+//     Route::post('/aiz-uploader/get_file_by_ids', 'get_preview_files');
+//     Route::get('/aiz-uploader/download/{id}', 'attachment_download')->name('download_attachment');
+// });
+
+Route::resource('/uploaded-files', AizUploadController::class);
+Route::controller(AizUploadController::class)->group(function () {
+    Route::any('/uploaded-files/file-info', 'file_info')->name('uploaded-files.info');
+    Route::get('/uploaded-files/destroy/{id}', 'destroy')->name('uploaded-files.destroy');
+});
 
     Route::prefix('account')->group(function () {
         Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');

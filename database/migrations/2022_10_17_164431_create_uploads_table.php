@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('uploads', function (Blueprint $table) {
             $table->id();
-            $table->integer('file_original_name')->nullable();
+            $table->string('file_original_name')->nullable();
             $table->string('file_name')->nullable();
             $table->integer('user_id')->nullable();
             $table->string('extension')->nullable();
