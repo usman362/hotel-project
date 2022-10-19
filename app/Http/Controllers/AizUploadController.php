@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Upload;
 use Response;
 use Auth;
+use Carbon\Carbon;
 use Storage;
 use Image;
 use Laracasts\Flash\Flash;
@@ -167,7 +168,7 @@ class AizUploadController extends Controller
                 $upload->save();
             }
             if ($request->ajax()) {
-                return response()->json(['message' => 'Uploaded'], 200);
+                return response()->json(['message' => 'Uploaded','upload'=>$upload,'file_size'=>formatBytes($upload->file_size),'date'=>$upload->created_at->format('d M Y')], 200);
             } else {
               return redirect(route('uploaded-files.index'));
             }

@@ -6,15 +6,15 @@
 
 
  <!-- BEGIN: Content-->
- 
+
  <div class="app-content content">
-     
+
        @if(session()->has('success'))
         <div class="alert alert-primary pd-4" role="alert">
  {{ session()->get('success') }}
 </div>
 @endif
-     
+
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
         <div class="content-wrapper container-xxl p-0">
@@ -29,7 +29,7 @@
                             <div class="card-header border-bottom">
                                 <h4 class="card-title">Add New Destination</h4>
                             </div>
-                           
+
                            <form action="{{route('destination.store')}}" method="POST" enctype="multipart/form-data">
                                @csrf
                             <div class="card-body py-2 my-25">
@@ -49,8 +49,8 @@
                                                     <div class="alert alert-primary" role="alert">
                                                         <div class="alert-body"><strong>Thumbnail</strong><code>(Only jpg, jpeg, png)</code></div>
                                                     </div>
-                                                    <label for="account-upload" class="btn btn-sm btn-primary mb-75 me-75 waves-effect waves-float waves-light">Upload</label>
-                                                    <input type="file" name="thumbnail_image" id="account-upload" onchange="loadThumbnailImage(event)" hidden="" accept="image/*">
+                                                    <label class="btn btn-sm btn-primary mb-75 me-75 waves-effect waves-float waves-light uploadModal" data-bs-toggle="modal" data-name="thumbnail" data-bs-target="#new-upload-modal">Upload</label>
+                                                    <input type="hidden" name="thumbnail_image" >
                                                     <button type="button" id="account-reset" onclick="resetThumbnailImage()" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
                                                 </div>
                                             </div>
@@ -72,8 +72,8 @@
                                                     <div class="alert alert-primary" role="alert">
                                                         <div class="alert-body"><strong>Banner</strong><code>(Only jpg, jpeg, png)</code></div>
                                                     </div>
-                                                    <label for="account-upload-2" class="btn btn-sm btn-primary mb-75 me-75 waves-effect waves-float waves-light">Upload</label>
-                                                    <input type="file" id="account-upload-2" name="banner_image" onchange="loadBannerImage(event)" hidden="" accept="image/*">
+                                                    <label data-bs-toggle="modal" data-bs-target="#new-upload-modal"  data-name="banner" class="btn btn-sm btn-primary mb-75 me-75 uploadModal waves-effect waves-float waves-light">Upload</label>
+                                                    <input type="hidden" name="banner_image">
                                                     <button type="button" id="account-reset" onclick="resetBannerImage()" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
                                                 </div>
                                             </div>
@@ -115,7 +115,7 @@
                                                 <label class="form-label" for="iti-daily-activity">Introduction</label>
                                                 <div id="full-container">
                                                     <textarea class="tinymceTextEditor" name="introduction">
-                                                                            
+
                                                                             </textarea>
                                                 </div>
                                             </div>
@@ -154,7 +154,7 @@
                                             <div class="content-header">
                                             <h5 class="mb-0">Search Engine Optimization</h5>
                                         </div>
-                                            
+
                                             <div class="col-6">
                                                 <label class="form-label" for="title">Meta Title</label>
                                                 <div class="form-floating mb-0">
@@ -183,13 +183,13 @@
 
                                         <div class="col-12">
                                             <button type="submit" class="btn btn-primary mt-1 me-1 waves-effect waves-float waves-light">Save changes</button>
-                                           
+
                                         </div>
                                     </div>
                                 </form>
                                 <!--/ form -->
                             </div>
-                            
+
                             </form>
                         </div>
 
@@ -203,7 +203,7 @@
         </div>
     </div>
 
-
+@include('partials.files_modal')
 
 @push('scripts')
 
@@ -212,7 +212,7 @@
 
 
 $('#add_weather_info').click(function(){
-   
+
    $('.weather_info').append(`
    <div class="row weather_info_child">
        <div class="col-md-3 mb-1">
@@ -227,7 +227,7 @@ $('#add_weather_info').click(function(){
             </div>
         </div>
     </div>
-    
+
     <div class="col-md-1 position-relative">
             <div style="position: absolute;right: 2px;top: 26px;">
                 <button class="btn btn-outline-danger remove_weather_info text-nowrap px-1 waves-effect" data-repeater-delete="" type="button">
@@ -235,7 +235,7 @@ $('#add_weather_info').click(function(){
                 </button>
             </div>
         </div>
-    
+
     </div>
        `);
      RemoveTiered();
@@ -247,22 +247,16 @@ function RemoveTiered(){
            $(this).parents('.weather_info_child').remove();
        })
    }
-   
+
 
     $('#name').keyup(function(){
       var textParent = $('#name').val();
   var text =  textParent.toLowerCase()
              .replace(/ /g, '-')
              .replace(/[^\w-]+/g, '');
-             
+
    $('#url').val(text);
 })
-
-
-function loadThumbnailImage(event) {
-	var thumbnail_image = document.getElementById('thumbnail_image_output');
-	thumbnail_image.src = URL.createObjectURL(event.target.files[0]);
-};
 
 
 function loadBannerImage(event) {
@@ -272,12 +266,14 @@ function loadBannerImage(event) {
 
 function resetThumbnailImage() {
 	var thumbnail_image = document.getElementById('thumbnail_image_output');
+    $('input[name="thumbnail_image"]').val('');
 	thumbnail_image.src = "{{asset('app-assets/images/portrait/small/avatar-s-11.jpg')}}";
 };
 
 
 function resetBannerImage() {
 	var thumbnail_image = document.getElementById('banner_image_output');
+    $('input[name="banner_image"]').val('');
 	thumbnail_image.src = "{{asset('app-assets/images/portrait/small/avatar-s-11.jpg')}}";
 };
 
