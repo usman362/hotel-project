@@ -166,6 +166,21 @@ if (upload_for == 'thumbnail') {
     var banner_image = document.getElementById('banner_image_output');
     banner_image.src = path;
     $('#uploaded_image_form').reset();
+}else if (upload_for == 'avatar') {
+    $('input[name="avatar"]').val(id);
+    var avatar = document.getElementById('avatar_image_output');
+    avatar.src = path;
+    $('#uploaded_image_form').reset();
+}else if (upload_for == 'icon') {
+    $('input[name="icon"]').val(id);
+    var icon = document.getElementById('icon_image_output');
+    icon.src = path;
+    $('#uploaded_image_form').reset();
+}else if (upload_for == 'image') {
+    $('input[name="image"]').val(id);
+    var image = document.getElementById('image_output');
+    image.src = path;
+    $('#uploaded_image_form').reset();
 }
 
 });

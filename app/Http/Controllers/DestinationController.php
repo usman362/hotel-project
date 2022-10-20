@@ -17,7 +17,7 @@ class DestinationController extends Controller
      */
     public function index()
     {
-        $destinations = Destination::paginate(10);
+        $destinations = Destination::with('banner','thumbnail')->paginate(10);
         return view('pages.destination.index', compact('destinations'));
     }
 
@@ -51,18 +51,8 @@ class DestinationController extends Controller
         $destination->meta_title = $request->meta_title;
         $destination->meta_desc = $request->meta_desc;
         $destination->meta_keywords = $request->meta_keywords;
-        if($request->hasFile('thumbnail_image')){
-            $thumbnail_image = $request->file('thumbnail_image');
-            $filename = time() . '.' . $thumbnail_image->getClientOriginalExtension();
-            $thumbnail_image->move(public_path('images'), $filename);
-            $destination->thumbnail_image = $filename;
-        }
-        if($request->hasFile('banner_image')){
-            $banner_image = $request->file('banner_image');
-            $filename = time() . '.' . $banner_image->getClientOriginalExtension();
-            $banner_image->move(public_path('images'), $filename);
-            $destination->banner_image = $filename;
-        }
+        $destination->banner_image = $request->banner_image;
+        $destination->thumbnail_image = $request->thumbnail_image;
         $destination->save();
         if($request->has('weather_title')){
             $i = 0;
@@ -125,18 +115,8 @@ class DestinationController extends Controller
         $destination->meta_title = $request->meta_title;
         $destination->meta_desc = $request->meta_desc;
         $destination->meta_keywords = $request->meta_keywords;
-        if($request->hasFile('thumbnail_image')){
-            $thumbnail_image = $request->file('thumbnail_image');
-            $filename = time() . '.' . $thumbnail_image->getClientOriginalExtension();
-            $thumbnail_image->move(public_path('images'), $filename);
-            $destination->thumbnail_image = $filename;
-        }
-        if($request->hasFile('banner_image')){
-            $banner_image = $request->file('banner_image');
-            $filename = time() . '.' . $banner_image->getClientOriginalExtension();
-            $banner_image->move(public_path('images'), $filename);
-            $destination->banner_image = $filename;
-        }
+        $destination->banner_image = $request->banner_image;
+        $destination->thumbnail_image = $request->thumbnail_image;
         $destination->save();
         if($request->has('weather_title')){
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Program;
 use Illuminate\Http\Request;
 
@@ -31,11 +32,14 @@ class HomeController extends Controller
     }
 
     public function blogs(){
-        return view('frontend.pages.blogs');
+        $blogs = Blog::with('blog_image')->where('status','Published')->paginate(9);
+        return view('frontend.pages.blogs',compact('blogs'));
     }
 
-    public function blogDetail(){
-        return view('frontend.pages.blogDetail');
+    public function blogDetail($slug){
+        $blog = Blog::where('url_slug', $slug)->first();
+        $blogs = Blog::where('url_slug','!=',$slug)->orderBy('created_at','desc')->paginate(5);
+        return view('frontend.pages.blogDetail',compact('blog','blogs'));
     }
 
     public function booking(){

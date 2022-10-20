@@ -15,7 +15,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        $pages = Page::all();
+        $pages = Page::with('image')->paginate(10);
         return view('pages.page_s.index', ['pages'=> $pages]);
     }
 
@@ -47,16 +47,9 @@ class PageController extends Controller
         $page->url_slug = $request->url_slug;
         $page->description = $request->description;
         $page->status = $request->status;
-
-        if($request->hasFile('head_image')){
-            $head_image = $request->file('head_image');
-            $filename = time() . '.' . $head_image->getClientOriginalExtension();
-            $head_image->move(public_path('images'), $filename);
-            $page->head_image = $filename;
-        }
-
+        $page->head_image = $request->image;
         $page->save();
-                $update = new WebUpdate();
+        $update = new WebUpdate();
         $update->activity = 'New Page has been Created';
         $update->save();
         return redirect(route('page.index'));
@@ -99,13 +92,7 @@ class PageController extends Controller
         $page->url_slug = $request->url_slug;
         $page->description = $request->description;
         $page->status = $request->status;
-
-        if($request->hasFile('head_image')){
-            $head_image = $request->file('head_image');
-            $filename = time() . '.' . $head_image->getClientOriginalExtension();
-            $head_image->move(public_path('images'), $filename);
-            $page->head_image = $filename;
-        }
+        $page->head_image = $request->image;
         $page->save();
                 $update = new WebUpdate();
         $update->activity = 'Page has been Updated';

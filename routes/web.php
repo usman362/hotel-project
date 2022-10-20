@@ -67,7 +67,7 @@ Route::get('/activities-2',[HomeController::class,'activities2'])->name('activit
 Route::get('/destinations',[HomeController::class,'destination'])->name('destinations');
 Route::get('/destinations-2',[HomeController::class,'destination2'])->name('destinations2');
 Route::get('/blogs',[HomeController::class,'blogs'])->name('blogs');
-Route::get('/blog-detail',[HomeController::class,'blogDetail'])->name('blog.detail');
+Route::get('/blog-detail/{slug}',[HomeController::class,'blogDetail'])->name('blog.detail');
 Route::get('/bookings',[HomeController::class,'booking'])->name('bookings');
 Route::get('/contact-us',[HomeController::class,'contact'])->name('contact');
 Route::get('/faqs',[HomeController::class,'faq'])->name('faqs');

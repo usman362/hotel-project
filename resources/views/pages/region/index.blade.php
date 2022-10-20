@@ -61,7 +61,7 @@
 
                                         <tr>
                                             <td>
-                                                <img src="{{asset('images/'.$region->thumbnail_image)}}" class="me-75" height="40" width="40" alt="">
+                                                <img src="{{asset($region->thumbnail->file_name ?? '')}}" class="me-75" height="40" width="40" alt="">
                                                 <span class="fw-bold">{{$region->title}}</span>
                                             </td>
                                             <td>{{$region->url_slug}}</td>

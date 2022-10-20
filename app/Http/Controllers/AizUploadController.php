@@ -15,7 +15,13 @@ class AizUploadController extends Controller
 {
     public function index(Request $request){
 
-        $all_uploads = Upload::query();
+        if ($request->has('documents')) {
+            $all_uploads = Upload::query()->where('type','document');
+            $active = 'document';
+        } else {
+            $all_uploads = Upload::query()->where('type','!=','document');
+            $active = 'image';
+        }
         $search = null;
         $sort_by = null;
 
@@ -45,8 +51,7 @@ class AizUploadController extends Controller
 
         $all_uploads = $all_uploads->paginate(60)->appends(request()->query());
 
-
-        return view('pages.files.index', compact('all_uploads', 'search', 'sort_by'));
+        return view('pages.files.index', compact('all_uploads', 'search', 'sort_by','active'));
     }
 
     public function create(){

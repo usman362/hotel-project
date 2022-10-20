@@ -57,7 +57,7 @@
                                   @foreach ($blogs as $key => $blog)
                                     <tr>
                                         <td>
-                                            <img src="{{asset('images/'.$blog->image)}}" class="me-75" height="40" width="40" alt="Angular">
+                                            <img src="{{asset($blog->blog_image->file_name ?? '')}}" class="me-75" height="40" width="40" alt="Angular">
                                             <span class="fw-bold">When is the best time to visit Nepal?</span>
                                         </td>
                                         <td>/{{$blog->url_slug}}</td>

@@ -75,7 +75,7 @@
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label" for="blog-edit-category">Tags</label>
-                                                <select id="blog-edit-category" name="tags" class="select2 form-select" multiple>
+                                                <select id="blog-edit-category" name="tags[]" class="select2 form-select" multiple>
                                                     <option value="Fashion" @selected(old('tags') == 'Fashion' )>Fashion</option>
                                                     <option value="Food" @selected(old('tags') == 'Food' )>Food</option>
                                                     <option value="Gaming" @selected(old('tags') == 'Gaming' )>Gaming</option>
@@ -130,7 +130,8 @@
                                                             {{-- <a href="#" id="blog-image-text">C:\fakepath\banner.jpg</a> --}}
                                                         </p>
                                                         <div class="d-inline-block">
-                                                            <input class="form-control" type="file" name="image" id="blogCustomFile" onchange="loadImage(event)" accept="image/*" />
+                                                            <input class="form-control" type="hidden" name="image"/>
+                                                            <label data-bs-toggle="modal" data-bs-target="#new-upload-modal"  data-name="image" class="btn btn-sm btn-primary mb-75 me-75 uploadModal waves-effect waves-float waves-light">Upload</label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -154,6 +155,8 @@
     </div>
 </div>
 <!-- END: Content-->
+@include('partials.files_modal')
+
 @endsection
 
 @push('scripts')

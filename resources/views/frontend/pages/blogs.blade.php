@@ -11,42 +11,40 @@
 
     <div class="blogs-section p-5">
         <div class="row m-0">
+         @foreach ($blogs as $blog)
+
             <div class="col-4">
                 <div class="blog-card mb-5 rounded shadow bg-white section-border">
                     <div class="blog-image position-relative w-100">
-                        <img src="./assets/images/blog-2.jpg" alt="" class="w-100" />
+                        <img src="{{asset($blog->blog_image->file_name)}}" alt="" class="w-100" />
                         <div class="blog-date">
-                            <h5 class="primarycolor">03</h5>
-                            <h5 class="text-white">Apr, 2022</h5>
+                            <h5 class="primarycolor">{{\Carbon\Carbon::parse($blog->created_at)->format('d')}}</h5>
+                            <h5 class="text-white">{{\Carbon\Carbon::parse($blog->created_at)->format('M, Y')}}</h5>
                         </div>
                     </div>
                     <div class="blog-summary p-4">
                         <div class="blog-tags mb-4">
-                            <span>Travel</span>
-                            <span>USA</span>
-                            <span>Life</span>
+                            @foreach (json_decode($blog->tags) as $tag)
+
+
+                       <span>{{$tag}}</span>
+                       @endforeach
                         </div>
-                        <h5 class="lh-base fw-bold mb-4">Top Things Successful Things To
-                            DoSuccessful Things To Do</h5>
+                        <h5 class="lh-base fw-bold mb-4">{{$blog->title}}</h5>
                         <small class="d-block mb-4">
-                            Great company. Excellent communication. Easy and
-                            simple with a great value. I would definitelyEasy and
-                            simple with a great value. I would definitely........
+                            {{Str::limit(strip_tags($blog->content),50)}}
                         </small>
 
-                        <button><a href="{{route('blog.detail')}}">Read more</a></button>
+                        <button><a href="{{route('blog.detail',$blog->url_slug)}}">Read more</a></button>
                     </div>
                 </div>
             </div>
+
+         @endforeach
         </div>
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
+                {{$blogs->links()}}
             </ul>
         </nav>
     </div>

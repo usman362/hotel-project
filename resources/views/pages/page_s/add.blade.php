@@ -108,7 +108,8 @@
                                                             {{-- <a href="#" id="blog-image-text">C:\fakepath\banner.jpg</a> --}}
                                                         </p>
                                                         <div class="d-inline-block">
-                                                            <input class="form-control" type="file" id="blogCustomFile" onchange="loadImage(event)" name="head_image" accept="image/*" />
+                                                            <label data-bs-toggle="modal" data-bs-target="#new-upload-modal"  data-name="image" class="btn btn-sm btn-primary mb-75 me-75 uploadModal waves-effect waves-float waves-light">Upload</label>
+                                                            <input class="form-control" type="hidden" id="blogCustomFile" name="image"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -133,7 +134,7 @@
 </div>
 <!-- END: Content-->
 
-
+@include('partials.files_modal')
 
 
 @endsection

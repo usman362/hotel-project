@@ -14,7 +14,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::all();
+        $blogs = Blog::with('blog_image')->paginate(10);
         return view('pages.blog.blogPages.index',compact('blogs'));
     }
 
@@ -38,16 +38,11 @@ class BlogController extends Controller
     {
         $blog = new Blog();
         $blog->title = $request->title;
-        $blog->tags = serialize($request->tags);
+        $blog->tags = json_encode($request->tags);
         $blog->url_slug = $request->url_slug;
         $blog->status = $request->status;
         $blog->content = $request->content;
-        if($request->hasFile('image')){
-            $image = $request->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $filename);
-            $blog->image = $filename;
-        }
+        $blog->image = $request->image;
         $blog->save();
         return redirect('blogPages');
     }
@@ -86,16 +81,11 @@ class BlogController extends Controller
     {
         $blog = Blog::find($id);
         $blog->title = $request->title;
-        $blog->tags = serialize($request->tags);
+        $blog->tags = json_encode($request->tags);
         $blog->url_slug = $request->url_slug;
         $blog->status = $request->status;
         $blog->content = $request->content;
-        if($request->hasFile('image')){
-            $image = $request->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $filename);
-            $blog->image = $filename;
-        }
+        $blog->image = $request->image;
         $blog->save();
         return redirect('blogPages');
     }

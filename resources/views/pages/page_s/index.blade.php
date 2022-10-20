@@ -5,7 +5,7 @@
 @section('content')
 
 <!-- BEGIN: Content-->
-<div class="app-content content ">
+<div class="app-content content">
 
     @if(session()->has('success'))
 <div class="alert alert-primary pd-4" role="alert">
@@ -58,7 +58,7 @@
 
                                     <tr>
                                         <td>
-                                            <img src="{{asset('images/'.$page->head_image)}}" class="me-75" height="40" width="40" alt="Angular">
+                                            <img src="{{asset($page->image->file_name ?? '')}}" class="me-75" height="40" width="40" alt="Angular">
                                             <span class="fw-bold">{{$page->title}}</span>
                                         </td>
                                         <td>{{$page->url_slug}}</td>

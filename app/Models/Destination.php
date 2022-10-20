@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Destination extends Model
 {
     use HasFactory;
+
+    public function thumbnail()
+    {
+        return $this->hasOne(Upload::class, 'id', 'thumbnail_image');
+    }
+
+    public function banner()
+    {
+        return $this->hasOne(Upload::class, 'id', 'banner_image');
+    }
 }

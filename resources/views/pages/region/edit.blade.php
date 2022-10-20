@@ -35,14 +35,36 @@
                                 @csrf
 
                             <div class="card-body py-2 my-25">
-                                <!-- header section -->
-                                <div class="row">
+                                 <!-- header section -->
+                                 <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="d-flex">
 
-                                    <div class="col-md-6">
+                                           <a href="#" class="me-25">
+                                                <img src="{{asset($region->icon_image->file_name)}}" id="icon_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
+                                            </a>
+
+                                            <!-- upload and reset button -->
+                                            <div class="d-flex align-items-end mt-75 ms-1">
+                                                <div>
+                                                    <div class="alert alert-primary" role="alert">
+                                                        <div class="alert-body"><strong>Icon</strong><code>(Only svg)</code></div>
+                                                    </div>
+                                                    <label data-bs-toggle="modal" data-bs-target="#new-upload-modal"  data-name="icon" class="btn btn-sm btn-primary mb-75 me-75 uploadModal waves-effect waves-float waves-light">Upload</label>
+                                                    <input type="hidden" name="icon" value="{{$region->icon}}">
+                                                    <button type="button" id="account-reset" onclick="resetIconImage()" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
+                                                </div>
+                                            </div>
+
+                                            <!--/ upload and reset button -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
                                         <div class="d-flex">
 
                                             <a href="#" class="me-25">
-                                                <img src="{{asset('app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="thumbnail_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
+                                                <img src="{{asset($region->thumbnail->file_name)}}" id="thumbnail_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
                                             </a>
 
 
@@ -52,8 +74,8 @@
                                                     <div class="alert alert-primary" role="alert">
                                                         <div class="alert-body"><strong>Thumbnail</strong><code>(Only jpg, jpeg, png)</code></div>
                                                     </div>
-                                                    <label for="account-upload" class="btn btn-sm btn-primary mb-75 me-75 waves-effect waves-float waves-light">Upload</label>
-                                                    <input type="file" name="thumbnail_image" id="account-upload" onchange="loadThumbnailImage(event)" hidden="" accept="image/*">
+                                                    <label class="btn btn-sm btn-primary mb-75 me-75 waves-effect waves-float waves-light uploadModal" data-bs-toggle="modal" data-name="thumbnail" data-bs-target="#new-upload-modal">Upload</label>
+                                                    <input type="hidden" name="thumbnail_image" value="{{$region->thumbnail_image}}">
                                                     <button type="button" id="account-reset" onclick="resetThumbnailImage()" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
                                                 </div>
                                             </div>
@@ -61,11 +83,11 @@
                                             <!--/ upload and reset button -->
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="d-flex">
 
                                             <a href="#" class="me-25">
-                                                <img src="{{asset('app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="banner_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
+                                                <img src="{{asset($region->banner->file_name)}}" id="banner_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
                                             </a>
 
 
@@ -75,8 +97,8 @@
                                                     <div class="alert alert-primary" role="alert">
                                                         <div class="alert-body"><strong>Banner</strong><code>(Only jpg, jpeg, png)</code></div>
                                                     </div>
-                                                    <label for="account-upload-2" class="btn btn-sm btn-primary mb-75 me-75 waves-effect waves-float waves-light">Upload</label>
-                                                    <input type="file" id="account-upload-2" name="banner_image" onchange="loadBannerImage(event)" hidden="" accept="image/*">
+                                                    <label data-bs-toggle="modal" data-bs-target="#new-upload-modal"  data-name="banner" class="btn btn-sm btn-primary mb-75 me-75 uploadModal waves-effect waves-float waves-light">Upload</label>
+                                                    <input type="hidden" name="banner_image" value="{{$region->banner_image}}">
                                                     <button type="button" id="account-reset" onclick="resetBannerImage()" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
                                                 </div>
                                             </div>
@@ -191,7 +213,7 @@
 
 </div>
 
-
+@include('partials.files_modal')
 @push('scripts')
 
 

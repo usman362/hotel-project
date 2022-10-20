@@ -16,7 +16,7 @@ class TeamController extends Controller
      */
     public function index()
     {
-        $teams = Team::all();
+        $teams = Team::with('avatar')->paginate(10);
         return view('pages.team.index',['teams'=> $teams]);
     }
 
@@ -49,12 +49,7 @@ class TeamController extends Controller
         $page->status = $request->status;
         $page->joined_on = $request->joined_on;
         $page->is_featured = isset($request->is_featured) ? true : false;
-        if($request->hasFile('avatar')){
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            $avatar->move(public_path('images'), $filename);
-            $page->avatar_image = $filename;
-        }
+        $page->avatar = $request->avatar;
         $page->meta_title = $request->meta_title;
         $page->meta_keywords = $request->meta_keywords;
         $page->meta_description = $request->meta_description;
@@ -110,12 +105,7 @@ class TeamController extends Controller
         $page->meta_title = $request->meta_title;
         $page->meta_keywords = $request->meta_keywords;
         $page->meta_description = $request->meta_description;
-        if($request->hasFile('avatar')){
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            $avatar->move(public_path('images'), $filename);
-            $page->avatar_image = $filename;
-        }
+        $page->avatar = $request->avatar;
         $page->save();
                 $update = new WebUpdate();
         $update->activity = 'Team has been Updated';

@@ -17,7 +17,7 @@ class RegionController extends Controller
      */
     public function index()
     {
-        $regions = Region::paginate(10);
+        $regions = Region::with('destination','icon_image','banner','thumbnail')->paginate(10);
         return view('pages.region.index', ['regions' => $regions]);
     }
 
@@ -54,18 +54,8 @@ class RegionController extends Controller
         $region->meta_title = $request->meta_title;
         $region->meta_desc = $request->meta_desc;
         $region->meta_keywords = $request->meta_keywords;
-        if($request->hasFile('thumbnail_image')){
-            $thumbnail_image = $request->file('thumbnail_image');
-            $filename = time() . '.' . $thumbnail_image->getClientOriginalExtension();
-            $thumbnail_image->move(public_path('images'), $filename);
-            $region->thumbnail_image = $filename;
-        }
-        if($request->hasFile('banner_image')){
-            $banner_image = $request->file('banner_image');
-            $filename = time() . '.' . $banner_image->getClientOriginalExtension();
-            $banner_image->move(public_path('images'), $filename);
-            $region->banner_image = $filename;
-        }
+        $region->thumbnail_image = $request->thumbnail_image;
+        $region->banner_image = $request->banner_image;
         $region->save();
         $update = new WebUpdate();
         $update->activity = 'New Region has been Created';
@@ -119,18 +109,8 @@ class RegionController extends Controller
         $region->meta_title = $request->meta_title;
         $region->meta_desc = $request->meta_desc;
         $region->meta_keywords = $request->meta_keywords;
-        if($request->hasFile('thumbnail_image')){
-            $thumbnail_image = $request->file('thumbnail_image');
-            $filename = time() . '.' . $thumbnail_image->getClientOriginalExtension();
-            $thumbnail_image->move(public_path('images'), $filename);
-            $region->thumbnail_image = $filename;
-        }
-        if($request->hasFile('banner_image')){
-            $banner_image = $request->file('banner_image');
-            $filename = time() . '.' . $banner_image->getClientOriginalExtension();
-            $banner_image->move(public_path('images'), $filename);
-            $region->banner_image = $filename;
-        }
+        $region->thumbnail_image = $request->thumbnail_image;
+        $region->banner_image = $request->banner_image;
         $region->save();
         $update = new WebUpdate();
         $update->activity = 'New Region has been Updated';

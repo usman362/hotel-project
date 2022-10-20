@@ -53,7 +53,7 @@
                                        @foreach($destinations as $key => $destination)
                                         <tr>
                                             <td>
-                                                <img src="{{asset('images/'.$destination->banner_image)}}" class="me-75" height="40" width="40" alt="Angular">
+                                                <img src="{{asset($destination->banner->file_name ?? '')}}" class="me-75" height="40" width="40" alt="Angular">
                                                 <span class="fw-bold">{{$destination->title}}</span>
                                             </td>
                                             <td>/{{$destination->url_slug}}</td>

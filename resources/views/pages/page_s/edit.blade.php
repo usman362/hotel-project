@@ -102,14 +102,15 @@
                                             <div class="border rounded p-2">
                                                 <h4 class="mb-1">Banner Image</h4>
                                                 <div class="d-flex flex-column flex-md-row">
-                                                    <img src="{{asset('images/'.$page->head_image)}}" id="image_output" class="rounded me-2 mb-1 mb-md-0" width="170" height="110" alt="Blog Featured Image" />
+                                                    <img src="{{asset($page->image->head_image)}}" id="image_output" class="rounded me-2 mb-1 mb-md-0" width="170" height="110" alt="Blog Featured Image" />
                                                     <div class="featured-info">
                                                         <small class="text-muted">Required image resolution 800x400, image size 10mb.</small>
                                                         <p class="my-50">
                                                             {{-- <a href="#" id="blog-image-text">C:\fakepath\banner.jpg</a> --}}
                                                         </p>
                                                         <div class="d-inline-block">
-                                                            <input class="form-control" type="file" id="blogCustomFile" name="head_image" onchange="loadImage(event)" accept="image/*" />
+                                                            <label data-bs-toggle="modal" data-bs-target="#new-upload-modal"  data-name="image" class="btn btn-sm btn-primary mb-75 me-75 uploadModal waves-effect waves-float waves-light">Upload</label>
+                                                            <input class="form-control" type="hidden" id="blogCustomFile" name="image" value="{{$page->head_image}}"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -134,7 +135,7 @@
 </div>
 <!-- END: Content-->
 
-
+@include('partials.files_modal')
 
 
 @endsection

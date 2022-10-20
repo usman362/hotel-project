@@ -61,14 +61,15 @@
 
                             <div class="list-group list-group-labels">
                                 <h6 class="section-label px-2 mb-1">Labels</h6>
-                                <a href="#" class="list-group-item list-group-item-action">
-                                    <i data-feather="file-text" class="me-50 font-medium-3"></i>
-                                    <span class="align-middle">Documents</span>
-                                </a>
-                                <a href="#" class="list-group-item list-group-item-action">
+                                <a href="{{route('uploaded-files.index')}}" class="list-group-item list-group-item-action {{$active == 'image' ? 'active' : ''}}">
                                     <i data-feather="image" class="me-50 font-medium-3"></i>
                                     <span class="align-middle">Images</span>
                                 </a>
+                                <a href="{{route('uploaded-files.index','documents')}}" class="list-group-item list-group-item-action {{$active == 'document' ? 'active' : ''}}" >
+                                    <i data-feather="file-text" class="me-50 font-medium-3"></i>
+                                    <span class="align-middle">Documents</span>
+                                </a>
+
                                 {{-- <a href="#" class="list-group-item list-group-item-action">
                                     <i data-feather="video" class="me-50 font-medium-3"></i>
                                     <span class="align-middle">Videos</span>

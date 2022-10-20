@@ -63,7 +63,7 @@
                                     </div>
                                 </div>
                                 <!-- Form -->
-                                <form action="{{route('blogpages.store')}}" class="mt-2" method="POST" enctype="multipart/form-data">
+                                <form action="{{route('blogpages.update',$blog->id)}}" class="mt-2" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-6 col-12">
@@ -75,7 +75,7 @@
                                         <div class="col-md-6 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label" for="blog-edit-category">Tags</label>
-                                                <select id="blog-edit-category" name="tags" class="select2 form-select" multiple>
+                                                <select id="blog-edit-category" name="tags[]" class="select2 form-select" multiple>
                                                     <option value="Fashion" @selected(old('tags',$blog->title) == 'Fashion' )>Fashion</option>
                                                     <option value="Food" @selected(old('tags',$blog->title) == 'Food' )>Food</option>
                                                     <option value="Gaming" @selected(old('tags',$blog->title) == 'Gaming' )>Gaming</option>
@@ -108,7 +108,7 @@
                                                         <div class="editor">
                                                             <div id="full-container">
                                                                 <textarea class="tinymceTextEditor content" name="content">
-
+                                                                    {{strip_tags($blog->content)}}
                                                               </textarea>
                                                                @error('content')
                                                       <span class="text-danger">{{$message}}</span>
@@ -123,14 +123,15 @@
                                             <div class="border rounded p-2">
                                                 <h4 class="mb-1">Featured Image</h4>
                                                 <div class="d-flex flex-column flex-md-row">
-                                                    <img src="{{asset('images/'.$blog->image)}}" id="image_output" class="rounded me-2 mb-1 mb-md-0" width="170" height="110" alt="Blog Featured Image" />
+                                                    <img src="{{asset($blog->blog_image->file_name ?? '')}}" id="image_output" class="rounded me-2 mb-1 mb-md-0" width="170" height="110" alt="Blog Featured Image" />
                                                     <div class="featured-info">
                                                         <small class="text-muted">Required image resolution 800x400, image size 10mb.</small>
                                                         <p class="my-50">
                                                             {{-- <a href="#" id="blog-image-text">C:\fakepath\banner.jpg</a> --}}
                                                         </p>
                                                         <div class="d-inline-block">
-                                                            <input class="form-control" type="file" name="image" id="blogCustomFile" onchange="loadImage(event)" accept="image/*" />
+                                                            <label data-bs-toggle="modal" data-bs-target="#new-upload-modal"  data-name="image" class="btn btn-sm btn-primary mb-75 me-75 uploadModal waves-effect waves-float waves-light">Upload</label>
+                                                            <input class="form-control" type="hidden" name="image" value="{{$blog->image}}"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -154,6 +155,7 @@
     </div>
 </div>
 <!-- END: Content-->
+@include('partials.files_modal')
 @endsection
 
 @push('scripts')

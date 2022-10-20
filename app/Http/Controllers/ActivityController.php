@@ -15,7 +15,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $activities = Activity::paginate(10);
+        $activities = Activity::with('icon_image','thumbnail','banner')->paginate(10);
         return view('pages.activity.index', ['activities'=> $activities]);
     }
 
@@ -50,24 +50,9 @@ class ActivityController extends Controller
         $page->meta_title = $request->meta_title;
         $page->meta_desc = $request->meta_desc;
         $page->meta_keywords = $request->meta_keywords;
-        if($request->hasFile('icon')){
-            $icon = $request->file('icon');
-            $filename = time() . '.' . $icon->getClientOriginalExtension();
-            $icon->move(public_path('images'), $filename);
-            $page->icon = $filename;
-        }
-        if($request->hasFile('thumbnail_image')){
-            $thumbnail_image = $request->file('thumbnail_image');
-            $filename = time() . '.' . $thumbnail_image->getClientOriginalExtension();
-            $thumbnail_image->move(public_path('images'), $filename);
-            $page->thumbnail_image = $filename;
-        }
-        if($request->hasFile('banner_image')){
-            $banner_image = $request->file('banner_image');
-            $filename = time() . '.' . $banner_image->getClientOriginalExtension();
-            $banner_image->move(public_path('images'), $filename);
-            $page->banner_image = $filename;
-        }
+        $page->icon = $request->icon;
+        $page->thumbnail_image = $request->thumbnail_image;
+        $page->banner_image = $request->banner_image;
         $page->save();
         $update = new WebUpdate();
         $update->activity = 'New Activity has been Created';
@@ -116,24 +101,9 @@ class ActivityController extends Controller
         $page->meta_title = $request->meta_title;
         $page->meta_desc = $request->meta_desc;
         $page->meta_keywords = $request->meta_keywords;
-        if($request->hasFile('icon')){
-            $icon = $request->file('icon');
-            $filename = time() . '.' . $icon->getClientOriginalExtension();
-            $icon->move(public_path('images'), $filename);
-            $page->icon = $filename;
-        }
-        if($request->hasFile('thumbnail_image')){
-            $thumbnail_image = $request->file('thumbnail_image');
-            $filename = time() . '.' . $thumbnail_image->getClientOriginalExtension();
-            $thumbnail_image->move(public_path('images'), $filename);
-            $page->thumbnail_image = $filename;
-        }
-        if($request->hasFile('banner_image')){
-            $banner_image = $request->file('banner_image');
-            $filename = time() . '.' . $banner_image->getClientOriginalExtension();
-            $banner_image->move(public_path('images'), $filename);
-            $page->banner_image = $filename;
-        }
+        $page->icon = $request->icon;
+        $page->thumbnail_image = $request->thumbnail_image;
+        $page->banner_image = $request->banner_image;
         $page->save();
                 $update = new WebUpdate();
         $update->activity = 'Activity has been Updated';

@@ -60,7 +60,7 @@
 
                                         <tr>
                                             <td>
-                                                <img src="{{asset('images/'.$activity->thumbnail_image)}}" class="me-75" height="40" width="40" alt="">
+                                                <img src="{{asset($activity->thumbnail->file_name ?? '')}}" class="me-75" height="40" width="40" alt="">
                                                 <span class="fw-bold">{{$activity->name}}</span>
                                             </td>
                                             <td>{{$activity->url_slug}}</td>

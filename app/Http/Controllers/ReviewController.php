@@ -19,7 +19,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $reviews = Review::all();
+        $reviews = Review::with('avatar')->paginate(10);
         return view('pages.review.index', ['reviews'=> $reviews]);
     }
 
@@ -57,12 +57,7 @@ class ReviewController extends Controller
         $page->meta_title = $request->meta_title;
         $page->meta_description = $request->meta_description;
         $page->meta_keywords = $request->meta_keywords;
-        if($request->hasFile('avatar')){
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            $avatar->move(public_path('images'), $filename);
-            $page->avatar = $filename;
-        }
+        $page->avatar = $request->avatar;
         $page->save();
                 $update = new WebUpdate();
         $update->activity = 'New Review has been Created';
@@ -118,12 +113,7 @@ class ReviewController extends Controller
         $page->meta_title = $request->meta_title;
         $page->meta_description = $request->meta_description;
         $page->meta_keywords = $request->meta_keywords;
-        if($request->hasFile('avatar')){
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-            $avatar->move(public_path('images'), $filename);
-            $page->avatar = $filename;
-        }
+        $page->avatar = $request->avatar;
         $page->save();
                 $update = new WebUpdate();
         $update->activity = 'Review has been Updated';

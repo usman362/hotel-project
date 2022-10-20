@@ -48,8 +48,8 @@
                                                 <div class="alert alert-primary" role="alert">
                                                     <div class="alert-body"><strong>Avatar</strong><code>(Only jpg or jpeg)</code></div>
                                                 </div>
-                                                <label for="account-upload" class="btn btn-sm btn-primary mb-75 me-75 waves-effect waves-float waves-light">Upload</label>
-                                                <input type="file" name="avatar" id="account-upload" hidden="" onchange="loadAvatar(event)" accept="image/jpeg,jpg">
+                                                <label data-bs-toggle="modal" data-bs-target="#new-upload-modal"  data-name="avatar" class="btn btn-sm btn-primary mb-75 me-75 uploadModal waves-effect waves-float waves-light">Upload</label>
+                                                <input type="hidden" name="avatar">
                                                 <button type="button" id="account-reset" onclick="resetAvatar()" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
                                             </div>
                                         </div>
@@ -172,7 +172,7 @@
     </div>
 </div>
 <!-- END: Content-->
-
+@include('partials.files_modal')
 @endsection
 
 @push('scripts')
