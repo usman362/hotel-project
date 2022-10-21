@@ -18,4 +18,8 @@ class Destination extends Model
     {
         return $this->hasOne(Upload::class, 'id', 'banner_image');
     }
+
+    public function programs(){
+        return $this->hasMany(Program::class,'destination_id','id');
+    }
 }

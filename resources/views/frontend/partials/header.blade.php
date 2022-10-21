@@ -1,7 +1,12 @@
  <header class="d-flex">
-        <div class="logo">
+    @php
+    $logo = App\Models\Upload::find(Setting::get('logo'));
+    $icon = App\Models\Upload::find(Setting::get('icon'));
+    @endphp
+
+    <div class="logo">
             <a href="/">
-                <img src="{{asset('assets/images/logo.png')}}" alt="" />
+                <img src="{{asset($logo->file_name??'assets/images/logo.png')}}" alt="" />
             </a>
         </div>
         <div class="nav-area">
@@ -10,18 +15,18 @@
                     <div class="top-details d-flex">
                         <div class="top-phone d-flex  align-items-center px-4">
                             <i class="fa fa-phone"></i>
-                            <p>+123 12345 12355</p>
+                            <p>{{Setting::get('phone')??''}}</p>
                         </div>
                         <div class="top-mail d-flex align-items-center px-4">
                             <i class="fa fa-envelope"></i>
-                            <p>+123 12345 12355</p>
+                            <p>{{Setting::get('email')??''}}</p>
                         </div>
                     </div>
                     <div class="top-social-icons me-5">
-                        <i class="fa fa-facebook-f"></i>
-                        <i class="fa fa-instagram"></i>
-                        <i class="fa fa-twitter"></i>
-                        <i class="fa fa-linkedin"></i>
+                        <a href="{{Setting::get('facebook') ?? 'javascript:void(0)'}}"><i class="fa fa-facebook-f"></i></a>
+                        <a href="{{Setting::get('instagram') ?? 'javascript:void(0)'}}"><i class="fa fa-instagram"></i></a>
+                        <a href="{{Setting::get('twitter') ?? 'javascript:void(0)'}}"><i class="fa fa-twitter"></i></a>
+                        <a href="{{Setting::get('linkedin') ?? 'javascript:void(0)'}}"><i class="fa fa-linkedin"></i></a>
                     </div>
                 </div>
                 <div class="top-bar-dropdown d-flex">
@@ -35,6 +40,19 @@
                             <li><a class="dropdown-item" href="#">GBP <div></div></a></li>
                         </ul>
                     </div>
+                    @if (Auth::check())
+                    <div class="dropdown" onclick="dropdownToggle(this)">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="currencyDropdown">
+                            <i class="fa fa-user-circle"></i>
+                        </button>
+                        <ul class="dropdown-menu currency-dropdown" aria-labelledby="currencyDropdown">
+                            <li><a class="dropdown-item" href="{{route('dashboard')}}">Dashboard<div></div></a></li>
+                            <li><a class="dropdown-item logout" href="javascript:void(0)">Logout<div></div></a></li>
+                           <form action="{{route('logout')}}" method="post" id="logout">@csrf</form>
+                        </ul>
+                    </div>
+
+                    @else
                     <div class="login-icon">
                         <i class="fa fa-user-circle" onclick="toggleLoginModal()"></i>
                         <div class="login-modal d-none" id="login-modal">
@@ -45,32 +63,18 @@
                                     <div onclick="changeLoginTabs(this)">REGISTER</div>
                                 </div>
                                 <div class="p-4 pb-3" style="background-color: #f37050;">
-                                    <!-- <h2>Sign In Here!</h2>
-                                    <p class="mb-4">Log into your account in just a few simple steps.</p> -->
-                                    <div id="fname" class="login-field mb-3 d-none">
+                                    <form action="{{route('login')}}" method="post" id="login">
+                                        @csrf
+                                    <div id="email" class="login-field mb-3">
                                         <i class="fa fa-user" aria-hidden="true"></i>
-                                        <input type="text" placeholder="Full Name" />
+                                        <input type="email" placeholder="Email Address" name="email" required/>
                                     </div>
-                                    <div id="uname" class="login-field mb-3">
-                                        <i class="fa fa-user" aria-hidden="true"></i>
-                                        <input type="text" placeholder="User Name" />
-                                    </div>
-                                    <div id="email" class="login-field mb-3 d-none">
-                                        <i class="fa fa-user" aria-hidden="true"></i>
-                                        <input type="email" placeholder="Email Address" />
-                                    </div>
-                                    <div id="country" class="login-field mb-3 d-none">
-                                        <i class="fa fa-user" aria-hidden="true"></i>
-                                        <input type="text" placeholder="Country" />
-                                    </div>
+
                                     <div class="login-field mb-3">
                                         <i class="fa fa-lock" aria-hidden="true"></i>
-                                        <input type="password" placeholder="Password" />
+                                        <input type="password" placeholder="Password" name="password" required/>
                                     </div>
-                                    <div id="cpassword" class="login-field mb-3 d-none">
-                                        <i class="fa fa-lock" aria-hidden="true"></i>
-                                        <input type="password" placeholder="Confirm Password" />
-                                    </div>
+
                                     <div class="mb-3" id="remember-radio">
                                         <input type="radio" value="remember" name="remeber" /><label for="remember"
                                             class="ms-3">Remember
@@ -79,9 +83,43 @@
                                     <a href="#" id="lost-password"
                                         class="mb-3 d-inline-block text-decoration-none text-white">Lost Your
                                         Password</a>
-                                    <button class="login-button mb-3" id="sign-in">SIGN IN</button>
-                                    <button class="login-button mb-3 d-none" id="sign-up">SIGN UP</button>
+                                    <button type="submit" class="login-button mb-3" id="sign-in">SIGN IN</button>
                                     <p class="mb-0">Sign in with Facebook or Google+</p>
+                                </form>
+
+
+                                <form action="{{route('register')}}" method="post" id="register" class="d-none">
+                                    @csrf
+                                <div id="fname" class="login-field mb-3">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <input type="text" placeholder="Full Name" />
+                                </div>
+                                <div id="uname" class="login-field mb-3">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <input type="text" placeholder="User Name" />
+                                </div>
+                                <div id="email" class="login-field mb-3">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <input type="email" placeholder="Email Address" />
+                                </div>
+                                <div id="country" class="login-field mb-3">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    <input type="text" placeholder="Country" />
+                                </div>
+                                <div class="login-field mb-3">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                    <input type="password" placeholder="Password" />
+                                </div>
+                                <div id="cpassword" class="login-field mb-3">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                    <input type="password" placeholder="Confirm Password" />
+                                </div>
+
+
+                                <button type="submit" class="login-button mb-3 d-none" id="sign-up">SIGN UP</button>
+                                <p class="mb-0">Sign in with Facebook or Google+</p>
+                            </form>
+
                                 </div>
                                 <div class="social-login">
                                     <div>FACEBOOK</div>
@@ -90,6 +128,9 @@
                             </div>
                         </div>
                     </div>
+                    @endif
+
+
                 </div>
             </div>
             <div class="d-flex justify-content-between">
@@ -583,11 +624,10 @@
                                 <div class="text-center">
                                     <span class="py-4 d-inline-block mb-4" style="background-color: #f37050;">
                                          <a href="/">
-                <img src="{{('assets/images/logo.png')}}" alt="" />
+                <img src="{{($icon->file_name??'assets/images/logo.png')}}" alt="" />
             </a>
                                     </span>
-                                    <p>Lorem ipsum dolor sit amet, consectetuer adipis cing elit. Aenean commodo
-                                        ligula eget dolor. Aenean massa. Cum sociis theme natoque. Cum sociis</p>
+                                    <p>{{Setting::get('website_description'??'')}}</p>
                                 </div>
                                 <div>
                                     <div class="side-menu-search mb-5">
@@ -601,18 +641,18 @@
                                     <div class="side-menu-social">
                                         <h4 class="text-center mb-3">Follow ME</h4>
                                         <div class="text-center">
-                                            <span>
+                                            <a href="{{Setting::get('twitter') ?? 'javascript:void(0)'}}">
                                                 <i class="fa fa-twitter" aria-hidden="true"></i>
-                                            </span>
-                                            <span>
-                                                <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                                            </span>
-                                            <span>
+                                            </a>
+                                            <a href="{{Setting::get('linkedin') ?? 'javascript:void(0)'}}">
+                                                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                            </a>
+                                            <a href="{{Setting::get('facebook') ?? 'javascript:void(0)'}}">
                                                 <i class="fa fa-facebook-f" aria-hidden="true"></i>
-                                            </span>
-                                            <span>
+                                            </a>
+                                            <a href="{{Setting::get('instagram') ?? 'javascript:void(0)'}}">
                                                 <i class="fa fa-instagram" aria-hidden="true"></i>
-                                            </span>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>

@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Config;
 
-class CreateSettingsTable extends Migration
+class CreateSettingssTable extends Migration
 {
 	public function __construct()
 	{

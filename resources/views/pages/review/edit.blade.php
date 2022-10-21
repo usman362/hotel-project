@@ -42,7 +42,7 @@
                                     <div class="d-flex">
 
                                         <a href="#" class="me-25">
-                                            <img src="{{asset('images/'.$review->avatar)}}" id="avatar_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
+                                            <img src="{{asset($review->avatar->file_name ?? '')}}" id="avatar_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
                                         </a>
 
 
@@ -52,8 +52,8 @@
                                                 <div class="alert alert-primary" role="alert">
                                                     <div class="alert-body"><strong>Avatar</strong><code>(Only jpg or jpeg)</code></div>
                                                 </div>
-                                                <label for="account-upload" class="btn btn-sm btn-primary mb-75 me-75 waves-effect waves-float waves-light">Upload</label>
-                                                <input type="file" id="account-upload" onchange="loadImage(event)" name="avatar" hidden="" accept="image/jpeg">
+                                                <label data-bs-toggle="modal" data-bs-target="#new-upload-modal"  data-name="avatar" class="btn btn-sm btn-primary mb-75 me-75 uploadModal waves-effect waves-float waves-light">Upload</label>
+                                                <input type="hidden" id="account-upload" name="avatar">
                                                 <button type="button" id="account-reset" onclick="resetImage()" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
                                             </div>
                                         </div>
@@ -103,8 +103,9 @@
                                         <label class="form-label" for="accountLastName">Product Name</label>
                                         <select class="form-select" name="trip" id="basicSelect">
                                             <option selected>------</option>
-                                            <option>Kanchenjunga Circuit Trekking</option>
-                                            <option>Nepal Tour 8 Night 9 Days</option>
+                                            @foreach ($programs as $program)
+                                            <option {{$program->id}} @selected($program->id == $review->trip)>{{$program->tour_name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
 
@@ -210,7 +211,7 @@
     </div>
 </div>
 <!-- END: Content-->
-
+@include('partials.files_modal')
 @endsection
 
 @push('scripts')

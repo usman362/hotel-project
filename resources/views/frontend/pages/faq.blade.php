@@ -1,3 +1,4 @@
+@section('title','Support')
 @extends('frontend.layouts.app')
 @section('content')
 

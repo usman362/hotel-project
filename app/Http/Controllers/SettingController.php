@@ -44,19 +44,19 @@ class SettingController extends Controller
         $global = setting_global::first();
         if($global && !empty($global->id)){
             $global->web_name = $request->web_name;
-            $global->url_slug = $request->url_slug;   
+            $global->url_slug = $request->url_slug;
             $global->social_links = $request->social_links;
             $global->email = $request->email;
-            $global->phone = $request->phone;   
-            $global->address = $request->address;   
-            $global->google_ana_trac_id = $request->google_ana_trac_id;   
-            $global->copyright_text = $request->copyright_text;   
-            $global->cookie_msg = $request->cookie_msg;   
-            $global->meta_title = $request->meta_title;   
-            $global->meta_desc = $request->meta_desc;   
-            $global->sitemap_generator = $request->sitemap_generator;   
+            $global->phone = $request->phone;
+            $global->address = $request->address;
+            $global->google_ana_trac_id = $request->google_ana_trac_id;
+            $global->copyright_text = $request->copyright_text;
+            $global->cookie_msg = $request->cookie_msg;
+            $global->meta_title = $request->meta_title;
+            $global->meta_desc = $request->meta_desc;
+            $global->sitemap_generator = $request->sitemap_generator;
             $global->still_offline = $request->still_offline;
-            
+
             if($request->hasFile('logo')){
                 $logo = $request->file('logo');
                 $filename = time() . '.' . $logo->getClientOriginalExtension();
@@ -75,19 +75,19 @@ class SettingController extends Controller
         }else{
             $global = new setting_global();
             $global->web_name = $request->web_name;
-            $global->url_slug = $request->url_slug;   
+            $global->url_slug = $request->url_slug;
             $global->social_links = $request->social_links;
             $global->email = $request->email;
-            $global->phone = $request->phone;   
-            $global->address = $request->address;   
-            $global->google_ana_trac_id = $request->google_ana_trac_id;   
-            $global->copyright_text = $request->copyright_text;   
-            $global->cookie_msg = $request->cookie_msg;   
-            $global->meta_title = $request->meta_title;   
-            $global->meta_desc = $request->meta_desc;   
-            $global->sitemap_generator = $request->sitemap_generator;   
+            $global->phone = $request->phone;
+            $global->address = $request->address;
+            $global->google_ana_trac_id = $request->google_ana_trac_id;
+            $global->copyright_text = $request->copyright_text;
+            $global->cookie_msg = $request->cookie_msg;
+            $global->meta_title = $request->meta_title;
+            $global->meta_desc = $request->meta_desc;
+            $global->sitemap_generator = $request->sitemap_generator;
             $global->still_offline = $request->still_offline;
-            
+
             if($request->hasFile('logo')){
                 $logo = $request->file('logo');
                 $filename = time() . '.' . $logo->getClientOriginalExtension();
@@ -105,7 +105,7 @@ class SettingController extends Controller
         }
         return redirect()->route('setting.global');
     }
-    
+
     public function account()
     {
         $account = account::first();
@@ -119,11 +119,11 @@ class SettingController extends Controller
             // $account = new account();
             $account->name = $request->name;
             $account->email = $request->email;
-            $account->phone = $request->phone;   
-            $account->address = $request->address;   
-            $account->password = Hash::make($request->password); 
-            $account->password_decrpt = $request->password;   
-            
+            $account->phone = $request->phone;
+            $account->address = $request->address;
+            $account->password = Hash::make($request->password);
+            $account->password_decrpt = $request->password;
+
             if($request->hasFile('profile_pic')){
                 $profile_pic = $request->file('profile_pic');
                 $filename = time() . '.' . $profile_pic->getClientOriginalExtension();
@@ -137,11 +137,11 @@ class SettingController extends Controller
             $account = new account();
             $account->name = $request->name;
             $account->email = $request->email;
-            $account->phone = $request->phone;   
-            $account->address = $request->address;   
+            $account->phone = $request->phone;
+            $account->address = $request->address;
             $account->password = Hash::make($request->password);
-            $account->password_decrpt = $request->password; 
-            
+            $account->password_decrpt = $request->password;
+
             if($request->hasFile('profile_pic')){
                 $profile_pic = $request->file('profile_pic');
                 $filename = time() . '.' . $profile_pic->getClientOriginalExtension();
@@ -195,11 +195,11 @@ class SettingController extends Controller
             // $account = new account();
             $widget->top_left = $request->top_left;
             $widget->top_right = $request->top_right;
-            $widget->footer = $request->footer;   
-            $widget->footer_bottom = $request->footer_bottom;   
-            $widget->why_bk_with_us = $request->why_bk_with_us; 
-            $widget->customer_support = $request->customer_support;   
-            $widget->trusted_travel_partner = $request->trusted_travel_partner;   
+            $widget->footer = $request->footer;
+            $widget->footer_bottom = $request->footer_bottom;
+            $widget->why_bk_with_us = $request->why_bk_with_us;
+            $widget->customer_support = $request->customer_support;
+            $widget->trusted_travel_partner = $request->trusted_travel_partner;
             $widget->faq_sidebar_widget = $request->faq_sidebar_widget;
             $widget->contact_us_sidebar_wiget = $request->contact_us_sidebar_wiget;
             $widget->save();
@@ -208,11 +208,11 @@ class SettingController extends Controller
             $widget = new widget();
             $widget->top_left = $request->top_left;
             $widget->top_right = $request->top_right;
-            $widget->footer = $request->footer;   
-            $widget->footer_bottom = $request->footer_bottom;   
-            $widget->why_bk_with_us = $request->why_bk_with_us; 
-            $widget->customer_support = $request->customer_support;   
-            $widget->trusted_travel_partner = $request->trusted_travel_partner;   
+            $widget->footer = $request->footer;
+            $widget->footer_bottom = $request->footer_bottom;
+            $widget->why_bk_with_us = $request->why_bk_with_us;
+            $widget->customer_support = $request->customer_support;
+            $widget->trusted_travel_partner = $request->trusted_travel_partner;
             $widget->faq_sidebar_widget = $request->faq_sidebar_widget;
             $widget->contact_us_sidebar_wiget = $request->contact_us_sidebar_wiget;
             $widget->save();
@@ -233,11 +233,11 @@ class SettingController extends Controller
         if($payment && !empty($payment->id)){
             $payment->paymentOption = $request->paymentOption;
             $payment->depositOption = $request->depositOption;
-            $payment->guestBooking = $request->guestBooking;   
-            $payment->stripe_secret_key = $request->secret_key;   
-            $payment->stripe_public_key = $request->public_key; 
-            $payment->paypal_success_url = $request->success_url;   
-            $payment->paypal_cancel_url = $request->cancel_url;   
+            $payment->guestBooking = $request->guestBooking;
+            $payment->stripe_secret_key = $request->secret_key;
+            $payment->stripe_public_key = $request->public_key;
+            $payment->paypal_success_url = $request->success_url;
+            $payment->paypal_cancel_url = $request->cancel_url;
             $payment->paypal_ipn_file_url = $request->ipn_file_url;
             $payment->paypal_mode = $request->paypal_mode;
             $payment->currency = $request->currency;
@@ -252,11 +252,11 @@ class SettingController extends Controller
             $payment = new payment();
             $payment->paymentOption = $request->paymentOption;
             $payment->depositOption = $request->depositOption;
-            $payment->guestBooking = $request->guestBooking;   
-            $payment->stripe_secret_key = $request->secret_key;   
-            $payment->stripe_public_key = $request->public_key; 
-            $payment->paypal_success_url = $request->success_url;   
-            $payment->paypal_cancel_url = $request->cancel_url;   
+            $payment->guestBooking = $request->guestBooking;
+            $payment->stripe_secret_key = $request->secret_key;
+            $payment->stripe_public_key = $request->public_key;
+            $payment->paypal_success_url = $request->success_url;
+            $payment->paypal_cancel_url = $request->cancel_url;
             $payment->paypal_ipn_file_url = $request->ipn_file_url;
             $payment->paypal_mode = $request->paypal_mode;
             $payment->currency = $request->currency;
@@ -304,7 +304,7 @@ class SettingController extends Controller
         $user->last_name	= $request->last_name;
         $user->email	= $request->email;
         $user->role	= $request->role;
-        $user->password	= Hash::make($request->password); 
+        $user->password	= Hash::make($request->password);
         $user->save();
         return redirect()->route('setting.users');
     }

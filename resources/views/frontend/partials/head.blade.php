@@ -5,7 +5,11 @@
     <meta name="Description" content="Enter your description here" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <title>Title</title>
+    @php
+    $icon = App\Models\Upload::find(Setting::get('logo'));
+    @endphp
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset($icon->file_name??'app-assets/images/ico/favicon.ico')}}">
+    <title>{{Setting::get('website_name')??'Title'}} | @yield('title')</title>
     <link href="{{asset('assets/style.css')}}" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/5c716d0627.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">

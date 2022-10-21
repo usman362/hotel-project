@@ -24,9 +24,10 @@ use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\MesaageController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SettingGlobalController;
 // use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\TwoFAController;
-
+use App\Http\Controllers\WidgetController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -125,6 +126,15 @@ Route::middleware(['auth'])->group(function () {
     Route::post('users/update/{id}', [SettingController::class, 'UpdateUser'])->name('setting.UpdateUser');
     Route::get('users/delete/{id}', [SettingController::class, 'DeleteUser'])->name('setting.DeleteUser');
 
+
+    //Widgets
+    Route::get('widgets',[WidgetController::class,'index'])->name('widgets.index');
+
+    //Global Setting
+
+    Route::resource('settings',SettingGlobalController::class);
+
+
     // Booking Routes
 
     Route::get('bookings', [BookingController::class, 'index'])->name('bookings.index');
@@ -179,7 +189,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('page/delete/{id}', [PageController::class, 'destroy'])->name('page.delete');
 
     //Program Routes
-
+    Route::get('/dashboard',function(){
+        return redirect(route('program.index'));
+    })->name('dashboard');
     Route::get('program', [ProgramController::class, 'index'])->name('program.index');
     Route::get('program/add', [ProgramController::class, 'create'])->name('program.create');
     Route::post('program/add', [ProgramController::class, 'store'])->name('program.store');
@@ -255,10 +267,10 @@ Route::controller(AizUploadController::class)->group(function () {
 });
 
     Route::prefix('account')->group(function () {
-        Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
-        Route::put('settings', [SettingsController::class, 'update'])->name('settings.update');
-        Route::put('settings/email', [SettingsController::class, 'changeEmail'])->name('settings.changeEmail');
-        Route::put('settings/password', [SettingsController::class, 'changePassword'])->name('settings.changePassword');
+        Route::get('settings', [SettingsController::class, 'index'])->name('settings_account.index');
+        Route::put('settings', [SettingsController::class, 'update'])->name('settings_account.update');
+        Route::put('settings/email', [SettingsController::class, 'changeEmail'])->name('settings_account.changeEmail');
+        Route::put('settings/password', [SettingsController::class, 'changePassword'])->name('settings_account.changePassword');
     });
 
     // Logs pages

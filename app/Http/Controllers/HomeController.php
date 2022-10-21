@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Destination;
 use App\Models\Program;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,7 +13,12 @@ class HomeController extends Controller
 
 
     public function index(){
-        return view('frontend.pages.index');
+        $reviews = Review::paginate(9);
+        $destinations = Destination::paginate(10);
+        $blogs = Blog::orderBy('created_at','desc')->paginate(3);
+        $programs = Program::paginate(6);
+        $programs_2 = Program::paginate(5);
+        return view('frontend.pages.index',compact('reviews','destinations','blogs','programs','programs_2'));
     }
 
     public function tour_detail($slug){

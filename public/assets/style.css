@@ -338,7 +338,7 @@ footer {
     width: 50%;
 }
 
-.footer-social-icons span {
+.footer-social-icons a {
     width: 30px;
     height: 30px;
     padding: 2px;
@@ -348,23 +348,23 @@ footer {
     display: inline-block;
 }
 
-.footer-social-icons span:first-child {
+.footer-social-icons a:first-child {
     background: #4060a5;
 }
 
-.footer-social-icons span:nth-child(2) {
+.footer-social-icons a:nth-child(2) {
     background: #3484f5;
 }
 
-.footer-social-icons span:nth-child(3) {
+.footer-social-icons a:nth-child(3) {
     background: #e24d93;
 }
 
-.footer-social-icons span:nth-child(4) {
+.footer-social-icons a:nth-child(4) {
     background: #cb2027;
 }
 
-.footer-social-icons span i {
+.footer-social-icons a span i {
     transform: rotate(-45deg);
 }
 
@@ -2658,7 +2658,7 @@ div:hover>.name-with-review-overlay,
         zoom: 115%;
     }
 
-    /* 
+    /*
     .tour-review-section {
         zoom: 90%;
     }
@@ -3075,7 +3075,7 @@ div:hover>.name-with-review-overlay,
     transform: scale(1.2, 1.2);
 }
 
-/* 
+/*
 .activities .product-details {
     float: right;
 }
@@ -4046,7 +4046,7 @@ button#currencyDropdown:hover {
     padding: 0 16px;
 }
 
-.side-menu-social span {
+.side-menu-social a {
     font-size: 22px;
     width: 50px;
     height: 50px;
@@ -4082,7 +4082,7 @@ input[type="date"i]::-webkit-calendar-picker-indicator {
     cursor: pointer;
 }
 
-/* 
+/*
 .custom-modules {
     display: flex;
     justify-content: center;
@@ -4257,7 +4257,7 @@ input[type="date"i]::-webkit-calendar-picker-indicator {
     position: absolute;
     left: 12px;
 }
-/* 
+/*
 .tour-search-bar .search-input option {
     width: 100%;
     z-index: 1;

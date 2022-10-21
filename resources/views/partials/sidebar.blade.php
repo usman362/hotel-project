@@ -140,11 +140,11 @@
                 </li>
                 <li class=" navigation-header"><span>Global Modules</span><i data-feather="more-horizontal"></i>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="settings"></i><span class="menu-title text-truncate">Settings</span></a>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('settings.index')}}"><i data-feather="settings"></i><span class="menu-title text-truncate">Settings</span></a>
                 </li>
                 <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="layers"></i><span class="menu-title text-truncate">Navbar</span></a>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="layout"></i><span class="menu-title text-truncate">Widgets</span></a>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('widgets.index')}}"><i data-feather="layout"></i><span class="menu-title text-truncate">Widgets</span></a>
                 </li>
                 <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="key"></i><span class="menu-title text-truncate">APIs</span></a>
                 </li>
@@ -165,11 +165,11 @@
                 </li> --}}
 
 
-                <li class=" nav-item"><a class="d-flex align-items-center" href="#" target="_blank"><i data-feather="life-buoy"></i><span class="menu-title text-truncate" data-i18n="Raise Support">Raise Support</span></a>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="https://hli.helpcrunch.com/" target="_blank"><i data-feather="life-buoy"></i><span class="menu-title text-truncate" data-i18n="Raise Support">Raise Support</span></a>
                 </li>
                 <li class=" navigation-header"><span>Exit Session</span><i data-feather="more-horizontal"></i>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="auth-login-cover.html"><i data-feather="power"></i><span class="menu-title text-truncate">Logout</span></a>
+                <li class=" nav-item"><a class="d-flex align-items-center logout" href="javascript:void(0)"><i data-feather="power"></i><span class="menu-title text-truncate">Logout</span></a>
                 </li>
 
 

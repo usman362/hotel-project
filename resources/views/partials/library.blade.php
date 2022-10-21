@@ -57,6 +57,10 @@
                     height: 14
                 });
             }
-        })
+        });
+
+        $('.logout').click(function(){
+            $('#logout').submit();
+        });
 
     </script>

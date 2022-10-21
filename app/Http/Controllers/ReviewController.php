@@ -7,6 +7,7 @@ use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
 use App\Models\Activity;
 use App\Models\Destination;
+use App\Models\Program;
 use App\Models\Region;
 use App\Models\WebUpdate;
 
@@ -33,7 +34,8 @@ class ReviewController extends Controller
         $activities = Activity::all();
         $destinations = Destination::all();
         $regions = Region::all();
-        return view('pages.review.add',compact('activities','destinations','regions'));
+        $programs = Program::all();
+        return view('pages.review.add',compact('activities','destinations','regions','programs'));
     }
 
     /**
@@ -89,7 +91,8 @@ class ReviewController extends Controller
         $activities = Activity::all();
         $destinations = Destination::all();
         $regions = Region::all();
-        return view('pages.review.edit', compact('activities','destinations','regions','review'));
+        $programs = Program::all();
+        return view('pages.review.edit', compact('activities','destinations','regions','review','programs'));
     }
 
     /**

@@ -6,15 +6,15 @@
                     <li class="nav-item"><a class="nav-link menu-toggle" href="#"><i class="ficon" data-feather="menu"></i></a></li>
                 </ul>
                 <ul class="nav navbar-nav bookmark-icons">
-                    <li class="nav-item d-none d-lg-block"><a class="nav-link" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Reviews"><i class="ficon" data-feather="star"></i></a></li>
-                    <li class="nav-item d-none d-lg-block"><a class="nav-link" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Blogs"><i class="ficon" data-feather="file-text"></i></a></li>
+                    <li class="nav-item d-none d-lg-block"><a class="nav-link" href="{{route('review.index')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Reviews"><i class="ficon" data-feather="star"></i></a></li>
+                    <li class="nav-item d-none d-lg-block"><a class="nav-link" href="{{route('blogpages.index')}}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Blogs"><i class="ficon" data-feather="file-text"></i></a></li>
                     <li class="nav-item d-none d-lg-block"><a class="nav-link" href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Settings"><i class="ficon" data-feather="settings"></i></a></li>
                 </ul>
 
             </div>
             <ul class="nav navbar-nav align-items-center ms-auto">
 
-              
+
 
                 <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-style"><i class="ficon" data-feather="moon"></i></a></li>
                 <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon" data-feather="search"></i></a>
@@ -25,21 +25,22 @@
                         <ul class="search-list search-list-main"></ul>
                     </div>
                 </li>
-          
+
                 <li class="nav-item dropdown dropdown-user">
                     <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="user-nav d-sm-flex d-none"><span class="user-name fw-bolder">Upendra Duwadi</span><span class="user-status">Administrator</span></div><span class="avatar"><img class="round" src="{{asset('app-assets/images/portrait/small/avatar-s-11.jpg')}}" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
-                        <a class="dropdown-item" href="app-user-view-account.html"><i class="me-50" data-feather="user"></i> Profile</a>
-                        <a class="dropdown-item" href="app-email.html"><i class="me-50" data-feather="send"></i> Messages</a>
+                        <a class="dropdown-item" href="#"><i class="me-50" data-feather="user"></i> Profile</a>
+                        <a class="dropdown-item" href="#"><i class="me-50" data-feather="send"></i> Messages</a>
                         <div class="dropdown-divider"></div>
 
                         <a class="dropdown-item" href="#"><i class="me-50" data-feather="message-square"></i> Live Chat</a>
                         <a class="dropdown-item" href="#"><i class="me-50" data-feather="help-circle"></i> Knowledgebase</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="page-account-settings-account.html"><i class="me-50" data-feather="settings"></i> Settings</a>
-                        <a class="dropdown-item" href="auth-login-cover.html"><i class="me-50" data-feather="power"></i> Logout</a>
+                        <a class="dropdown-item" href="#"><i class="me-50" data-feather="settings"></i> Settings</a>
+                        <a class="dropdown-item logout" href="javascript:void(0)"><i class="me-50" data-feather="power"></i> Logout</a>
+                        <form action="{{route('logout')}}" method="post" id="logout">@csrf</form>
                     </div>
                 </li>
             </ul>

@@ -1,17 +1,20 @@
 <footer class="p-4 py-5">
+    @php
+    $logo = App\Models\Upload::find(Setting::get('logo'));
+@endphp
+
         <div class="row mx-2 my-5">
             <div class="col-4">
                 <div class="footer-company-info">
                     <div class="footer-logo"> <a href="/">
-                <img src="{{asset('assets/images/logo.png')}}" alt="" />
+                <img src="{{asset($logo->file_name??'assets/images/logo.png')}}" alt="" />
             </a></div>
-                    <div class="company-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt</div>
+                    <div class="company-info">{{Setting::get('website_description')??''}}</div>
                     <div class="footer-social-icons">
-                        <span><i class="fa fa-facebook-f"></i></span>
-                        <span><i class="fa fa-instagram"></i></span>
-                        <span><i class="fa fa-twitter"></i></span>
-                        <span><i class="fa fa-linkedin"></i></span>
+                        <a href="{{Setting::get('facebook') ?? 'javascript:void(0)'}}"><span><i class="fa fa-facebook-f"></i></span></a>
+                        <a href="{{Setting::get('instagram') ?? 'javascript:void(0)'}}"><span><i class="fa fa-instagram"></i></span></a>
+                        <a href="{{Setting::get('twitter') ?? 'javascript:void(0)'}}"><span><i class="fa fa-twitter"></i></span></a>
+                        <a href="{{Setting::get('linkedin') ?? 'javascript:void(0)'}}"><span><i class="fa fa-linkedin"></i></span></a>
                     </div>
                 </div>
             </div>
@@ -81,7 +84,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Phone</h4>
-                            <p class="m-0">+977 98510 94157</p>
+                            <p class="m-0">{{Setting::get('phone')??''}}</p>
                         </div>
                     </div>
                     <div class="d-flex align-items-center">
@@ -90,7 +93,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Email</h4>
-                            <p class="m-0">Info@himalayanleisure.com</p>
+                            <p class="m-0">{{Setting::get('email')??''}}</p>
                         </div>
                     </div>
                     <div class="d-flex align-items-center">
@@ -99,14 +102,14 @@
                         </div>
                         <div class="contact-details">
                             <h4>Location</h4>
-                            <p class="m-0">2035 Sunset Lake Rd Suite B-2,<br />Newark,New Castle, DE-19702</p>
+                            <p class="m-0">{{Setting::get('address')??''}}</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="copyright-section mx-3">
-            <div>&copy; 2021 Himalayan Leisure Inc</div>
+            <div>&copy; {{Setting::get('copyright_text')??''}}</div>
             <div class="d-flex align-items-center">
                 <p class="m-0 me-5">Secure Payments By</p>
                 <div class="payment-methods">
@@ -164,29 +167,22 @@
             }
 
             if (loginModalState) {
-                document.getElementById('cpassword').classList.remove('d-none')
-                document.getElementById('remember-radio').classList.add('d-none')
-                document.getElementById('lost-password').classList.add('d-none')
-                document.getElementById('sign-in').classList.add('d-none')
-                document.getElementById('sign-up').classList.remove('d-none')
-                document.getElementById('email').classList.remove('d-none')
-                document.getElementById('country').classList.remove('d-none')
-                document.getElementById('uname').classList.add('d-none')
-                document.getElementById('fname').classList.remove('d-none')
+                document.getElementById('register').classList.remove('d-none');
+               document.getElementById('login').classList.add('d-none');
                 loginModalState = false
             } else {
-                document.getElementById('cpassword').classList.add('d-none')
-                document.getElementById('remember-radio').classList.remove('d-none')
-                document.getElementById('lost-password').classList.remove('d-none')
-                document.getElementById('sign-in').classList.remove('d-none')
-                document.getElementById('sign-up').classList.add('d-none')
-                document.getElementById('email').classList.add('d-none')
-                document.getElementById('country').classList.add('d-none')
-                document.getElementById('uname').classList.remove('d-none')
-                document.getElementById('fname').classList.add('d-none')
+
+               document.getElementById('register').classList.add('d-none');
+               document.getElementById('login').classList.remove('d-none');
                 loginModalState = true
             }
         }
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+                $('.logout').click(function(){
+            $('#logout').submit();
+        });
+    </script>
