@@ -70,20 +70,18 @@ class ProgramController extends Controller
         $program->start_end = $request->start_end;
         $program->daily_activity = $request->daily_activity;
         $program->tour_overview = $request->tour_overview;
-        if($request->hasfile('tour_gallery'))
-         {
-            foreach($request->file('tour_gallery') as $image)
-            {
-                $name=$image->getClientOriginalName();
-                $image->move(public_path().'/images/TourGallery', $name);
-                $gallery[] = $name;
-            }
-
-        $program->tour_gallery = json_encode($gallery);
-
-        }else{
-              $program->tour_gallery = 1;
-         }
+        // if($request->hasfile('tour_gallery'))
+        //  {
+        // foreach($request->file('tour_gallery') as $image)
+        // {
+        //     $name=$image->getClientOriginalName();
+        //     $image->move(public_path().'/images/TourGallery', $name);
+        //     $gallery[] = $name;
+        // }
+        // $program->tour_gallery = json_encode($gallery);
+        // }else{
+        //       $program->tour_gallery = 1;
+        // }
          if($request->hasfile('tour_brochure'))
          {
             $brochure=$request->tour_brochure->getClientOriginalName();
@@ -93,37 +91,10 @@ class ProgramController extends Controller
          }else{
               $program->tour_brochure = 1;
          }
-
-
-         if($request->hasfile('tour_thumbnail'))
-         {
-            $thumbnail=$request->tour_thumbnail->getClientOriginalName();
-            $request->tour_thumbnail->move(public_path().'/images/TourThumbnail', $thumbnail);
-             $program->tour_thumbnail = $thumbnail;
-         }else{
-              $program->tour_thumbnail = 1;
-         }
-
-
-         if($request->hasfile('tour_banner'))
-         {
-            $banner=$request->tour_banner->getClientOriginalName();
-            $request->tour_banner->move(public_path().'/images/TourBanner', $banner);
-             $program->tour_banner = $banner;
-         }else{
-             $program->tour_banner = 1;
-         }
-
-
-         if($request->hasfile('tour_map'))
-         {
-            $map=$request->tour_map->getClientOriginalName();
-            $request->tour_map->move(public_path().'/images/TourMap', $map);
-              $program->tour_map = $map;
-         }else{
-              $program->tour_map = 1;
-         }
-
+        $program->tour_gallery = json_encode($request->tour_gallery);
+        $program->tour_thumbnail = $request->tour_thumbnail;
+        $program->tour_banner = $request->tour_banner;
+        $program->tour_map = $request->tour_map;
         $program->tour_highlights = json_encode($request->tour_highlights);
         $program->free_cancellation = $request->free_cancellation;
         $program->pricing_type = $request->pricing_type;
@@ -138,7 +109,6 @@ class ProgramController extends Controller
         $program->meta_description = $request->meta_description;
         $program->meta_keyword = $request->meta_keyword;
         $program->save();
-
        if($request->pricing_type == 'Tiered Pricing'){
            $tr = 0;
            foreach($request->min_pax as $minpax){
@@ -150,14 +120,10 @@ class ProgramController extends Controller
                 $tiered->save();
                 $tr++;
            }
-
-
        }
-
         if($request->has('itinerary_day')){
             $i = 0;
             foreach($request->itinerary_day as $day){
-
                 $days = new ProgramItinerary();
                 $days->program_id = $program->id;
                 $days->day = $day;
@@ -173,7 +139,6 @@ class ProgramController extends Controller
                 $i++;
             }
         }
-
         if($request->has('includes') || $request->has('excludes')){
              $c = 0;
             foreach($request->includes as $include){
@@ -188,88 +153,81 @@ class ProgramController extends Controller
                 $c++;
             }
         }
+        // if($request->has('equipment_1')){
+        //      $e = 0;
+        //     foreach($request->equipment_1 as $equipment_1){
+        //         $equipment = new ProgramSupport();
+        //         $equipment->program_id = $program->id;
+        //         if($request->equipment_file[$e])
+        //          {
+        //             $equipment_file=$request->equipment_file[$e]->getClientOriginalName();
+        //             $request->equipment_file[$e]->move(public_path().'/images/Equipments', $equipment_file);
+        //              $equipment->file = $equipment_file;
+        //          }else{
+        //              $equipment->file = 1;
+        //          }
+        //         $equipment->equipment_1 = $equipment_1;
+        //         $equipment->equipment_2  = isset($request->equipment_2[$e]) ? $request->equipment_2[$e] : '' ;
+        //         $equipment->equipment_3  = isset($request->equipment_3[$e]) ? $request->equipment_3[$e] : '' ;
+        //         $equipment->equipment_4  = isset($request->equipment_4[$e]) ? $request->equipment_4[$e] : '' ;
+        //         $equipment->save();
+        //         $e++;
+        //     }
+        // }
+        //  if($request->has('faq_question')){
+        //      $f = 0;
+        //     foreach($request->faq_question as $question){
+        //         $faq = new ProgramFaq();
+        //         $faq->program_id = $program->id;
+        //         $faq->question = $question;
+        //         $faq->answer  = $request->faq_answer[$f] != null ? $request->faq_answer[$f] : '' ;
+        //         $faq->save();
+        //          $f++;
+        //     }
+        // }
 
+        // if($request->has('addon_name')){
+        //      $a = 0;
+        //     foreach($request->addon_name as $addonName){
 
-        if($request->has('equipment_1')){
-             $e = 0;
-            foreach($request->equipment_1 as $equipment_1){
-                $equipment = new ProgramSupport();
-                $equipment->program_id = $program->id;
-                if($request->equipment_file[$e])
-                 {
-                    $equipment_file=$request->equipment_file[$e]->getClientOriginalName();
-                    $request->equipment_file[$e]->move(public_path().'/images/Equipments', $equipment_file);
-                     $equipment->file = $equipment_file;
-                 }else{
-                     $equipment->file = 1;
-                 }
-                $equipment->equipment_1 = $equipment_1;
-                $equipment->equipment_2  = isset($request->equipment_2[$e]) ? $request->equipment_2[$e] : '' ;
-                $equipment->equipment_3  = isset($request->equipment_3[$e]) ? $request->equipment_3[$e] : '' ;
-                $equipment->equipment_4  = isset($request->equipment_4[$e]) ? $request->equipment_4[$e] : '' ;
-                $equipment->save();
-                $e++;
-            }
-        }
+        //         $addon = new ProgramAddon();
+        //         $addon->program_id = $program->id;
+        //         $addon->name = $addonName;
+        //         $addon->price  = $request->addon_price[$a] != null ? $request->addon_price[$a] : '' ;
+        //         $addon->accommodates  = $request->addon_accommodates[$a] != null ? $request->addon_accommodates[$a] : '' ;
+        //         $addon->save();
+        //         $a++;
+        //     }
+        // }
+        // if($request->has('discount_from')){
+        //      $d = 0;
+        //     foreach($request->discount_from as $discountfrom){
 
+        //         $discount = new ProgramDiscount();
+        //         $discount->program_id = $program->id;
+        //         $discount->discount_from = $discountfrom;
+        //         $discount->discount_until  = $request->discount_until[$d] != null ? $request->discount_until[$d] : '' ;
+        //         $discount->discounts = $request->discounts[$d] != null ? $request->discounts[$d] : '' ;
+        //         $discount->save();
 
-         if($request->has('faq_question')){
-             $f = 0;
-            foreach($request->faq_question as $question){
+        //         $d++;
+        //     }
+        // }
 
-                $faq = new ProgramFaq();
-                $faq->program_id = $program->id;
-                $faq->question = $question;
-                $faq->answer  = $request->faq_answer[$f] != null ? $request->faq_answer[$f] : '' ;
-                $faq->save();
-                 $f++;
-            }
-        }
+        //    if($request->has('unavailable_from')){
+        //      $u = 0;
+        //     foreach($request->unavailable_from as $unavailablefrom){
 
-        if($request->has('addon_name')){
-             $a = 0;
-            foreach($request->addon_name as $addonName){
+        //         $unavailable = new ProgramUnavailable();
+        //         $unavailable->program_id = $program->id;
+        //         $unavailable->unavailable_from = $discountfrom;
+        //         $unavailable->unavailable_until  = $request->unavailable_until[$u] != null ? $request->unavailable_until[$u] : '' ;
+        //         $unavailable->save();
+        //          $u++;
+        //     }
+        // }
 
-                $addon = new ProgramAddon();
-                $addon->program_id = $program->id;
-                $addon->name = $addonName;
-                $addon->price  = $request->addon_price[$a] != null ? $request->addon_price[$a] : '' ;
-                $addon->accommodates  = $request->addon_accommodates[$a] != null ? $request->addon_accommodates[$a] : '' ;
-                $addon->save();
-                $a++;
-            }
-        }
-
-
-        if($request->has('discount_from')){
-             $d = 0;
-            foreach($request->discount_from as $discountfrom){
-
-                $discount = new ProgramDiscount();
-                $discount->program_id = $program->id;
-                $discount->discount_from = $discountfrom;
-                $discount->discount_until  = $request->discount_until[$d] != null ? $request->discount_until[$d] : '' ;
-                $discount->discounts = $request->discounts[$d] != null ? $request->discounts[$d] : '' ;
-                $discount->save();
-
-                $d++;
-            }
-        }
-
-           if($request->has('unavailable_from')){
-             $u = 0;
-            foreach($request->unavailable_from as $unavailablefrom){
-
-                $unavailable = new ProgramUnavailable();
-                $unavailable->program_id = $program->id;
-                $unavailable->unavailable_from = $discountfrom;
-                $unavailable->unavailable_until  = $request->unavailable_until[$u] != null ? $request->unavailable_until[$u] : '' ;
-                $unavailable->save();
-                 $u++;
-            }
-        }
-
-
+        return 'Success';
         return back()->with('success','Program has been Successfully Added!');
 
     }

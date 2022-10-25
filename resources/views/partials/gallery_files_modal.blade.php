@@ -1,6 +1,6 @@
 
      <!-- Create New File Modal Starts-->
-     <div class="modal fade" id="new-upload-modal">
+     <div class="modal fade" id="new-gallery_upload-modal">
         <div class="modal-dialog modal-dialog-centered" style="max-width: 991px;">
             <div class="modal-content">
                 <div class="modal-header">
@@ -17,7 +17,6 @@
 
                                    <!-- file manager app content starts -->
                                    <div class="file-manager-main-content">
-                                    <input type="hidden" id="uploaded_for">
                                        <div class="file-manager-content-body">
                                         <form action="{{route('uploaded-files.store')}}" method="post" id="upload_form" enctype="multipart/form-data">
                                             @csrf
@@ -46,7 +45,7 @@
                                           <div class="col-md-3">
                                                <label class="card file-manager-item file" for="upload{{$file->id}}">
                                                    <div class="form-check">
-                                                       <input type="radio" name="selectImage" class="form-check-input checkImage" id="upload{{$file->id}}" value="{{$file->id}}"/>
+                                                       <input type="checkbox" name="selectImage" class="form-check-input checkImage" id="upload{{$file->id}}" value="{{$file->id}}"/>
                                                    </div>
                                                    <div class="card-img-top file-logo-wrapper">
 
@@ -84,7 +83,7 @@
 
             </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary me-1 selectUploadImage" data-bs-dismiss="modal">Select</button>
+                    <button type="button" class="btn btn-primary me-1 selectGalleryImage" data-bs-dismiss="modal">Select</button>
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </form>
@@ -145,48 +144,16 @@
       })
      });
 
-$('.uploadModal').click(function(){
 
-$('#uploaded_for').val($(this).data('name'));
-
+$('.selectGalleryImage').click(function(){
+    var total  = [];
+    $(".checkImage:checked").each(function(){
+        total.push($(this).val());
 });
+  //  var path = $('.uploaded_image'+id).attr('src');
 
-$('.selectUploadImage').click(function(){
-    var id = $('.checkImage:checked').val();
-    var path = $('.uploaded_image'+id).attr('src');
-    var upload_for = $('#uploaded_for').val();
-
-if (upload_for == 'thumbnail') {
-    $('input[name="thumbnail_image"]').val(id);
-    var thumbnail_image = document.getElementById('thumbnail_image_output');
-	thumbnail_image.src = path;
-    $('#uploaded_image_form').reset();
-}else if (upload_for == 'banner') {
-    $('input[name="banner_image"]').val(id);
-    var banner_image = document.getElementById('banner_image_output');
-    banner_image.src = path;
-    $('#uploaded_image_form').reset();
-}else if (upload_for == 'avatar') {
-    $('input[name="avatar"]').val(id);
-    var avatar = document.getElementById('avatar_image_output');
-    avatar.src = path;
-    $('#uploaded_image_form').reset();
-}else if (upload_for == 'icon') {
-    $('input[name="icon"]').val(id);
-    var icon = document.getElementById('icon_image_output');
-    icon.src = path;
-    $('#uploaded_image_form').reset();
-}else if (upload_for == 'image') {
-    $('input[name="image"]').val(id);
-    var image = document.getElementById('image_output');
-    image.src = path;
-    $('#uploaded_image_form').reset();
-}else{
-    $('input[name="'+upload_for+'"]').val(id);
-document.getElementById(''+upload_for+'_image_output').src = path;
-}
-
-
+$('input[name="tour_gallery[]"]').val(total);
+//document.getElementById('tour_gallery_image_output').src = path;
 
 });
 

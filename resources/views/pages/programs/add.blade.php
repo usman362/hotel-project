@@ -335,30 +335,88 @@
                                     <!-- full Editor end -->
                                     <div class="row">
                                         <div class="mb-1 col-md-6">
-                                            <label for="tour_thumbnail" class="form-label">Tour Thumbnail</label>
-                                            <input class="form-control" name="tour_thumbnail" type="file" id="tour_thumbnail">
+                                            <div class="d-flex">
+                                                <a href="#" class="me-25">
+                                                    <img src="{{asset('app-assets/images/slider/10.jpg')}}" id="tour_thumbnail_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="250">
+                                                </a>
+                                                <!-- upload and reset button -->
+                                                <div class="d-flex align-items-end mt-75 ms-1">
+                                                    <div>
+                                                        <div class="alert alert-primary" role="alert">
+                                                            <div class="alert-body"><strong>Tour Thumbnail</strong></div>
+                                                        </div>
+                                                        <label class="btn btn-sm btn-primary mb-75 me-75 waves-effect waves-float waves-light uploadModal" data-bs-toggle="modal" data-name="tour_thumbnail" data-bs-target="#new-upload-modal">Upload</label>
+                                                        <input name="tour_thumbnail" type="hidden">
+                                                        <button type="button" id="account-reset" onclick="resetThumbnailImage()" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
+                                                    </div>
+                                                </div>
                                              @error('tour_thumbnail')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
                                         </div>
+                                    </div>
                                         <div class="mb-1 col-md-6">
-                                            <label for="tour_banner" class="form-label">Tour Banner</label>
-                                            <input class="form-control" name="tour_banner" type="file" id="tour_banner">
+                                            <div class="d-flex">
+                                                <a href="#" class="me-25">
+                                                    <img src="{{asset('app-assets/images/slider/10.jpg')}}" id="tour_banner_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="250">
+                                                </a>
+                                                <!-- upload and reset button -->
+                                                <div class="d-flex align-items-end mt-75 ms-1">
+                                                    <div>
+                                                        <div class="alert alert-primary" role="alert">
+                                                            <div class="alert-body"><strong>Tour Banner</strong></div>
+                                                        </div>
+                                                        <label class="btn btn-sm btn-primary mb-75 me-75 waves-effect waves-float waves-light uploadModal" data-bs-toggle="modal" data-name="tour_banner" data-bs-target="#new-upload-modal">Upload</label>
+                                                        <input name="tour_banner" type="hidden">
+                                                        <button type="button" id="account-reset" onclick="resetBannerImage()" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
+                                                    </div>
+                                                </div>
                                              @error('tour_banner')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
+                                        </div>
                                         </div>
                                     </div>
                                     <div class="row">
 
                                         <div class="mb-1 col-md-6">
-                                            <label for="iti-gallery" class="form-label">Tour Gallery</label>
-                                            <input class="form-control" name="tour_gallery[]" type="file" id="iti-gallery" multiple="">
+                                            <div class="d-flex">
+                                                <a href="#" class="me-25">
+                                                    <img src="{{asset('app-assets/images/slider/10.jpg')}}" id="tour_gallery_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="250">
+                                                </a>
+                                                <!-- upload and reset button -->
+                                                <div class="d-flex align-items-end mt-75 ms-1">
+                                                    <div>
+                                                        <div class="alert alert-primary" role="alert">
+                                                            <div class="alert-body"><strong>Tour Gallery</strong></div>
+                                                        </div>
+                                                        <label class="btn btn-sm btn-primary mb-75 me-75 waves-effect waves-float waves-light uploadModal" data-bs-toggle="modal" data-name="tour_gallery[]" data-bs-target="#new-gallery_upload-modal">Upload</label>
+                                                        <input name="tour_gallery[]" type="hidden">
+                                                        <button type="button" id="account-reset" onclick="resetGalleryImage()" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
+                                                    </div>
+                                                </div>
+                                        </div>
+
                                         </div>
 
                                         <div class="mb-1 col-md-6">
-                                            <label for="iti-map" class="form-label">Tour Map</label>
-                                            <input class="form-control" name="tour_map" type="file" id="iti-map">
+                                            <div class="d-flex">
+                                                <a href="#" class="me-25">
+                                                    <img src="{{asset('app-assets/images/slider/10.jpg')}}" id="tour_map_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="250">
+                                                </a>
+                                                <!-- upload and reset button -->
+                                                <div class="d-flex align-items-end mt-75 ms-1">
+                                                    <div>
+                                                        <div class="alert alert-primary" role="alert">
+                                                            <div class="alert-body"><strong>Tour Map</strong></div>
+                                                        </div>
+                                                        <label class="btn btn-sm btn-primary mb-75 me-75 waves-effect waves-float waves-light uploadModal" data-bs-toggle="modal" data-name="tour_map" data-bs-target="#new-upload-modal">Upload</label>
+                                                        <input name="tour_map" type="hidden">
+                                                        <button type="button" id="account-reset" onclick="resetMapImage()" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
+                                                    </div>
+                                                </div>
+
+                                        </div>
                                         </div>
 
                                     </div>
@@ -1011,7 +1069,9 @@
     <!-- END: Content-->
 
 
+@include('partials.files_modal')
 
+@include('partials.gallery_files_modal')
 
 @endsection
 
@@ -1910,6 +1970,44 @@ $('#tour_name').keyup(function(){
 
    $('#tour_url').val(text);
 })
+
+
+function resetThumbnailImage() {
+	let thumbnail_image = document.getElementById('tour_thumbnail_image_output');
+    $('input[name="tour_thumbnail_image"]').val('');
+	thumbnail_image.src = "{{asset('app-assets/images/slider/10.jpg')}}";
+};
+
+function resetBannerImage() {
+	let tour_banner_image = document.getElementById('tour_banner_image_output');
+    $('input[name="tour_banner_image"]').val('');
+	tour_banner_image.src = "{{asset('app-assets/images/slider/10.jpg')}}";
+};
+
+
+function resetMapImage() {
+	let tour_map_image = document.getElementById('tour_map_image_output');
+    $('input[name="tour_map_image"]').val('');
+	tour_map_image.src = "{{asset('app-assets/images/slider/10.jpg')}}";
+};
+
+function resetGalleryImage() {
+	let tour_gallery_image = document.getElementById('tour_gallery_image_output');
+    $('input[name="tour_gallery[]"]').val('');
+	tour_gallery_image.src = "{{asset('app-assets/images/slider/10.jpg')}}";
+};
+
+function resetBrochureImage() {
+	let tour_brochure_image = document.getElementById('tour_brochure_image_output');
+    $('input[name="tour_brochure_image"]').val('');
+	tour_brochure_image.src = "{{asset('app-assets/images/slider/10.jpg')}}";
+};
+
+function resetListImage() {
+	let thumbnail_image = document.getElementById('thumbnail_image_output');
+    $('input[name="thumbnail_image"]').val('');
+	thumbnail_image.src = "{{asset('app-assets/images/slider/10.jpg')}}";
+};
 
 </script>
 

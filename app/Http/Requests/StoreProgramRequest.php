@@ -39,7 +39,7 @@ class StoreProgramRequest extends FormRequest
             'meta_title' => 'required',
             'meta_description' => 'required',
             'meta_keyword' => 'required'
-            
+
         ];
     }
 }

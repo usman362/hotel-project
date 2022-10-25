@@ -65,5 +65,20 @@ class Program extends Model
         return $this->hasOne(Region::class, 'id','region_id');
     }
 
+    public function thumbnail(){
+        return $this->hasOne(Upload::class,'id','tour_thumbnail');
+    }
+
+    public function banner(){
+        return $this->hasOne(Upload::class,'id','tour_banner');
+    }
+
+    public function map(){
+        return $this->hasOne(Upload::class,'id','tour_map');
+    }
+
+    public function gallery(){
+        return $this->hasOne(Upload::class,'id','tour_gallery');
+    }
 
 }
