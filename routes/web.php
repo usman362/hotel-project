@@ -138,7 +138,7 @@ Route::middleware(['auth'])->group(function () {
     // Booking Routes
 
     Route::get('bookings', [BookingController::class, 'index'])->name('bookings.index');
-    Route::get('booking/{id}', [BookingController::class, 'show'])->name('bookings.show');
+    // Route::get('booking/{id}', [BookingController::class, 'show'])->name('bookings.show');
     Route::get('booking/add', [BookingController::class, 'create'])->name('bookings.create');
     Route::post('booking/add', [BookingController::class, 'store'])->name('bookings.store');
     Route::get('booking/edit/{id}', [BookingController::class, 'edit'])->name('bookings.edit');

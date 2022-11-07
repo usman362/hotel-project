@@ -17,7 +17,7 @@ class BookingController extends Controller
      */
     public function index(Request $request)
     {
-  
+
         $bookings = Booking::all();
         return view('pages.booking.index', ['bookings'=> $bookings]);
     }
@@ -169,7 +169,7 @@ class BookingController extends Controller
         $update->activity = 'Booking has been Deleted';
         $update->save();
         }
-               
+
         return redirect(route('bookings.index'));
     }
 }
