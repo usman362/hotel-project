@@ -42,8 +42,24 @@ class BookingController extends Controller
     {
         $booking = new Booking();
         $booking->tour_id = $request->tour_id;
+        $booking->custom_tour_name = $request->custom_tour_name;
+        $booking->start_date = $request->start_date;
+        $booking->reference = $request->reference;
+        $booking->booking_date = $request->booking_date;
+        $booking->lead_customer_name = $request->lead_customer_name;
+        $booking->phone = $request->phone;
+        $booking->no_of_people = $request->no_of_people;
+        $booking->email = $request->email;
+        $booking->country = $request->country;
+        $booking->duration = $request->duration;
+        $booking->price_per_person = $request->price_per_person;
+        $booking->deposit = $request->deposit;
+        $booking->itinerary = $request->itinerary;
+        $booking->cost_includes = $request->cost_includes;
+        $booking->cost_excludes = $request->cost_excludes;
+        $booking->admin_notes = $request->admin_notes;
         $booking->save();
-                $update = new WebUpdate();
+        $update = new WebUpdate();
         $update->activity = 'New Booking has been Created';
         $update->save();
         return redirect(route('bookings.index'));
