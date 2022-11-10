@@ -122,9 +122,9 @@
                 </li>
                 <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate">Bookings</span></a>
                     <ul class="menu-content">
-                        <li><a class="d-flex align-items-center" href="#"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
+                        <li><a class="d-flex align-items-center" href="{{route('bookings.create')}}"><i data-feather="plus-circle"></i><span class="menu-item text-truncate">Add New</span></a>
                         </li>
-                        <li><a class="d-flex align-items-center" href="#"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
+                        <li><a class="d-flex align-items-center" href="{{route('bookings.index')}}"><i data-feather="align-left"></i><span class="menu-item text-truncate">List All</span></a>
                         </li>
                     </ul>
                 </li>

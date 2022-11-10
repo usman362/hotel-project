@@ -1,169 +1,115 @@
-<x-base-layout>
+@section('title','Programs')
 
-  <div class="post d-flex flex-column-fluid" id="kt_post">
-    <!--begin::Container-->
-    <div id="kt_content_container" class="container-xxl p-0">
-        <!--begin::Products-->
-        <div class="card card-flush">
-            <!--begin::Card header-->
-            <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-                <!--begin::Card title-->
-                <div class="card-title">
-                    <!--begin::Search-->
-                    <div class="d-flex align-items-center position-relative my-1">
-                        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                        <span class="svg-icon svg-icon-1 position-absolute ms-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1" transform="rotate(45 17.0365 15.1223)" fill="black" />
-                                <path d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z" fill="black" />
-                            </svg>
-                        </span>
-                        <!--end::Svg Icon-->
-                        <input type="text" data-kt-ecommerce-order-filter="search" class="form-control form-control-solid w-250px ps-14" placeholder="Search Booking" />
-                    </div>
-                    <!--end::Search-->
-                </div>
-                <!--end::Card title-->
-                <!--begin::Card toolbar-->
-                <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-               
-                    <!--begin::Add product-->
-                    <a href="{{route('bookings.create')}}" class="btn btn-primary">Add Booking</a>
-                    <!--end::Add product-->
-                </div>
-                <!--end::Card toolbar-->
+@extends('layouts.app')
+
+@section('content')
+
+
+
+  <!-- BEGIN: Content-->
+  <div class="app-content content ">
+    <div class="content-overlay"></div>
+    <div class="header-navbar-shadow"></div>
+    <div class="content-wrapper container-xxl p-0">
+        <div class="content-header row">
+            <div class="content-header-left col-md-9 col-12 mb-2">
+
             </div>
-            <!--end::Card header-->
-            <!--begin::Card body-->
-            <div class="card-body pt-0">
-                <!--begin::Table-->
-                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_sales_table">
-                    <!--begin::Table head-->
-                    <thead>
-                        <!--begin::Table row-->
-                        <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                            <th class="w-10px pe-2">
-                                <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                    <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_ecommerce_sales_table .form-check-input" value="1" />
-                                </div>
-                            </th>
-                            <th class="min-w-100px">Trip Name</th>
-                            
-                            
-                            <th class="text-end min-w-70px">Status</th>
-                            <th class="text-end min-w-100px">Start Date</th>
-                            
-                            <th class="text-end min-w-50px">No of People</th>
-                            
-                            <th class="text-end min-w-70px">Total Price</th>
-                            <th class="text-end min-w-100px">Action</th>
-                        </tr>
-                        <!--end::Table row-->
-                    </thead>
-                    <!--end::Table head-->
-                    <!--begin::Table body-->
-                    <tbody class="fw-bold text-gray-600">
-                        <!--end::Table row-->
-                        @foreach ($bookings as $item)
-                            
-                        <tr>
-                            <!--begin::Checkbox-->
-                            <td>
-                                <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                    <input class="form-check-input" type="checkbox" value="1" />
-                                </div>
-                            </td>
-                            <!--end::Checkbox-->
-                            <!--begin::Order ID=-->
-                            <td data-kt-ecommerce-order-filter="order_id">
-                                <a href="../../demo1/dist/apps/ecommerce/sales/details.html" class="text-gray-800 text-hover-primary fw-bolder">{{$item->trip_name}}</a>
-                            </td>
-                            <!--end::Order ID=-->
-                            <!--begin::Customer=-->
-                            
-                            <!--end::Customer=-->
-                        
-                            <!--begin::Status=-->
-                            <td class="text-end pe-0" data-order="{{$item->status}}">
-                                <!--begin::Badges-->
-                                <div class="badge badge-light-success">{{$item->status}}</div>
-                                <!--end::Badges-->
-                            </td>
-                            <!--end::Status=-->
-                            <!--begin::Total=-->
-                            <td class="text-end pe-0">
-                                <span class="fw-bolder">{{date('d-m-Y', strtotime($item->trip_date))}}</span>
-                            </td>
-                            <!--end::Total=-->
-                            <!--begin::Date Added=-->
-                       
-                            <!--end::Date Added=-->
-                            <!--begin::Date Modified=-->
-                            <td class="text-end" data-order="2022-01-18">
-                                <span class="fw-bolder">{{$item->no_of_travelers}}</span>
-                            </td>
-
-                            
-
-                            <td class="text-end" data-order="2022-01-18">
-                                <span class="fw-bolder">${{$item->balance_price*$item->no_of_travelers + $item->addon_total_price}}</span>
-                            </td>
-
-                            <!--end::Date Modified=-->
-                            <!--begin::Action=-->
-                            <td class="text-end">
-                                <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                <span class="svg-icon svg-icon-5 m-0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="black" />
-                                    </svg>
-                                </span>
-                                <!--end::Svg Icon--></a>
-                                <!--begin::Menu-->
-                                <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
-                                    <!--begin::Menu item-->
-                                    <div class="menu-item px-3">
-                                        <a href="../../demo1/dist/apps/ecommerce/sales/details.html" class="menu-link px-3">View</a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
-                                    @if(Auth::user()->role == 'superadmin' || Auth::user()->role == 'admin')
-                                    <div class="menu-item px-3">
-                                        <a href="{{route('bookings.edit', $item->id)}}" class="menu-link px-3">Edit</a>
-                                    </div>
-                                    <!--end::Menu item-->
-                                    <!--begin::Menu item-->
-                                    @if(Auth::user()->role == 'superadmin')
-                                    <div class="menu-item px-3">
-                                        <a href="{{route('bookings.delete', $item->id)}}" class="menu-link px-3" data-kt-ecommerce-order-filter="delete_row">Delete</a>
-                                    </div>
-                                    @endif
-                                    @endif
-                                    <!--end::Menu item-->
-                                </div>
-                                <!--end::Menu-->
-                            </td>
-                            <!--end::Action=-->
-                        </tr>
-
-                        @endforeach
-                        <!--end::Table row-->
-                    </tbody>
-                    <!--end::Table body-->
-                </table>
-                <!--end::Table-->
+            <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
+                <div class="mb-1 breadcrumb-right">
+                    <a href="{{route('bookings.create')}}" class="btn btn-primary waves-effect waves-float waves-light">
+                        <i data-feather="plus" class="me-25"></i>
+                        <span>New Booking</span></a>
+                </div>
             </div>
-            <!--end::Card body-->
         </div>
-        <!--end::Products-->
+        <div class="content-body">
+            <!-- Products table starts -->
+            <div class="row" id="table-bordered">
+                <div class="col-md-12">
+                    <div class="card">
+
+                        <div class="card-header">
+                            <h4 class="card-title">Booking List</h4>
+
+
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+
+                                        <th>Destination</th>
+
+                                        <th>Activity</th>
+                                        <th>Duration</th>
+                                        <th>ID</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <img src="{{asset('app-assets/images/icons/angular.svg')}}" class="me-75" height="40" width="40" alt="Angular">
+                                            <span class="fw-bold">Everest Base Camp Trek</span>
+                                        </td>
+
+                                        <td>
+                                            Nepal
+                                        </td>
+
+                                        <td>
+                                            Trekking
+                                        </td>
+                                        <td>
+                                            16 Days
+                                        </td>
+                                        <td>
+                                            XDMT
+                                        </td>
+                                        <td><span class="badge rounded-pill badge-light-success me-1">Active</span></td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0 waves-effect waves-float waves-light" data-bs-toggle="dropdown">
+                                                    <i class="ficon" data-feather="more-horizontal"></i>
+                                                </button>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item" href="#">
+                                                        <i class="ficon" data-feather="edit"></i>
+                                                        <span>Edit</span>
+                                                    </a>
+                                                    <a class="dropdown-item" href="#">
+                                                        <i class="ficon" data-feather="trash-2"></i>
+                                                        <span>Delete</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="col-md-12"><ul class="pagination url1-links justify-content-end"><li class="page-item first disabled"><a href="" class="page-link">First</a></li><li class="page-item prev disabled"><a href="" class="page-link">Prev</a></li><li class="page-item active"><a href="" class="page-link">1</a></li><li class="page-item"><a href="" class="page-link">2</a></li><li class="page-item"><a href="" class="page-link">3</a></li><li class="page-item"><a href="" class="page-link">4</a></li><li class="page-item"><a href="" class="page-link">5</a></li><li class="page-item next"><a href="" class="page-link">Next</a></li><li class="page-item last"><a href="" class="page-link">Last</a></li></ul></div>
+
+            </div>
+
+            <!-- Products table ends -->
+
+        </div>
     </div>
-    <!--end::Container-->
 </div>
+<!-- END: Content-->
 
 
+@endsection
 
-
-
-
-</x-base-layout>

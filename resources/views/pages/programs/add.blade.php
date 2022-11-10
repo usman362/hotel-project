@@ -1957,7 +1957,7 @@ $(document).ready(function(){
   return text;
 }
 
-console.log($('#reference').val(numberGenerator()));
+$('#reference').val(numberGenerator());
 
 });
 
