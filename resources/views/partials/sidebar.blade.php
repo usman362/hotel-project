@@ -136,7 +136,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="send"></i><span class="menu-title text-truncate">Inquiries</span></a>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('inquiry.index')}}"><i data-feather="send"></i><span class="menu-title text-truncate">Inquiries</span></a>
                 </li>
                 <li class=" navigation-header"><span>Global Modules</span><i data-feather="more-horizontal"></i>
                 </li>

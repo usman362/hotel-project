@@ -247,6 +247,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('review/update/{id}', [ReviewController::class, 'update'])->name('review.update');
     Route::get('review/delete/{id}', [ReviewController::class, 'destroy'])->name('review.delete');
 
+    // Inquiry Routes
+
+    Route::get('/inquiries',[InquiryController::class,'index'])->name('inquiry.index');
+
     Route::resource('customers',CustomerController::class);
     Route::get('getCustomer',[CustomerController::class,'getCustomer'])->name('get.Customer');
 

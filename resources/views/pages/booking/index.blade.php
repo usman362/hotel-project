@@ -39,13 +39,10 @@
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-
-                                        <th>Destination</th>
-
-                                        <th>Activity</th>
-                                        <th>Duration</th>
-                                        <th>ID</th>
+                                        <th>Guest Name</th>
+                                        <th>Program</th>
+                                        <th>Starting</th>
+                                        <th>Revenue</th>
                                         <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
@@ -62,14 +59,12 @@
                                         </td>
 
                                         <td>
-                                            Trekking
+                                            13 Aug 2021
                                         </td>
                                         <td>
-                                            16 Days
+                                           13 USD
                                         </td>
-                                        <td>
-                                            XDMT
-                                        </td>
+
                                         <td><span class="badge rounded-pill badge-light-success me-1">Active</span></td>
                                         <td>
                                             <div class="dropdown">

@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactUs;
 use Illuminate\Http\Request;
-
 class InquiryController extends Controller
 {
+    public function index(){
+        $inquiries = ContactUs::all();
+        return view('pages.inquiry.index',compact('inquiries'));
+    }
     public function contact_store(Request $request){
         $contact = new ContactUs();
         $contact->first_name = $request->first_name;
