@@ -250,6 +250,7 @@ Route::middleware(['auth'])->group(function () {
     // Inquiry Routes
 
     Route::get('/inquiries',[InquiryController::class,'index'])->name('inquiry.index');
+    Route::post('/delete-inquiry',[InquiryController::class,'destroy'])->name('inquiry.delete');
 
     Route::resource('customers',CustomerController::class);
     Route::get('getCustomer',[CustomerController::class,'getCustomer'])->name('get.Customer');

@@ -21,4 +21,10 @@ class InquiryController extends Controller
         $contact->save();
         return back()->with('message','Contact has been Successfully Submitted!');
     }
+
+    public function destroy(Request $request){
+        $contact = ContactUs::find($request->inquiry_id);
+        $contact->delete();
+        return back();
+    }
 }

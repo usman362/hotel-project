@@ -99,8 +99,11 @@
                                         </div>
                                         <div class="d-flex align-items-center">
 
-                                            <i data-feather="trash" class="cursor-pointer d-sm-block d-none font-medium-2 me-1" ></i>
-
+                                            <i data-feather="trash" class="cursor-pointer d-sm-block d-none font-medium-2 me-1" onclick="$('#inquiryDelete').submit()"></i>
+                                            <form action="{{route('inquiry.delete')}}" method="post" id="inquiryDelete">
+                                            @csrf
+                                            <input type="hidden" name="inquiry_id" class="id" value="">
+                                            </form>
 
                                         </div>
                                     </header>
@@ -200,7 +203,7 @@ $('.inquiryList').click(function(){
     let message = $(this).data('message');
     $('.full_name').text(first_name+' '+last_name);
     $('.phone').text(phone);
-    $('.id').text(id);
+    $('.id').val(id);
     $('.subject').text(subject);
     $('.email').text(email);
     $('.arrival_date').text(arrival_date);
