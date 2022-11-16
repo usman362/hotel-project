@@ -148,11 +148,13 @@
 $('.selectGalleryImage').click(function(){
     var total  = [];
     $(".checkImage:checked").each(function(){
-        total.push($(this).val());
+       $('#gallery_div').append(`
+       <input name="tour_gallery[]" type="hidden" value="`+$(this).val()+`">
+       `)
 });
   //  var path = $('.uploaded_image'+id).attr('src');
 
-$('input[name="tour_gallery[]"]').val(total);
+//$('input[name="tour_gallery[]"]').val(total);
 //document.getElementById('tour_gallery_image_output').src = path;
 
 });

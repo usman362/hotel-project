@@ -391,8 +391,10 @@
                                                             <div class="alert-body"><strong>Tour Gallery</strong></div>
                                                         </div>
                                                         <label class="btn btn-sm btn-primary mb-75 me-75 waves-effect waves-float waves-light uploadModal" data-bs-toggle="modal" data-name="tour_gallery[]" data-bs-target="#new-gallery_upload-modal">Upload</label>
-                                                        <input name="tour_gallery[]" type="hidden">
+
                                                         <button type="button" id="account-reset" onclick="resetGalleryImage()" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
+                                                        <div id="gallery_div">
+                                                        </div>
                                                     </div>
                                                 </div>
                                         </div>

@@ -16,6 +16,7 @@ use App\Models\ProgramItinerary;
 use App\Models\TieredPrice;
 use App\Models\ProgramSupport;
 use App\Models\ProgramUnavailable;
+use Illuminate\Http\Request;
 
 class ProgramController extends Controller
 {
@@ -48,7 +49,7 @@ class ProgramController extends Controller
      * @param  \App\Http\Requests\StoreProgramRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProgramRequest $request)
+    public function store(Request $request)
     {
         $program = new Program();
         $program->tour_name = $request->tour_name;
@@ -153,81 +154,79 @@ class ProgramController extends Controller
                 $c++;
             }
         }
-        // if($request->has('equipment_1')){
-        //      $e = 0;
-        //     foreach($request->equipment_1 as $equipment_1){
-        //         $equipment = new ProgramSupport();
-        //         $equipment->program_id = $program->id;
-        //         if($request->equipment_file[$e])
-        //          {
-        //             $equipment_file=$request->equipment_file[$e]->getClientOriginalName();
-        //             $request->equipment_file[$e]->move(public_path().'/images/Equipments', $equipment_file);
-        //              $equipment->file = $equipment_file;
-        //          }else{
-        //              $equipment->file = 1;
-        //          }
-        //         $equipment->equipment_1 = $equipment_1;
-        //         $equipment->equipment_2  = isset($request->equipment_2[$e]) ? $request->equipment_2[$e] : '' ;
-        //         $equipment->equipment_3  = isset($request->equipment_3[$e]) ? $request->equipment_3[$e] : '' ;
-        //         $equipment->equipment_4  = isset($request->equipment_4[$e]) ? $request->equipment_4[$e] : '' ;
-        //         $equipment->save();
-        //         $e++;
-        //     }
-        // }
-        //  if($request->has('faq_question')){
-        //      $f = 0;
-        //     foreach($request->faq_question as $question){
-        //         $faq = new ProgramFaq();
-        //         $faq->program_id = $program->id;
-        //         $faq->question = $question;
-        //         $faq->answer  = $request->faq_answer[$f] != null ? $request->faq_answer[$f] : '' ;
-        //         $faq->save();
-        //          $f++;
-        //     }
-        // }
+        if($request->has('equipment_1')){
+             $e = 0;
+            foreach($request->equipment_1 as $equipment_1){
+                $equipment = new ProgramSupport();
+                $equipment->program_id = $program->id;
+                // if($request->equipment_file[$e])
+                //  {
+                //     $equipment_file=$request->equipment_file[$e]->getClientOriginalName();
+                //     $request->equipment_file[$e]->move(public_path().'/images/Equipments', $equipment_file);
+                //      $equipment->file = $equipment_file;
+                //  }else{
+                //      $equipment->file = 1;
+                //  }
+                $equipment->equipment_1 = $equipment_1;
+                $equipment->equipment_2  = isset($request->equipment_2[$e]) ? $request->equipment_2[$e] : '' ;
+                $equipment->equipment_3  = isset($request->equipment_3[$e]) ? $request->equipment_3[$e] : '' ;
+                $equipment->equipment_4  = isset($request->equipment_4[$e]) ? $request->equipment_4[$e] : '' ;
+                $equipment->save();
+                $e++;
+            }
+        }
+         if($request->has('faq_question')){
+             $f = 0;
+            foreach($request->faq_question as $question){
+                $faq = new ProgramFaq();
+                $faq->program_id = $program->id;
+                $faq->question = $question;
+                $faq->answer  = $request->faq_answer[$f] != null ? $request->faq_answer[$f] : '' ;
+                $faq->save();
+                 $f++;
+            }
+        }
 
-        // if($request->has('addon_name')){
-        //      $a = 0;
-        //     foreach($request->addon_name as $addonName){
+        if($request->has('addon_name')){
+             $a = 0;
+            foreach($request->addon_name as $addonName){
 
-        //         $addon = new ProgramAddon();
-        //         $addon->program_id = $program->id;
-        //         $addon->name = $addonName;
-        //         $addon->price  = $request->addon_price[$a] != null ? $request->addon_price[$a] : '' ;
-        //         $addon->accommodates  = $request->addon_accommodates[$a] != null ? $request->addon_accommodates[$a] : '' ;
-        //         $addon->save();
-        //         $a++;
-        //     }
-        // }
-        // if($request->has('discount_from')){
-        //      $d = 0;
-        //     foreach($request->discount_from as $discountfrom){
+                $addon = new ProgramAddon();
+                $addon->program_id = $program->id;
+                $addon->name = $addonName;
+                $addon->price  = $request->addon_price[$a] != null ? $request->addon_price[$a] : '' ;
+                $addon->accommodates  = $request->addon_accommodates[$a] != null ? $request->addon_accommodates[$a] : '' ;
+                $addon->save();
+                $a++;
+            }
+        }
+        if($request->has('discount_from')){
+             $d = 0;
+            foreach($request->discount_from as $discountfrom){
 
-        //         $discount = new ProgramDiscount();
-        //         $discount->program_id = $program->id;
-        //         $discount->discount_from = $discountfrom;
-        //         $discount->discount_until  = $request->discount_until[$d] != null ? $request->discount_until[$d] : '' ;
-        //         $discount->discounts = $request->discounts[$d] != null ? $request->discounts[$d] : '' ;
-        //         $discount->save();
+                $discount = new ProgramDiscount();
+                $discount->program_id = $program->id;
+                $discount->discount_from = $discountfrom;
+                $discount->discount_until  = $request->discount_until[$d] != null ? $request->discount_until[$d] : '' ;
+                $discount->discounts = $request->discounts[$d] != null ? $request->discounts[$d] : '' ;
+                $discount->save();
 
-        //         $d++;
-        //     }
-        // }
+                $d++;
+            }
+        }
 
-        //    if($request->has('unavailable_from')){
-        //      $u = 0;
-        //     foreach($request->unavailable_from as $unavailablefrom){
+           if($request->has('unavailable_from')){
+             $u = 0;
+            foreach($request->unavailable_from as $unavailablefrom){
 
-        //         $unavailable = new ProgramUnavailable();
-        //         $unavailable->program_id = $program->id;
-        //         $unavailable->unavailable_from = $discountfrom;
-        //         $unavailable->unavailable_until  = $request->unavailable_until[$u] != null ? $request->unavailable_until[$u] : '' ;
-        //         $unavailable->save();
-        //          $u++;
-        //     }
-        // }
-
-        return 'Success';
+                $unavailable = new ProgramUnavailable();
+                $unavailable->program_id = $program->id;
+                $unavailable->unavailable_from = $discountfrom;
+                $unavailable->unavailable_until  = $request->unavailable_until[$u] != null ? $request->unavailable_until[$u] : '' ;
+                $unavailable->save();
+                 $u++;
+            }
+        }
         return back()->with('success','Program has been Successfully Added!');
 
     }
