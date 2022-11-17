@@ -15,7 +15,8 @@ class PageController extends Controller
      */
     public function index()
     {
-        $pages = Page::with('image')->paginate(10);
+        $pages = Page::paginate(10);
+        // dd($pages->header_image->file_name);
         return view('pages.page_s.index', ['pages'=> $pages]);
     }
 

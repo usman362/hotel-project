@@ -17,7 +17,7 @@ class RegionController extends Controller
      */
     public function index()
     {
-        $regions = Region::with('destination','icon_image','banner','thumbnail')->paginate(10);
+        $regions = Region::paginate(10);
         return view('pages.region.index', ['regions' => $regions]);
     }
 

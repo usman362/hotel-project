@@ -58,7 +58,7 @@
 
                                     <tr>
                                         <td>
-                                            <img src="{{asset($page->image->file_name ?? '')}}" class="me-75" height="40" width="40" alt="Angular">
+                                            <img src="{{asset($page->header_image->file_name ?? '')}}" class="me-75" height="40" width="40" alt="Angular">
                                             <span class="fw-bold">{{$page->title}}</span>
                                         </td>
                                         <td>{{$page->url_slug}}</td>

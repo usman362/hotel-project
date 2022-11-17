@@ -9,9 +9,9 @@ class Page extends Model
 {
     use HasFactory;
 
-    public function image()
+    public function header_image()
     {
-        return $this->hasOne(Upload::class, 'id', 'header_image');
+        return $this->belongsTo(Upload::class, 'head_image');
     }
 
 
