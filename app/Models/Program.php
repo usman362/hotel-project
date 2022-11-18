@@ -81,4 +81,8 @@ class Program extends Model
         return $this->hasOne(Upload::class,'id','tour_gallery');
     }
 
+    public function reviews(){
+        return $this->hasMany(Review::class,'trip','id');
+    }
+
 }

@@ -9,9 +9,13 @@ class Review extends Model
 {
     use HasFactory;
 
-    public function avatar()
+    public function avatar_image()
     {
-        return $this->hasOne(User::class, 'id', 'avatar_image');
+        return $this->hasOne(Upload::class, 'id', 'avatar');
+    }
+
+    public function tour(){
+        return $this->belongsTo(Program::class);
     }
 
 }

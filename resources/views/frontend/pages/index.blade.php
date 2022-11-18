@@ -372,41 +372,54 @@
                     <div class="deal-card m-3 shadow mb-4">
                         <div class="position-relative">
                             <div class="deal-image">
-                                <img src="{{asset('assets/images/deal-1.jpg')}}" alt="" class="w-100" />
-                                <div class="deal-percentage">10% Off</div>
+                                <img src="{{asset($program->thumbnail->file_name ?? 'assets/images/deal-1.jpg')}}" alt="" class="w-100" />
+                               @if ($program->activate_discounts == true && count($program->program_discount) > 0)
+                                <div class="deal-percentage">{{$program->program_discount->sum('discounts')}}% Off</div>
+                               @endif
                             </div>
                         </div>
                         <div class="p-4 pt-5">
-                            <h5 class="text-black mb-4 fw-bold">Saribung Peak Climbing National</h5>
+                            <h5 class="text-black mb-4 fw-bold">{{$program->tour_name}}</h5>
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div class="d-flex align-items-center">
                                     <img src="{{asset('assets/images/primary-marker.png')}}" alt="" />
-                                    <h5 class="fw-bold m-0 ms-2">Nepal</h5>
+                                    <h5 class="fw-bold m-0 ms-2">{{$program->destination->title ?? ''}}</h5>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <img src="{{asset('assets/images/primary-clock.png')}}" alt="" />
-                                    <h5 class="fw-bold m-0 ms-2">5 Days</h5>
+                                    <h5 class="fw-bold m-0 ms-2">{{$program->duration <= 1 ? $program->duration.' Day' : $program->duration.' Days'}}</h5>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <img src="{{asset('assets/images/primary-filter.png')}}" alt="" />
-                                    <h5 class="fw-bold m-0 ms-2">Trekking</h5>
+                                    <h5 class="fw-bold m-0 ms-2">{{$program->region->title ?? ''}}</h5>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between align-items-center">
+
                                 <div>
+                                    @if (count($program->reviews) > 0)
+                                    @php
+                                        $totalRating =  $program->reviews->avg('rating')
+                                    @endphp
+                                    @for ($i = 0; $i < $totalRating; $i++)
                                     <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                    <small>(2 review)</small>
+                                    @endfor
+
+                                    @for ($i = 0; $i < 5-$totalRating; $i++)
+                                        <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
+                                    @endfor
+                                    <small>({{count($program->reviews)}} review)</small>
+
+                                    @endif
                                 </div>
+
+
                                 <div class="d-flex justify-content-between align-items-end">
-                                    <h4 class="m-0 me-2 text-decoration-line-through fw-bold">$350</h4>
+                                    {{-- <h4 class="m-0 me-2 text-decoration-line-through fw-bold">$350</h4> --}}
                                     <div>
                                         <h5 class="m-2 d-block">From</h5>
                                         <div>
-                                            <h4 class="primarycolor m-0 fw-bold">$350</h4>
+                                            <h4 class="primarycolor m-0 fw-bold">${{$program->flat_price ?? $program->tiered_price}}</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -443,37 +456,41 @@
                 <div class="col-8">
                     <div class="deal-card m-3 mb-0 shadow d-flex">
                         <div class="deal-image position-relative w-100 h-100">
-                            <img src="{{asset('assets/images/amazing-tours-1.jpg')}}" alt="" class="h-100 w-100" />
+                            <img src="{{asset($program->thumbnail->file_name ?? 'assets/images/amazing-tours-1.jpg')}}" alt="" class="h-100 w-100" />
                         </div>
                         <div class="p-3 py-4 w-100 d-flex justify-content-between flex-column">
                             <div class="d-flex justify-content-between align-items-center mb-5">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex align-items-center me-4">
                                         <img src="{{asset('assets/images/primary-marker.png')}}" alt="" />
-                                        <small class="m-0 ms-2">Nepal</small>
+                                        <small class="m-0 ms-2">{{$program->destination->title}}</small>
                                     </div>
                                     <div class="d-flex align-items-center me-4">
                                         <img src="{{asset('assets/images/primary-clock.png')}}" alt="" />
-                                        <small class="m-0 ms-2">5 Days</small>
+                                        <small class="m-0 ms-2">{{$program->duration <= 1 ? $program->duration.' Day' : $program->duration.' Days'}}</small>
                                     </div>
                                     <div class="d-flex align-items-center me-4">
                                         <img src="{{asset('assets/images/primary-filter.png')}}" alt="" />
-                                        <small class="m-0 ms-2">Trekking</small>
+                                        <small class="m-0 ms-2">{{$program->region->title}}</small>
                                     </div>
                                 </div>
                                 <div>
+                                    @if (count($program->reviews) > 0)
+                                    @php
+                                        $totalRating =  $program->reviews->avg('rating')
+                                    @endphp
+                                    @for ($i = 0; $i < $totalRating; $i++)
                                     <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
+                                    @endfor
+
+                                    @for ($i = 0; $i < 5-$totalRating; $i++)
+                                        <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
+                                    @endfor
+                                    @endif
                                 </div>
                             </div>
-                            <h5 class="text-black mb-4 fw-bold">Saribung Peak Climbing National</h5>
-                            <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit
-                                sed do eiusmod tempor incididunt ut labore et dolore
-                                magna aliqua Ut enim ad minim incididunt ut labore et dolore
-                                magna aliqua Ut enim ad minim</p>
+                            <h5 class="text-black mb-4 fw-bold">{{$program->tour_name}}</h5>
+                            <p class="mb-4">{!! $program->tour_overview !!}</p>
                             <div>
                                 <div class="d-flex">
                                     <div style="width: 30px; text-align: center; margin-bottom: 1rem;">
@@ -505,12 +522,12 @@
                                     <div class="text-left">
                                         <h5 class="d-block">From</h5>
                                         <div>
-                                            <h4 class="primarycolor m-0 fw-bold">$350</h4>
+                                            <h4 class="primarycolor m-0 fw-bold">${{$program->flat_price ?? $program->tiered_price}}</h4>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center explore-button">
-                                    <p class="m-0 me-2"><a href="./tour-details.html">Explore</a></p>
+                                    <p class="m-0 me-2"><a href="javascript:void(0)">Explore</a></p>
                                     <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                                 </div>
                             </div>
@@ -523,49 +540,56 @@
                         <div class="position-relative">
                             <div class="deal-image">
 
-                                <img src="{{asset('assets/images/amazing-tours-2.jpg')}}" alt="" class="w-100" />
+                                <img src="{{asset($program->thumbnail->file_name ?? 'assets/images/amazing-tours-2.jpg')}}" alt="" class="w-100" />
                             </div>
                         </div>
                         <div class="p-4 pt-5 position-relative">
                             <div class="absolute-section-deal p-4 d-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center">
                                     <img src="{{asset('assets/images/primary-marker.png')}}" alt="" />
-                                    <small class="fw-bold m-0 ms-2">Nepal</small>
+                                    <small class="fw-bold m-0 ms-2">{{$program->destination->title}}</small>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <img src="{{asset('assets/images/primary-clock.png')}}" alt="" />
-                                    <small class="fw-bold m-0 ms-2">5 Days</small>
+                                    <small class="fw-bold m-0 ms-2">{{$program->duration <= 1 ? $program->duration.' Day' : $program->duration.' Days'}}</small>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <img src="{{asset('assets/images/primary-filter.png')}}" alt="" />
-                                    <small class="fw-bold m-0 ms-2">Trekking</small>
+                                    <small class="fw-bold m-0 ms-2">{{$program->region->title}}</small>
                                 </div>
                             </div>
-                            <h5 class="text-black mb-4 fw-bold">Saribung Peak Climbing National</h5>
+                            <h5 class="text-black mb-4 fw-bold">{{$program->tour_name}}</h5>
                             <div class="d-flex mb-3 justify-content-between align-items-end">
                                 <div class="">
+                                    @if (count($program->reviews) > 0)
+                                    @php
+                                        $totalRating =  $program->reviews->avg('rating')
+                                    @endphp
+                                    @for ($i = 0; $i < $totalRating; $i++)
                                     <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                    <small>(2 review)</small>
+                                    @endfor
+
+                                    @for ($i = 0; $i < 5-$totalRating; $i++)
+                                        <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
+                                    @endfor
+                                    <small>({{count($program->reviews)}} review)</small>
+                                    @endif
                                 </div>
-                                <div class="difficulty">
+                                {{-- <div class="difficulty">
                                     <h5 class="m-0 primarycolor">Moderate</h5>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="d-flex justify-content-between align-items-end">
                                 <div class="d-flex justify-content-between align-items-end">
                                     <div class="text-left">
                                         <h5 class="d-block">From</h5>
                                         <div>
-                                            <h4 class="primarycolor m-0 fw-bold">$350</h4>
+                                            <h4 class="primarycolor m-0 fw-bold">${{$program->flat_price ?? $program->tiered_price}}</h4>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-center explore-button">
-                                    <p class="m-0 me-2"><a href="./tour-details.html">Explore</a></p>
+                                    <p class="m-0 me-2"><a href="javascript:void(0)">Explore</a></p>
                                     <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
                                 </div>
                             </div>
@@ -980,7 +1004,7 @@
                 <div class="tour-review-container">
                     @foreach ($reviews as $review)
 
-                    <div>
+                    <div style="background-image:url({{asset($review->avatar_image->file_name ?? 'assets/images/tour-review-1.jpg')}})">
                         <div class="name-overlay">
                             <h5>{{$review->title}}</h5>
                             <div>

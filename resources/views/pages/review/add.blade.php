@@ -104,7 +104,7 @@
                                         <select class="form-select" name="trip" id="basicSelect">
                                             <option selected>------</option>
                                            @foreach ($programs as $program)
-                                            <option {{$program->id}}>{{$program->tour_name}}</option>
+                                            <option value="{{$program->id}}">{{$program->tour_name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
