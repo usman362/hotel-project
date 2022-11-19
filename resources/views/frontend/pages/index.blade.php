@@ -463,7 +463,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex align-items-center me-4">
                                         <img src="{{asset('assets/images/primary-marker.png')}}" alt="" />
-                                        <small class="m-0 ms-2">{{$program->destination->title}}</small>
+                                        <small class="m-0 ms-2">{{$program->destination->title ?? ''}}</small>
                                     </div>
                                     <div class="d-flex align-items-center me-4">
                                         <img src="{{asset('assets/images/primary-clock.png')}}" alt="" />
@@ -471,7 +471,7 @@
                                     </div>
                                     <div class="d-flex align-items-center me-4">
                                         <img src="{{asset('assets/images/primary-filter.png')}}" alt="" />
-                                        <small class="m-0 ms-2">{{$program->region->title}}</small>
+                                        <small class="m-0 ms-2">{{$program->region->title ?? ''}}</small>
                                     </div>
                                 </div>
                                 <div>
@@ -547,7 +547,7 @@
                             <div class="absolute-section-deal p-4 d-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center">
                                     <img src="{{asset('assets/images/primary-marker.png')}}" alt="" />
-                                    <small class="fw-bold m-0 ms-2">{{$program->destination->title}}</small>
+                                    <small class="fw-bold m-0 ms-2">{{$program->destination->title ?? ''}}</small>
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <img src="{{asset('assets/images/primary-clock.png')}}" alt="" />
@@ -555,7 +555,7 @@
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <img src="{{asset('assets/images/primary-filter.png')}}" alt="" />
-                                    <small class="fw-bold m-0 ms-2">{{$program->region->title}}</small>
+                                    <small class="fw-bold m-0 ms-2">{{$program->region->title ?? 'hanges'}}</small>
                                 </div>
                             </div>
                             <h5 class="text-black mb-4 fw-bold">{{$program->tour_name}}</h5>
