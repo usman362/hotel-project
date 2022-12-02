@@ -118,6 +118,12 @@
                         </li>
                     </ul>
                 </li>
+                <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="help-circle"></i><span class="menu-title text-truncate">Faqs</span></a>
+                    <ul class="menu-content">
+                        <li><a class="d-flex align-items-center" href="{{route('faq.index')}}"><i data-feather="user-plus"></i><span class="menu-item text-truncate">Faqs List</span></a>
+                        </li>
+                    </ul>
+                </li>
                 <li class=" navigation-header"><span>Revenue Modules</span><i data-feather="more-horizontal"></i>
                 </li>
                 <li class=" nav-item"><a class="d-flex align-items-center" href="javascript:void(0)"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate">Bookings</span></a>

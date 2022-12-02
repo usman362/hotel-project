@@ -17,6 +17,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AizUploadController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\InvoiceController;
@@ -178,6 +179,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('region/edit/{id}', [RegionController::class, 'edit'])->name('region.edit');
     Route::post('region/update/{id}', [RegionController::class, 'update'])->name('region.update');
     Route::get('region/delete/{id}', [RegionController::class, 'destroy'])->name('region.delete');
+
+    // Faq Routes
+
+    Route::resource('faq',FaqController::class);
 
     // Pages Routes
 
