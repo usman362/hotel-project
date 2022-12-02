@@ -1,6 +1,12 @@
 <footer class="p-4 py-5">
     @php
     $logo = App\Models\Upload::find(Setting::get('logo'));
+    $visa = App\Models\Upload::find(Setting::get('visa'));
+$mastercard = App\Models\Upload::find(Setting::get('mastercard'));
+$amex = App\Models\Upload::find(Setting::get('amex'));
+$union_pay = App\Models\Upload::find(Setting::get('union_pay'));
+$paypal = App\Models\Upload::find(Setting::get('paypal'));
+$stripe = App\Models\Upload::find(Setting::get('stripe'));
 @endphp
 
         <div class="row mx-2 my-5">
@@ -14,7 +20,7 @@
                         <a href="{{Setting::get('facebook') ?? 'javascript:void(0)'}}"><span><i class="fa fa-facebook-f"></i></span></a>
                         <a href="{{Setting::get('instagram') ?? 'javascript:void(0)'}}"><span><i class="fa fa-instagram"></i></span></a>
                         <a href="{{Setting::get('twitter') ?? 'javascript:void(0)'}}"><span><i class="fa fa-twitter"></i></span></a>
-                        <a href="{{Setting::get('linkedin') ?? 'javascript:void(0)'}}"><span><i class="fa fa-linkedin"></i></span></a>
+                        <a href="{{Setting::get('youtube') ?? 'javascript:void(0)'}}"><span><i class="fa fa-youtube"></i></span></a>
                     </div>
                 </div>
             </div>
@@ -84,7 +90,7 @@
                         </div>
                         <div class="contact-details">
                             <h4>Phone</h4>
-                            <p class="m-0">{{Setting::get('phone')??''}}</p>
+                            <p class="m-0">{{Setting::get('phone_number')??''}}</p>
                         </div>
                     </div>
                     <div class="d-flex align-items-center">
@@ -109,13 +115,16 @@
             </div>
         </div>
         <div class="copyright-section mx-3">
-            <div>&copy; {{Setting::get('copyright_text')??''}}</div>
+            <div>&copy; {{Setting::get('copyright')??''}}</div>
             <div class="d-flex align-items-center">
                 <p class="m-0 me-5">Secure Payments By</p>
                 <div class="payment-methods">
-                    <img src="{{asset('assets/images/visa-img.jpg')}}" alt="" />
-                    <img src="{{asset('assets/images/mastercard-img.jpg')}}" alt="" />
-                    <img src="{{asset('assets/images/american-express-img.jpg')}}" alt="" />
+                    <img src="{{asset($visa->file_name ?? '')}}" alt="" width="40" />
+                    <img src="{{asset($mastercard->file_name ?? '')}}" alt="" width="40" />
+                    <img src="{{asset($stripe->file_name ?? '')}}" alt="" width="40" />
+                    <img src="{{asset($paypal->file_name ?? '')}}" alt="" width="40" />
+                    <img src="{{asset($amex->file_name ?? '')}}" alt="" width="40" />
+                    <img src="{{asset($union_pay->file_name ?? '')}}" alt="" width="40" />
                 </div>
             </div>
         </div>
@@ -180,9 +189,11 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    {{-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> --}}
     <script>
                 $('.logout').click(function(){
             $('#logout').submit();
         });
     </script>
+
+    @stack('scripts')

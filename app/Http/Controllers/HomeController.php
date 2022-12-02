@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Destination;
+use App\Models\Newsletter;
 use App\Models\Program;
 use App\Models\Review;
 use Illuminate\Http\Request;
@@ -91,5 +92,20 @@ class HomeController extends Controller
 
     public function search(){
         return view('frontend.pages.search');
+    }
+
+    public function newsletter(Request $request){
+        request()->validate([
+            'email' => 'required|email|unique:newsletters,email',
+            ]);
+
+           $newsletter = new Newsletter();
+           $newsletter->email = $request->email;
+           $newsletter->save();
+            $arr = array('msg' => 'Something goes to wrong. Please try again lator', 'status' => false);
+            if($newsletter->save()){
+            $arr = array('msg' => 'Successfully submit form using ajax', 'status' => true);
+            }
+            return Response()->json($arr);
     }
 }

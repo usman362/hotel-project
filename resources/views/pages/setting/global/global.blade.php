@@ -16,6 +16,13 @@
 @php
 $logo = App\Models\Upload::find(Setting::get('logo'));
 $icon = App\Models\Upload::find(Setting::get('icon'));
+$error = App\Models\Upload::find(Setting::get('404'));
+$visa = App\Models\Upload::find(Setting::get('visa'));
+$mastercard = App\Models\Upload::find(Setting::get('mastercard'));
+$amex = App\Models\Upload::find(Setting::get('amex'));
+$union_pay = App\Models\Upload::find(Setting::get('union_pay'));
+$paypal = App\Models\Upload::find(Setting::get('paypal'));
+$stripe = App\Models\Upload::find(Setting::get('stripe'));
 @endphp
     <div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
@@ -52,12 +59,13 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                 <h4 class="card-title">Settings</h4>
                             </div>
                             <div class="card-body">
-                                <form class="form">
+                                <form class="form" action="{{route('settings.store')}}" method="POST">
+                                    @csrf
                                     <div class="row">
                                         <div class="col-md-6 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="last-name-column">Website Name</label>
-                                                <input type="text" id="last-name-column" name="website_name" class="form-control" placeholder="Ex. Himalayan Leisure" />
+                                                <input type="text" id="last-name-column" name="website_name" class="form-control" value="{{Setting::get('website_name')}}" placeholder="Ex. Himalayan Leisure" />
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -110,7 +118,7 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                             <div class="d-flex mb-1">
 
                                                 <a href="#" class="me-25">
-                                                    <img src="{{asset($logo->file_name ?? 'app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="404_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
+                                                    <img src="{{asset($error->file_name ?? 'app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="404_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
                                                 </a>
 
 
@@ -132,37 +140,37 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                         <div class="col-md-2 col-sm-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="last-name-column">URL Slug (Destination)</label>
-                                                <input type="text" id="last-name-column" class="form-control" placeholder="destination" name="destination" />
+                                                <input type="text" id="last-name-column" class="form-control" placeholder="destination" name="destination" value="{{Setting::get('destination')}}" />
                                             </div>
                                         </div>
                                         <div class="col-md-2 col-sm-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="last-name-column">URL Slug (Activity)</label>
-                                                <input type="text" id="last-name-column" class="form-control" placeholder="activity" name="activity" />
+                                                <input type="text" id="last-name-column" class="form-control" placeholder="activity" name="activity" value="{{Setting::get('activity')}}" />
                                             </div>
                                         </div>
                                         <div class="col-md-2 col-sm-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="last-name-column">URL Slug (Region)</label>
-                                                <input type="text" id="last-name-column" class="form-control" placeholder="region" name="region" />
+                                                <input type="text" id="last-name-column" class="form-control" placeholder="region" name="region" value="{{Setting::get('region')}}" />
                                             </div>
                                         </div>
                                         <div class="col-md-2 col-sm-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="last-name-column">URL Slug (Packages)</label>
-                                                <input type="text" id="last-name-column" class="form-control" placeholder="packages" name="packages" />
+                                                <input type="text" id="last-name-column" class="form-control" placeholder="packages" name="packages" value="{{Setting::get('packages')}}"/>
                                             </div>
                                         </div>
                                         <div class="col-md-2 col-sm-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="last-name-column">URL Slug (Pages)</label>
-                                                <input type="text" id="last-name-column" class="form-control" placeholder="pages" name="pages" />
+                                                <input type="text" id="last-name-column" class="form-control" placeholder="pages" name="pages" value="{{Setting::get('pages')}}"/>
                                             </div>
                                         </div>
                                         <div class="col-md-2 col-sm-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="">URL Slug (Booking)</label>
-                                                <input type="text" id="url-slug-booking" class="form-control" placeholder="booking" name="booking" />
+                                                <input type="text" id="url-slug-booking" class="form-control" placeholder="booking" name="booking" value="{{Setting::get('booking')}}"/>
                                             </div>
                                         </div>
 
@@ -173,7 +181,7 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                                 <label class="form-label" for="last-name-column">Facebook Page</label>
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><i data-feather="facebook"></i></span>
-                                                    <input type="text" id="first-name-icon" class="form-control" name="facebook" placeholder="https://www.facebook.com/HimalayanLeisure">
+                                                    <input type="url" id="first-name-icon" class="form-control" name="facebook" value="{{Setting::get('facebook')}}" placeholder="https://www.facebook.com/HimalayanLeisure">
                                                 </div>
                                             </div>
                                         </div>
@@ -182,7 +190,7 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                                 <label class="form-label" for="last-name-column">Youtube Page</label>
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><i data-feather="youtube"></i></span>
-                                                    <input type="text" id="first-name-icon" class="form-control" name="youtube" placeholder="https://www.youtube.com/user/HimalayanLeisure">
+                                                    <input type="url" id="first-name-icon" class="form-control" name="youtube" value="{{Setting::get('youtube')}}" placeholder="https://www.youtube.com/user/HimalayanLeisure">
                                                 </div>
                                             </div>
                                         </div>
@@ -191,7 +199,7 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                                 <label class="form-label" for="last-name-column">Instagram Page</label>
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><i data-feather="instagram"></i></span>
-                                                    <input type="text" id="first-name-icon" class="form-control" name="instagram" placeholder="https://instagram.com/HimalayanLeisure">
+                                                    <input type="url" id="first-name-icon" class="form-control" name="instagram" value="{{Setting::get('instagram')}}" placeholder="https://instagram.com/HimalayanLeisure">
                                                 </div>
                                             </div>
                                         </div>
@@ -200,7 +208,7 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                                 <label class="form-label" for="last-name-column">Twitter Page</label>
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><i data-feather="twitter"></i></span>
-                                                    <input type="text" id="first-name-icon" class="form-control" name="twitter" placeholder="https://twitter.com/HLTreks">
+                                                    <input type="url" id="first-name-icon" class="form-control" name="twitter" value="{{Setting::get('twitter')}}" placeholder="https://twitter.com/HLTreks">
                                                 </div>
                                             </div>
                                         </div>
@@ -209,7 +217,7 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                                 <label class="form-label" for="city-column">Email Address</label>
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><i data-feather="mail"></i></span>
-                                                    <input type="text" id="first-name-icon" class="form-control" name="email" placeholder="info@himalayanleisure.com">
+                                                    <input type="email" id="first-name-icon" class="form-control" name="email" value="{{Setting::get('email')}}" placeholder="info@himalayanleisure.com">
                                                 </div>
                                             </div>
                                         </div>
@@ -218,7 +226,7 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                                 <label class="form-label" for="country-floating">Phone Number</label>
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><i data-feather="phone-call"></i></span>
-                                                    <input type="text" id="first-name-icon" class="form-control" name="phone_number" placeholder="+977 98510 94157">
+                                                    <input type="tel" id="first-name-icon" class="form-control" name="phone_number" value="{{Setting::get('phone_number')}}" placeholder="+977 98510 94157">
                                                 </div>
                                             </div>
                                         </div>
@@ -227,7 +235,7 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                                 <label class="form-label" for="country-floating">WhatsApp Number</label>
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><i data-feather="message-circle"></i></span>
-                                                    <input type="text" id="whatsapp-number" class="form-control" name="whatsapp" placeholder="+977 98510 94157">
+                                                    <input type="tel" id="whatsapp-number" class="form-control" name="whatsapp" value="{{Setting::get('whatsapp')}}" placeholder="+977 98510 94157">
                                                 </div>
                                             </div>
                                         </div>
@@ -236,20 +244,20 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                                 <label class="form-label" for="company-column">Address</label>
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><i data-feather="map-pin"></i></span>
-                                                    <input type="text" id="first-name-icon" class="form-control" name="address" placeholder="Thamel, Kathmandu, Nepal (Next to Surya Heritage Hotel)">
+                                                    <input type="text" id="first-name-icon" class="form-control" name="address" value="{{Setting::get('address')}}" placeholder="Thamel, Kathmandu, Nepal (Next to Surya Heritage Hotel)">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="google-analytics">Google Analytics ID</label>
-                                                <input type="text" id="google-analytics" class="form-control" name="google_analytics" placeholder="289719557" />
+                                                <input type="text" id="google-analytics" class="form-control" name="google_analytics" value="{{Setting::get('google_analytics')}}" placeholder="289719557" />
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="google-analytics">Copyright Text</label>
-                                                <input type="text" id="footer" class="form-control" name="copyright" placeholder="Copyright: Himalayan Leisure, Inc. All Rights reserved." />
+                                                <input type="text" id="footer" class="form-control" name="copyright" value="{{Setting::get('copyright')}}" placeholder="Copyright: Himalayan Leisure, Inc. All Rights reserved." />
                                             </div>
                                         </div>
 
@@ -257,7 +265,7 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                             <div class="d-flex mb-1">
 
                                                 <a href="#" class="me-25">
-                                                     <img src="{{asset($icon->file_name ?? 'app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="visa_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
+                                                     <img src="{{asset($visa->file_name ?? 'app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="visa_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
                                                  </a>
 
                                                  <!-- upload and reset button -->
@@ -279,7 +287,7 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                             <div class="d-flex mb-1">
 
                                                 <a href="#" class="me-25">
-                                                     <img src="{{asset($icon->file_name ?? 'app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="mastercard_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
+                                                     <img src="{{asset($mastercard->file_name ?? 'app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="mastercard_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
                                                  </a>
 
                                                  <!-- upload and reset button -->
@@ -301,7 +309,7 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                             <div class="d-flex mb-1">
 
                                                 <a href="#" class="me-25">
-                                                     <img src="{{asset($icon->file_name ?? 'app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="amex_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
+                                                     <img src="{{asset($amex->file_name ?? 'app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="amex_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
                                                  </a>
 
                                                  <!-- upload and reset button -->
@@ -323,7 +331,7 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                             <div class="d-flex mb-1">
 
                                                 <a href="#" class="me-25">
-                                                     <img src="{{asset($icon->file_name ?? 'app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="union_pay_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
+                                                     <img src="{{asset($union_pay->file_name ?? 'app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="union_pay_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
                                                  </a>
 
                                                  <!-- upload and reset button -->
@@ -345,7 +353,7 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                             <div class="d-flex mb-1">
 
                                                 <a href="#" class="me-25">
-                                                     <img src="{{asset($icon->file_name ?? 'app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="paypal_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
+                                                     <img src="{{asset($paypal->file_name ?? 'app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="paypal_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
                                                  </a>
 
                                                  <!-- upload and reset button -->
@@ -367,7 +375,7 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                             <div class="d-flex mb-1">
 
                                                 <a href="#" class="me-25">
-                                                     <img src="{{asset($icon->file_name ?? 'app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="stripe_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
+                                                     <img src="{{asset($stripe->file_name ?? 'app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="stripe_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
                                                  </a>
 
                                                  <!-- upload and reset button -->
@@ -388,7 +396,7 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                         <div class="col-md-12 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="cookie">Cookie Message</label>
-                                                <input type="text" id="cookie" class="form-control" name="cookie_message" placeholder="We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking Accept All, you consent to our use of cookies." />
+                                                <input type="text" id="cookie" class="form-control" name="cookie_message" value="{{Setting::get('cookie_message')}}" placeholder="We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking Accept All, you consent to our use of cookies." />
                                             </div>
                                         </div>
 
@@ -398,7 +406,7 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                             <div class="mb-2">
                                                 <label class="form-label" for="site_offline">Site Offline?</label>
                                                 <div class="form-check form-switch form-check-danger">
-                                                    <input type="checkbox" class="form-check-input" name="site_offline" id="site_offline" checked />
+                                                    <input type="checkbox" class="form-check-input" name="site_offline" id="site_offline" @checked(Setting::get('site_offline') == true) />
                                                     <label class="form-check-label" for="site_offline">
                                                         <span class="switch-icon-left"><i data-feather="check"></i></span>
                                                         <span class="switch-icon-right"><i data-feather="x"></i></span>
@@ -409,12 +417,12 @@ $icon = App\Models\Upload::find(Setting::get('icon'));
                                         <div class="col-sm-12 col-md-10 col-12">
                                             <div class="mb-2">
                                                 <label class="form-label" for="cookie">Offline Message</label>
-                                                <input type="text" id="cookie" class="form-control" name="offline_message" placeholder="We will be back soon. Please contact us at info@himalayanleisure.com if you require any assistance." />
+                                                <input type="text" id="cookie" class="form-control" name="offline_message" value="{{Setting::get('offline_message')}}" placeholder="We will be back soon. Please contact us at info@himalayanleisure.com if you require any assistance." />
                                             </div>
                                         </div>
 
                                         <div class="col-12">
-                                            <button type="reset" class="btn btn-primary me-1">Submit</button>
+                                            <button type="submit" class="btn btn-primary me-1">Submit</button>
                                             <button type="reset" class="btn btn-outline-secondary">Reset</button>
                                         </div>
                                     </div>

@@ -1101,55 +1101,7 @@
         </div>
     </div>
 
-    <div class="subscribtion-section p-5">
-        <p>Don’t wait any longer. Contact Us</p>
-        <div class="d-flex justify-content-between">
-            <div class="d-flex align-items-end">
-                <img src="./assets/images/phone-icon-blue.png" alt="" />
-                <h5>+1800-333 578 </h5>
-            </div>
-            <div class="d-flex  align-items-end">
-                <img src="./assets/images/mail-icon-blue.png" alt="" />
-                <h5>info@himalayanleisure.com</h5>
-            </div>
-            <div class="d-flex  align-items-center">
-                <input type="text" />
-                <button>SUBSCRIBE</button>
-            </div>
-        </div>
-    </div>
-    <div class="reviews-section position-relative">
-        <div class="reviews">
-            <div class="review">
-                <div class="review-image">
-                    <img src="./assets/images/rev-1.jpg" alt="" />
-                </div>
-                <div class="review-text">
-                    <p>"Great things are done when men and mountains are meet"</p>
-                    <h5>- Willam Koinas</h5>
-                </div>
-            </div>
-            <div class="review">
-                <div class="review-image">
-                    <img src="./assets/images/rev-2.jpg" alt="" />
-                </div>
-                <div class="review-text">
-                    <p>"Great things are done when men and mountains are meet"</p>
-                    <h5>- Willam Koinas</h5>
-                </div>
-            </div>
-            <div class="review">
-                <div class="review-image">
-                    <img src="./assets/images/rev-3.jpg" alt="" />
-                </div>
-                <div class="review-text">
-                    <p>"Great things are done when men and mountains are meet"</p>
-                    <h5>- Willam Koinas</h5>
-                </div>
-            </div>
-        </div>
-        <img src="./assets/images/review-banner.jpg" alt="" class="w-100" />
-    </div>
+    @include('frontend.partials.reviews')
 </main>
 
 @endsection

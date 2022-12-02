@@ -26,7 +26,7 @@
                         <a href="{{Setting::get('facebook') ?? 'javascript:void(0)'}}"><i class="fa fa-facebook-f"></i></a>
                         <a href="{{Setting::get('instagram') ?? 'javascript:void(0)'}}"><i class="fa fa-instagram"></i></a>
                         <a href="{{Setting::get('twitter') ?? 'javascript:void(0)'}}"><i class="fa fa-twitter"></i></a>
-                        <a href="{{Setting::get('linkedin') ?? 'javascript:void(0)'}}"><i class="fa fa-linkedin"></i></a>
+                        <a href="{{Setting::get('youtube') ?? 'javascript:void(0)'}}"><i class="fa fa-youtube"></i></a>
                     </div>
                 </div>
                 <div class="top-bar-dropdown d-flex">
@@ -644,8 +644,8 @@
                                             <a href="{{Setting::get('twitter') ?? 'javascript:void(0)'}}">
                                                 <i class="fa fa-twitter" aria-hidden="true"></i>
                                             </a>
-                                            <a href="{{Setting::get('linkedin') ?? 'javascript:void(0)'}}">
-                                                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                            <a href="{{Setting::get('youtube') ?? 'javascript:void(0)'}}">
+                                                <i class="fa fa-youtube" aria-hidden="true"></i>
                                             </a>
                                             <a href="{{Setting::get('facebook') ?? 'javascript:void(0)'}}">
                                                 <i class="fa fa-facebook-f" aria-hidden="true"></i>

@@ -38,24 +38,37 @@ class SettingGlobalController extends Controller
      */
     public function store(Request $request)
     {
-        $setting = Setting();
-        $setting->set('logo',$request->thumbnail_image ?? '');
-        $setting->set('icon',$request->icon ?? '');
-        $setting->set('website_name',$request->website_name ?? '');
-        $setting->set('url_slug',$request->url_slug ?? '');
-        $setting->set('email',$request->email ?? '');
-        $setting->set('phone',$request->phone ?? '');
-        $setting->set('address',$request->address ?? '');
-        $setting->set('copyright_text',$request->copyright_text ?? '');
-        $setting->set('facebook',$request->facebook ?? '');
-        $setting->set('instagram',$request->instagram ?? '');
-        $setting->set('twitter',$request->twitter ?? '');
-        $setting->set('linkedin',$request->linkedin ?? '');
-        $setting->set('website_description',$request->website_description ?? '');
-        $setting->set('meta_title',$request->meta_title ?? '');
-        $setting->set('meta_description',$request->meta_description ?? '');
-        $setting->set('meta_keywords',$request->meta_keywords ?? '');
-        $setting->save();
+        // $setting = Setting();
+        Setting::set('logo',$request->logo ?? '');
+        Setting::set('icon',$request->icon ?? '');
+        Setting::set('website_name',$request->website_name ?? '');
+        Setting::set('404',request('404') ?? '');
+        Setting::set('destination',$request->destination ?? '');
+        Setting::set('activity',$request->activity ?? '');
+        Setting::set('region',$request->region ?? '');
+        Setting::set('packages',$request->packages ?? '');
+        Setting::set('pages',$request->pages ?? '');
+        Setting::set('booking',$request->booking ?? '');
+        Setting::set('facebook',$request->facebook ?? '');
+        Setting::set('youtube',$request->youtube ?? '');
+        Setting::set('instagram',$request->instagram ?? '');
+        Setting::set('twitter',$request->twitter ?? '');
+        Setting::set('email',$request->email ?? '');
+        Setting::set('phone_number',$request->phone_number ?? '');
+        Setting::set('whatsapp',$request->whatsapp ?? '');
+        Setting::set('address',$request->address ?? '');
+        Setting::set('google_analytics',$request->google_analytics ?? '');
+        Setting::set('copyright',$request->copyright ?? '');
+        Setting::set('visa',$request->visa ?? '');
+        Setting::set('mastercard',$request->mastercard ?? '');
+        Setting::set('amex',$request->amex ?? '');
+        Setting::set('union_pay',$request->union_pay ?? '');
+        Setting::set('paypal',$request->paypal ?? '');
+        Setting::set('stripe',$request->stripe ?? '');
+        Setting::set('cookie_message',$request->cookie_message ?? '');
+        Setting::set('site_offline',$request->site_offline ?? '');
+        Setting::set('offline_message',$request->offline_message ?? '');
+        // $setting->save();
         return redirect(route('settings.index'));
     }
 

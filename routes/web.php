@@ -78,7 +78,7 @@ Route::get('/our-teams',[HomeController::class,'our_team'])->name('our.team');
 Route::get('/reviews',[HomeController::class,'review'])->name('reviews');
 Route::get('/search',[HomeController::class,'search'])->name('search');
 Route::get('tour-details/{slug}', [HomeController::class, 'tour_detail'])->name('tour.detail');
-
+Route::post('store-newsletter',[HomeController::class,'newsletter'])->name('store.newsletter');
 Route::post('contact-us',[InquiryController::class,'contact_store'])->name('contact.store');
 
 
