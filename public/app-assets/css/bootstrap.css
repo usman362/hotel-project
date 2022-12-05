@@ -3319,7 +3319,7 @@ fieldset:disabled .btn {
   border: 0;
   border-radius: 0.358rem; }
 
-.nav-pills .nav-link.active,
+.nav-pills .active .nav-link,
 .nav-pills .show > .nav-link {
   color: #fff;
   background-color: #7367f0; }

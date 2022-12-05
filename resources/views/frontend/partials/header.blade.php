@@ -15,7 +15,7 @@
                     <div class="top-details d-flex">
                         <div class="top-phone d-flex  align-items-center px-4">
                             <i class="fa fa-phone"></i>
-                            <p>{{Setting::get('phone')??''}}</p>
+                            <p>{{Setting::get('phone_number')??''}}</p>
                         </div>
                         <div class="top-mail d-flex align-items-center px-4">
                             <i class="fa fa-envelope"></i>
