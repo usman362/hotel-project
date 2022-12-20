@@ -82,7 +82,7 @@ Route::get('tour-details/{slug}', [HomeController::class, 'tour_detail'])->name(
 Route::post('store-newsletter',[HomeController::class,'newsletter'])->name('store.newsletter');
 Route::post('contact-us',[InquiryController::class,'contact_store'])->name('contact.store');
 
-
+Route::get('/checkout',[HomeController::class,'book_now_page'])->name('book_now_page');
 
 // Admin Panel Routes....
 

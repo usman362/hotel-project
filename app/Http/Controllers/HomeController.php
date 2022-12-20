@@ -30,6 +30,10 @@ class HomeController extends Controller
         }
         return view('frontend.pages.tour_detail',compact('tour'));
     }
+    
+    public function book_now_page(){
+        return view('frontend.pages.book_now_page');
+    }
 
     public function activities(){
         return view('frontend.pages.activities');
