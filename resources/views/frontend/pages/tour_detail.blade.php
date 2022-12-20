@@ -235,7 +235,7 @@
                                                             <h5>TRIP GRADE</h5>
                                                             <h6>
                                                                 {{$tour->ribbon}}
-                                                                <span onmouseenter="dropdownToggle(this)"
+                                                               {{--  <span onmouseenter="dropdownToggle(this)"
                                                                     onmouseleave="dropdownToggle(this)"
                                                                     class="position-relative popover-main ms-2">
                                                                     <i
@@ -246,7 +246,7 @@
                                                                             previous trekking experience is a bonus
                                                                             (Max elevation 5500m.)</p>
                                                                     </div>
-                                                                </span>
+                                                                </span> --}}
                                                             </h6>
                                                         </div>
                                                     </div>
@@ -307,8 +307,8 @@
                                                         <img src="{{asset('assets/images/tour-details-images/trip-grade.png')}}"
                                                             alt="" />
                                                         <div>
-                                                            <h5>MAX ALTITUDE</h5>
-                                                            <h6>5545 Meter</h6>
+                                                            <h5>MAX ELEVATION</h5>
+                                                            <h6>{{$tour->max_elevation}} Meter</h6>
                                                         </div>
                                                     </div>
                                                     <div class="itineraray-list">
@@ -317,7 +317,7 @@
                                                         <div>
                                                             <h5>MEALS</h5>
                                                             <h6>{{$tour->meals}}
-                                                                <span onmouseenter="dropdownToggle(this)"
+                                                                {{--<span onmouseenter="dropdownToggle(this)"
                                                                     onmouseleave="dropdownToggle(this)"
                                                                     class="position-relative popover-main ms-2">
                                                                     <i
@@ -328,7 +328,7 @@
                                                                             previous trekking experience is a bonus
                                                                             (Max elevation 5500m.)</p>
                                                                     </div>
-                                                                </span>
+                                                                </span>--}}
                                                             </h6>
                                                         </div>
                                                     </div>
@@ -346,7 +346,7 @@
                                                         <div>
                                                             <h5>DISTANCE</h5>
                                                             <h6>{{$tour->distance}} Meter
-                                                                <span onmouseenter="dropdownToggle(this)"
+                                                                {{-- <span onmouseenter="dropdownToggle(this)"
                                                                     onmouseleave="dropdownToggle(this)"
                                                                     class="position-relative popover-main ms-2">
                                                                     <i
@@ -357,7 +357,7 @@
                                                                             previous trekking experience is a bonus
                                                                             (Max elevation 5500m.)</p>
                                                                     </div>
-                                                                </span>
+                                                                </span> --}}
                                                             </h6>
                                                         </div>
                                                     </div>
