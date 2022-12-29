@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Program extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
 
     public function program_itinerary()
@@ -83,6 +84,10 @@ class Program extends Model
 
     public function reviews(){
         return $this->hasMany(Review::class,'trip','id');
+    }
+
+    public function program_tiered(){
+        return $this->hasMany(TieredPrice::class,'program_id');
     }
 
 }

@@ -24,6 +24,8 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\MesaageController;
+use App\Http\Controllers\MoneySetupController;
+use App\Http\Controllers\PayPalController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SettingGlobalController;
 // use App\Http\Controllers\ProgramController;
@@ -82,8 +84,17 @@ Route::get('tour-details/{slug}', [HomeController::class, 'tour_detail'])->name(
 Route::post('store-newsletter',[HomeController::class,'newsletter'])->name('store.newsletter');
 Route::post('contact-us',[InquiryController::class,'contact_store'])->name('contact.store');
 
-Route::get('/checkout',[HomeController::class,'book_now_page'])->name('book_now_page');
+Route::get('/checkout/{slug}',[HomeController::class,'book_now_page'])->name('book_now_page');
 
+
+Route::controller(MoneySetupController::class)->group(function(){
+    Route::get('stripe', 'stripe');
+    Route::post('stripe', 'stripePost')->name('stripe.post');
+});
+
+Route::get('paypal-payment', [PayPalController::class,'payment'])->name('payment');
+Route::get('paypal-cancel', [PayPalController::class,'cancel'])->name('payment.cancel');
+Route::get('paypal-payment/success', [PayPalController::class,'success'])->name('payment.success');
 // Admin Panel Routes....
 
 // Documentations pages

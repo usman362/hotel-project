@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Core\Adapters\Theme;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -47,5 +48,6 @@ class AppServiceProvider extends ServiceProvider
             Theme::addHtmlAttribute('html', 'style', 'direction:rtl;');
             Theme::addHtmlAttribute('body', 'direction', 'rtl');
         }
+        Paginator::useBootstrapFive();
     }
 }

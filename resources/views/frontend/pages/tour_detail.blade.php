@@ -152,7 +152,7 @@
                         </div>
                     </li>
                     <li class="nav-item nav-button" role="presentation">
-                        <button onclick="toggleProceedBookingModal()"> Book Now</button>
+                        <a href="{{route('book_now_page',$tour->url_slug)}}"> Book Now</a>
                     </li>
                 </ul>
 
@@ -358,11 +358,10 @@
                                                                             (Max elevation 5500m.)</p>
                                                                     </div>
                                                                 </span> --}}
-                                                            </h6>
-                                                        </div>
-                                                    </div>
-                                                    <div class="itineraray-list">
-                                                        <img src="{{asset('assets/images/tour-details-images/group-icon.png')}}"
+                                                              (Max elevation 5500m.)</p>
+                                                                    </div>
+                                                                </span>
+our-details-images/group-icon.png')}}"
                                                             alt="" />
                                                         <div>
                                                             <h5>DAILY ACTIVITY</h5>

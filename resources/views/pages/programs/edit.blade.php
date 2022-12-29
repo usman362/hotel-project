@@ -1,4 +1,4 @@
-@section('title','Add Program')
+@section('title','Edit Program')
 
 @extends('layouts.app')
 
@@ -73,7 +73,7 @@
                             </div>
                         </div>
                         <div class="bs-stepper-content">
-                          <form action="{{route('program.store')}}" id="second_form" method="POST" enctype="multipart/form-data">
+                          <form action="{{route('program.update',$program->id)}}" id="second_form" method="POST" enctype="multipart/form-data">
                                     @csrf
                             <div id="account-details" class="content" role="tabpanel" aria-labelledby="account-details-trigger">
                                 <div class="content-header">
@@ -83,14 +83,14 @@
                                     <div class="row">
                                         <div class="mb-1 col-md-4">
                                             <label class="form-label" for="tour_name">Tour Name</label>
-                                            <input type="text" name="tour_name" id="tour_name" class="form-control" value="{{old('tour_name')}}" placeholder="Everest Base Camp Trek" />
+                                            <input type="text" name="tour_name" id="tour_name" class="form-control" value="{{old('tour_name',$program->tour_name)}}" placeholder="Everest Base Camp Trek" />
                                             @error('tour_name')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
                                         </div>
                                         <div class="mb-1 col-md-4">
                                             <label class="form-label" for="tour_url">URL Slug</label>
-                                            <input type="text" name="url_slug" id="tour_url" class="form-control" value="{{old('url_slug')}}" placeholder="everest-base-camp-trek" aria-label="everest-base-camp-trek" />
+                                            <input type="text" name="url_slug" id="tour_url" class="form-control" value="{{old('url_slug',$program->url_slug)}}" placeholder="everest-base-camp-trek" aria-label="everest-base-camp-trek" />
                                               @error('url_slug')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
@@ -99,16 +99,16 @@
                                             <label class="form-label" for="iti-ribbon">Ribbon</label>
                                             <select class="form-select" name="ribbon" id="iti-ribbon">
                                                 <option value="" selected>--------</option>
-                                                <option value="Featured" @selected(old('ribbon') == 'Featured')>Featured</option>
-                                                <option value="Promoted" @selected(old('ribbon') == 'Promoted')>Promoted</option>
-                                                <option value="Newly Added" @selected(old('ribbon') == 'Newly Added')>Newly Added</option>
-                                                <option value="Tour of the Month" @selected(old('ribbon') == 'Tour of the Month')>Tour of the Month</option>
+                                                <option value="Featured" @selected(old('ribbon',$program->ribbon) == 'Featured')>Featured</option>
+                                                <option value="Promoted" @selected(old('ribbon',$program->ribbon) == 'Promoted')>Promoted</option>
+                                                <option value="Newly Added" @selected(old('ribbon',$program->ribbon) == 'Newly Added')>Newly Added</option>
+                                                <option value="Tour of the Month" @selected(old('ribbon',$program->ribbon) == 'Tour of the Month')>Tour of the Month</option>
 
                                             </select>
                                         </div>
                                         <div class="mb-1 col-md-2">
                                             <label class="form-label" for="iti-url">Reference</label>
-                                            <input type="text" name="reference" id="reference" class="form-control" placeholder="TPNRTM" value="{{old('reference')}}" aria-label="reference" readonly="readonly" />
+                                            <input type="text" name="reference" id="reference" class="form-control" placeholder="TPNRTM" value="{{old('reference',$program->reference)}}" aria-label="reference" readonly="readonly" />
                                               @error('reference')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
@@ -120,7 +120,7 @@
                                             <select class="form-select destination_id" name="destination_id" id="select2-basic">
                                                 <option value="" selected>--------</option>
                                                @foreach ($destinations as $destination)
-                                               <option value="{{$destination->id}}" @selected(old('destination_id') == $destination->id)>{{$destination->title}}</option>
+                                               <option value="{{$destination->id}}" @selected(old('destination_id',$program->destination_id) == $destination->id)>{{$destination->title}}</option>
                                                @endforeach
                                             </select>
                                               @error('destination_id')
@@ -132,7 +132,7 @@
                                             <select class="form-select activity_id" name="activity_id" id="select2-basic1">
                                                 <option value="" selected>--------</option>
                                                 @foreach ($activities as $activity)
-                                               <option value="{{$activity->id}}" @selected(old('activity_id') == $activity->id)>{{$activity->name}}</option>
+                                               <option value="{{$activity->id}}" @selected(old('activity_id',$program->activity_id) == $activity->id)>{{$activity->name}}</option>
                                                @endforeach
 
                                             </select>
@@ -145,7 +145,7 @@
                                             <select class="form-select" name="region_id" id="iti-region">
                                                 <option value="" selected>--------</option>
                                                 @foreach ($regions as $region)
-                                               <option value="{{$region->id}}" @selected(old('region_id') == $region->id)>{{$region->title}}</option>
+                                               <option value="{{$region->id}}" @selected(old('region_id',$program->region_id) == $region->id)>{{$region->title}}</option>
                                                @endforeach
 
                                             </select>
@@ -156,7 +156,7 @@
                                         <div class="col-md-6 mb-1">
                                             <label class="form-label" for="id-duration">Duration</label>
                                             <div class="input-group">
-                                                <input type="number" class="form-control" name="duration" id="duration" placeholder="02" aria-label="Duration" aria-describedby="id-duration">
+                                                <input type="number" class="form-control" name="duration" value="{{old('duration',$program->duration)}}" id="duration" placeholder="02" aria-label="Duration" aria-describedby="id-duration">
                                                 <span class="input-group-text" id="id-duration">Days</span>
                                             </div>
                                               @error('duration')
@@ -167,10 +167,10 @@
                                             <label class="form-label" for="iti-difficulty">Difficulty</label>
                                             <select class="form-select" name="difficult" id="iti-difficulty">
                                                 <option value="" selected>--------</option>
-                                                <option value="Easy" @selected(old('difficult') == 'Easy')>Easy</option>
-                                                <option value="Moderate" @selected(old('difficult') == 'Moderate')>Moderate</option>
-                                                <option value="Difficult" @selected(old('difficult') == 'Difficult')>Difficult</option>
-                                                <option value="Extreme" @selected(old('difficult') == 'Extreme')>Extreme</option>
+                                                <option value="Easy" @selected(old('difficult',$program->difficult) == 'Easy')>Easy</option>
+                                                <option value="Moderate" @selected(old('difficult',$program->difficult) == 'Moderate')>Moderate</option>
+                                                <option value="Difficult" @selected(old('difficult',$program->difficult) == 'Difficult')>Difficult</option>
+                                                <option value="Extreme" @selected(old('difficult',$program->difficult) == 'Extreme')>Extreme</option>
 
                                             </select>
                                         </div>
@@ -180,7 +180,7 @@
                                         <div class="col-md-6 mb-1">
                                             <label class="form-label" for="it-elevation">Maximum Elevation</label>
                                             <div class="input-group">
-                                                <input type="number" class="form-control" name="max_elevation" placeholder="5545" value="{{old('max_elevation')}}" aria-label="Elevation" aria-describedby="it-elevation">
+                                                <input type="number" class="form-control" name="max_elevation" placeholder="5545" value="{{old('max_elevation',$program->max_elevation)}}" aria-label="Elevation" aria-describedby="it-elevation">
                                                 <span class="input-group-text" id="it-elevation">Meters</span>
                                             </div>
                                         </div>
@@ -188,7 +188,7 @@
                                             <label class="form-label" for="">Minimum Participant</label>
 
                                             <div class="input-group">
-                                                <input type="number" min="1" name="min_participant" id="min_participant" value="{{old('min_participant')}}" class="form-control" placeholder="1" aria-label="Group Min Size" aria-describedby="it-groupmin">
+                                                <input type="number" min="1" name="min_participant" id="min_participant" value="{{old('min_participant',$program->min_participant)}}" class="form-control" placeholder="1" aria-label="Group Min Size" aria-describedby="it-groupmin">
                                                 <span class="input-group-text" id="it-groupmin">Pax</span>
                                             </div>
                                               @error('min_participant')
@@ -199,7 +199,7 @@
                                             <label class="form-label" for="">Maximum Participant</label>
 
                                             <div class="input-group">
-                                                <input type="number" min="1" name="max_participant" id="max_participant" value="{{old('max_participant')}}" class="form-control" placeholder="32" aria-label="Group Max Size" aria-describedby="it-groupmax">
+                                                <input type="number" min="1" name="max_participant" id="max_participant" value="{{old('max_participant',$program->min_participant)}}" class="form-control" placeholder="32" aria-label="Group Max Size" aria-describedby="it-groupmax">
                                                 <span class="input-group-text" id="it-groupmax">Pax</span>
                                             </div>
                                               @error('max_participant')
@@ -211,11 +211,11 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-1">
                                             <label class="form-label" for="iti-meals">Meals</label>
-                                            <input type="text" class="form-control" name="meals" id="iti-meals" readonly="readonly" value="{{old('meals','0B, 0L, 0D')}}">
+                                            <input type="text" class="form-control" name="meals" id="iti-meals" readonly="readonly" value="{{old('meals',$program->meals,'0B, 0L, 0D')}}">
                                         </div>
                                         <div class="mb-1 col-md-6">
                                             <label class="form-label" for="accommodation">Accommodation</label>
-                                            <input type="text" name="accommodation" id="accommodation" value="{{old('accommodation')}}" class="form-control" placeholder="Hotel / Guest Houses" />
+                                            <input type="text" name="accommodation" id="accommodation" value="{{old('accommodation',$program->accommodation)}}" class="form-control" placeholder="Hotel / Guest Houses" />
                                              @error('accommodation')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
@@ -225,11 +225,11 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-1">
                                             <label class="form-label" for="iti-months">Best Months</label>
-                                            <input type="text" name="best_months" value="{{old('best_months')}}" id="iti-months" class="form-control" placeholder="Hotel / Guest Houses" />
+                                            <input type="text" name="best_months" value="{{old('best_months',$program->best_months)}}" id="iti-months" class="form-control" placeholder="Hotel / Guest Houses" />
                                         </div>
                                         <div class="mb-1 col-md-6">
                                             <label class="form-label" for="iti-distance">Distance</label>
-                                            <input type="text" name="distance" value="{{old('distance')}}" id="iti-distance" class="form-control" placeholder="15 Kilometers" />
+                                            <input type="text" name="distance" value="{{old('distance',$program->distance)}}" id="iti-distance" class="form-control" placeholder="15 Kilometers" />
                                         </div>
 
 
@@ -237,11 +237,11 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-1">
                                             <label class="form-label" for="iti-start-end">Start / End</label>
-                                            <input type="text" name="start_end" value="{{old('start_end')}}" id="iti-start-end" class="form-control" placeholder="Kathmandu / Lhasa" />
+                                            <input type="text" name="start_end" value="{{old('start_end',$program->start_end)}}" id="iti-start-end" class="form-control" placeholder="Kathmandu / Lhasa" />
                                         </div>
                                         <div class="mb-1 col-md-6">
                                             <label class="form-label" for="iti-daily-activity">Daily Activity</label>
-                                            <input type="text" name="daily_activity" value="{{old('daily_activity')}}" id="iti-daily-activity" class="form-control" placeholder="7 - 9 Hours Trek" />
+                                            <input type="text" name="daily_activity" value="{{old('daily_activity',$program->daily_activity)}}" id="iti-daily-activity" class="form-control" placeholder="7 - 9 Hours Trek" />
                                         </div>
                                     </div>
                                     <div class="row">
@@ -253,22 +253,47 @@
 
 
                                                             <div  class="tour_highlight">
-                                                                <div class="row d-flex align-items-end">
+
+
+                                                                    @forelse (json_decode($program->tour_highlights) as $key => $tourHighlight)
+
+                                                                    @if ($key == 0)
+                                                                    <div class="row d-flex align-items-end">
+                                                                    <div class="col-md-10">
+                                                                        <div class="mb-1">
+                                                                            <input type="text" class="form-control" name="tour_highlights[]" id="iti-high1" value="{{old('tour_highlights',$tourHighlight??'')}}" aria-describedby="iti-high1" placeholder="The most famous treks in the world" />
+                                                                        </div>
+                                                                    </div>
+                                                                    </div>
+                                                                    @else
+                                                                    <div class="row d-flex align-items-end tour_highlight_child_row">
+                                                                    <div class="col-md-10">
+                                                                        <div class="mb-1">
+                                                                            <input type="text" class="form-control" name="tour_highlights[]" id="iti-high1" value="{{old('tour_highlights',$tourHighlight??'')}}" aria-describedby="iti-high1" placeholder="The most famous treks in the world" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2 mb-20">
+                                                                        <div class="mb-1">
+                                                                            <button class="btn remove_tour_highlight btn btn-outline-danger text-nowrap px-1 waves-effect" type="button" onclick="RemoveTourHighlights();">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x me-25"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                                                <span>Delete</span>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    </div>
+                                                                    @endif
+
+                                                                    @empty
+                                                                    <div class="row d-flex align-items-end">
                                                                     <div class="col-md-10">
                                                                         <div class="mb-1">
                                                                             <input type="text" class="form-control" name="tour_highlights[]" id="iti-high1" value="{{old('tour_highlights')}}" aria-describedby="iti-high1" placeholder="The most famous treks in the world" />
                                                                         </div>
                                                                     </div>
+                                                                    </div>
+                                                                    @endforelse
 
-                                                                    <!--<div class="col-md-2 mb-20">-->
-                                                                    <!--    <div class="mb-1">-->
-                                                                    <!--        <button class="btn btn-outline-danger text-nowrap px-1"  type="button">-->
-                                                                    <!--            <i data-feather="x" class="me-25"></i>-->
-                                                                    <!--            <span>Delete</span>-->
-                                                                    <!--        </button>-->
-                                                                    <!--    </div>-->
-                                                                    <!--</div>-->
-                                                                </div>
+
                                                             </div>
 
                                                         <div class="row">
@@ -315,7 +340,7 @@
                                                 <label class="form-label" for="iti-daily-activity">Tour Overview</label>
                                                 <div id="full-container">
                                                       <textarea class="tinymceTextEditor tour_overview" name="tour_overview">
-                                                        {{old('tour_overview')}}
+                                                        {{old('tour_overview',$program->tour_overview)}}
                                                     </textarea>
                                                      @error('tour_overview')
                                             <span class="text-danger">{{$message}}</span>
@@ -325,7 +350,7 @@
                                         </div>
                                         <div class="mb-1 col-md-4">
                                             <label for="iti-brochure" class="form-label">Tour Brochure</label>
-                                            <input class="form-control" name="tour_brochure" type="file" id="iti-brochure" value="{{old('tour_brochure')}}" accept="application/pdf">
+                                            <input class="form-control" name="tour_brochure" type="file" id="iti-brochure" value="{{old('tour_brochure',$program->tour_brochure)}}" accept="application/pdf">
                                         </div>
                                     </div>
 
@@ -343,7 +368,7 @@
                                                             <div class="alert-body"><strong>Tour Thumbnail</strong></div>
                                                         </div>
                                                         <label class="btn btn-sm btn-primary mb-75 me-75 waves-effect waves-float waves-light uploadModal" data-bs-toggle="modal" data-name="tour_thumbnail" data-bs-target="#new-upload-modal">Upload</label>
-                                                        <input name="tour_thumbnail" type="hidden" value="{{old('tour_thumbnail')}}">
+                                                        <input name="tour_thumbnail" type="hidden" value="{{old('tour_thumbnail',$program->tour_thumbnail)}}">
                                                         <button type="button" id="account-reset" onclick="resetThumbnailImage()" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
                                                     </div>
                                                 </div>
@@ -364,7 +389,7 @@
                                                             <div class="alert-body"><strong>Tour Banner</strong></div>
                                                         </div>
                                                         <label class="btn btn-sm btn-primary mb-75 me-75 waves-effect waves-float waves-light uploadModal" data-bs-toggle="modal" data-name="tour_banner" data-bs-target="#new-upload-modal">Upload</label>
-                                                        <input name="tour_banner" type="hidden" value="{{old('tour_banner')}}">
+                                                        <input name="tour_banner" type="hidden" value="{{old('tour_banner',$program->tour_banner)}}">
                                                         <button type="button" id="account-reset" onclick="resetBannerImage()" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
                                                     </div>
                                                 </div>
@@ -410,7 +435,7 @@
                                                             <div class="alert-body"><strong>Tour Map</strong></div>
                                                         </div>
                                                         <label class="btn btn-sm btn-primary mb-75 me-75 waves-effect waves-float waves-light uploadModal" data-bs-toggle="modal" data-name="tour_map" data-bs-target="#new-upload-modal">Upload</label>
-                                                        <input name="tour_map" type="hidden" value="{{old('tour_map')}}">
+                                                        <input name="tour_map" type="hidden" value="{{old('tour_map',$program->tour_map)}}">
                                                         <button type="button" id="account-reset" onclick="resetMapImage()" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
                                                     </div>
                                                 </div>
@@ -431,7 +456,7 @@
                                             <div class="input-group">
                                                 <div class="input-group-text">
                                                     <div class="form-check">
-                                                        <input type="radio" id="customRadio1" name="free_cancellation" class="form-check-input" @checked(old('free_cancellation') == '60 Days Before') value="60 Days Before" >
+                                                        <input type="radio" id="customRadio1" name="free_cancellation" class="form-check-input" @checked(old('free_cancellation',$program->free_cancellation) == '60 Days Before') value="60 Days Before" >
                                                         <label class="form-check-label" for="customRadio1"></label>
                                                     </div>
                                                 </div>
@@ -445,7 +470,7 @@
                                             <div class="input-group">
                                                 <div class="input-group-text">
                                                     <div class="form-check">
-                                                        <input type="radio" id="customRadio1" name="free_cancellation" class="form-check-input" @checked(old('free_cancellation') == '30 Days Before') value="30 Days Before">
+                                                        <input type="radio" id="customRadio1" name="free_cancellation" class="form-check-input" @checked(old('free_cancellation',$program->free_cancellation) == '30 Days Before') value="30 Days Before">
                                                         <label class="form-check-label" for="customRadio1"></label>
                                                     </div>
                                                 </div>
@@ -459,7 +484,7 @@
                                             <div class="input-group">
                                                 <div class="input-group-text">
                                                     <div class="form-check">
-                                                        <input type="radio" id="customRadio1" name="free_cancellation" class="form-check-input" value="7 Days Before" @checked(old('free_cancellation') == '7 Days Before')>
+                                                        <input type="radio" id="customRadio1" name="free_cancellation" class="form-check-input" value="7 Days Before" @checked(old('free_cancellation',$program->free_cancellation) == '7 Days Before')>
                                                         <label class="form-check-label" for="customRadio1"></label>
                                                     </div>
                                                 </div>
@@ -473,7 +498,7 @@
                                             <div class="input-group">
                                                 <div class="input-group-text">
                                                     <div class="form-check">
-                                                        <input type="radio" id="customRadio1" name="free_cancellation" class="form-check-input" value="No Free Cancellation" @checked(old('free_cancellation') == 'No Free Cancellation')>
+                                                        <input type="radio" id="customRadio1" name="free_cancellation" class="form-check-input" value="No Free Cancellation" @checked(old('free_cancellation',$program->free_cancellation) == 'No Free Cancellation')>
                                                         <label class="form-check-label" for="customRadio1"></label>
                                                     </div>
                                                 </div>
@@ -490,6 +515,113 @@
                                                 <div class="card-body">
                                                     <div class="invoice-repeater">
                                                         <div class="day_itinerary">
+                                                                @forelse ($program->program_itinerary as $key => $program_itinerary)
+                                                                <div class="row d-flex align-items-end day_itinerary_child_row ">
+                                                                    <div class="col-md-6 mb-1">
+
+                                                                        <label class="form-label" for="iti-day1">Day {{++$key}}</label>
+                                                                        <input type="text" name="itinerary_day[]" class="form-control" id="iti-day1" aria-describedby="iti-day1" value="{{$program_itinerary->day ?? ''}}" placeholder="Ex. Arrival in Kathmandu, transfer to the hotel" />
+
+                                                                    </div>
+
+                                                                    <div class="col-md-2 mb-1">
+
+                                                                        <label class="form-label" for="iti-distance1">Distance</label>
+                                                                        <input type="text" class="form-control" id="iti-distance1" name="itinerary_distance[]" value="{{$program_itinerary->distance ?? ''}}" aria-describedby="iti-distance1" placeholder="6KM / 15 Miles" />
+
+                                                                    </div>
+
+                                                                    <div class="col-md-2 mb-1">
+
+                                                                        <label class="form-label" for="iti-duration1">Duration</label>
+                                                                        <input type="text" class="form-control" id="iti-duration1" name="itinerary_duration[]" value="{{$program_itinerary->duration ?? ''}}" aria-describedby="iti-duration1" placeholder="6 Hours Trek" />
+
+                                                                    </div>
+
+                                                                    <div class="col-md-2 mb-1">
+
+                                                                        <label class="form-label" for="iti-altitude1">Altitude</label>
+                                                                        <input type="text" class="form-control" id="iti-altitude1" name="itinerary_altitude[]" value="{{$program_itinerary->altitude ?? ''}}" aria-describedby="iti-altitude1" placeholder="3210M / 9800FT" />
+
+                                                                    </div>
+                                                                    <div class="col-md-12 mb-1">
+                                                                        <label class="form-label" for="iti-altitude1">Day Description</label>
+                                                                        <div id="snow-wrapper">
+                                                                            <div id="snow-container">
+                                                                                 <textarea class="tinymceTextEditor" name="itinerary_description[]">
+                                                                                    {{$program_itinerary->description ?? ''}}
+                                                                            </textarea>
+
+                                                                            </textarea>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4 mb-1">
+
+                                                                        <label class="form-label" for="iti-accommodation1">Accommodation</label>
+                                                                        <input type="text" class="form-control" id="iti-accommodation1" name="itinerary_accommodation[]" value="{{$program_itinerary->accommodation ?? ''}}" aria-describedby="iti-accommodation1" placeholder="Hotel Thamel Park" />
+
+                                                                    </div>
+                                                                    <div class="col-md-7 mb-1">
+
+                                                                        <div class="row">
+                                                                            <label class="form-label">Meals</label>
+                                                                            <div class="col-md-4">
+
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-text">
+                                                                                        <div class="form-check">
+                                                                                            <input class="form-check-input meals" name="itinerary_breakfast[]" @checked($program_itinerary->breakfast == '1' ) value="1" type="checkbox" id="breakfast1">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <input type="text" class="form-control" value="Breakfast" readonly="readonly">
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <div class="col-md-4">
+
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-text">
+                                                                                        <div class="form-check">
+                                                                                            <input class="form-check-input meals" name="itinerary_lunch[]" value="1" @checked($program_itinerary->lunch == '1' ) type="checkbox" id="lunch1">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <input type="text" class="form-control" value="Lunch" readonly="readonly">
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <div class="col-md-4">
+
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-text">
+                                                                                        <div class="form-check">
+                                                                                            <input class="form-check-input meals" name="itinerary_dinner[]" value="1" @checked($program_itinerary->dinner == '1' ) type="checkbox" id="dinner1">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <input type="text" class="form-control" value="Dinner" readonly="readonly">
+                                                                                </div>
+
+                                                                            </div>
+
+
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    @if ($key != 0)
+                                                                    <div class="col-md-1">
+                                                                        <div class="mb-1">
+                                                                            <button class="btn btn-outline-danger remove_day_itinerary text-nowrap px-1 waves-effect" data-repeater-delete="" type="button">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x me-25"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+
+                                                                            </button>
+                                                                        </div></div>
+                                                                    @endif
+
+                                                                </div>
+                                                                @empty
                                                                 <div class="row d-flex align-items-end child_row ">
                                                                     <div class="col-md-6 mb-1">
 
@@ -587,6 +719,7 @@
 
 
                                                                 </div>
+                                                                @endforelse
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-12 mt-1">
@@ -602,9 +735,9 @@
                                         </div>
                                     </div>
                                     <!--costing starts -->
-                                    <div class="includes">
                                     <div class="row d-flex align-items-end">
                                         <h6>Costing Section</h6>
+                                        <div class="includes">
                                         <div class="col-md-11 mb-1">
 
                                             <label class="form-label" for="iti-include1">Cost Includes</label>
@@ -694,6 +827,33 @@
                                         </div>
                                     </div>
                                     <div class="equipments">
+                                    @forelse ($program->program_support as $support)
+                                    <div class="row equipment_child_row">
+                                        <div class="mb-1 col-md-3">
+                                            <input type="text" id="equipment1" name="equipment_1[]" value="{{$support->equipment_1 ?? ''}}" class="form-control" placeholder="Eg. Waterproof trekking boots / Flip Flops" />
+                                        </div>
+                                        <div class="mb-1 col-md-3">
+                                            <input type="text" name="equipment2" id="equipment_2[]" value="{{$support->equipment_2 ?? ''}}" class="form-control" placeholder="Eg. Socks / Undergarments" />
+                                        </div>
+                                        <div class="mb-1 col-md-3">
+                                            <input type="text" name="equipment3" id="equipment_3[]" value="{{$support->equipment_3 ?? ''}}" class="form-control" placeholder="Eg. Shorts" />
+                                        </div>
+                                        <div class="mb-1 col-md-2">
+                                            <input type="text" name="equipment14" id="equipment_4[]" value="{{$support->equipment_4 ?? ''}}" class="form-control" placeholder="Eg. Trekking pants" />
+                                        </div>
+                                        @if ($key != 0)
+
+                                        <div class="col-md-1 mb-20">
+                                            <div class="mb-1">
+                                                <button class="btn btn-outline-danger remove_equipment text-nowrap px-1 waves-effect" data-repeater-delete="" type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x me-25"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                            </button>
+                                            </div>
+                                        </div>
+
+                                        @endif
+                                    </div>
+                                    @empty
                                     <div class="row ">
                                         <div class="mb-1 col-md-3">
                                             <input type="text" id="equipment1" name="equipment_1[]" class="form-control" placeholder="Eg. Waterproof trekking boots / Flip Flops" />
@@ -715,6 +875,8 @@
                                         <!--    </div>-->
                                         <!--</div>-->
                                     </div>
+                                    @endforelse
+
 
                                     </div>
 
@@ -728,6 +890,29 @@
                                     </div>
 
                                     <div class="faqs">
+                                    @forelse ($program->program_faq as $key => $faq)
+                                    <div class="row d-flex align-items-end faq_child_row">
+                                        <div class="mb-0 col-md-12">
+                                            <label class="form-label" for="faq_question_1">FAQ #{{++$key}} Question</label>
+                                            <input type="text" id="faq_question_1" name="faq_question[]" value="{{$faq->question ?? ''}}" class="form-control faq_question" data-id="1" placeholder="Q Ex. What is the best time to visit Nepal?" />
+                                            <span id="question_error_1" class="text-danger" style="display:none">Question is Required!</span>
+                                        </div>
+                                        <!-- Add Textarea with Quill here -->
+                                        <div class="mb-1 mt-1 col-md-11">
+                                            <textarea data-length="500" name="faq_answer[]" class="form-control faq_answer" data-id="1" id="faq_answer_1" data-id="1" rows="3" placeholder="Ex. The best time to visit Nepal is from March to May and from September to December. You can visit in other seasons as well but it isn't considered the best." style="height: 100px" spellcheck="true">{{$faq->answer ?? ''}}</textarea>
+                                            <span id="answer_error_1" class="text-danger" style="display:none">Answer is Required!</span>
+                                        </div>
+                                       @if ($key != 1)
+                                        <div class="col-md-1 mb-20">
+                                            <div class="mb-1">
+                                                <button class="btn btn-outline-danger remove_faq text-nowrap px-1 waves-effect" data-repeater-delete="" type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x me-25"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                            </button>
+                                            </div>
+                                        </div>
+                                       @endif
+                                    </div>
+                                    @empty
                                     <div class="row d-flex align-items-end">
                                         <div class="mb-0 col-md-12">
                                             <label class="form-label" for="faq_question_1">FAQ #1 Question</label>
@@ -741,7 +926,7 @@
                                         </div>
 
                                     </div>
-
+                                    @endforelse
                                     </div>
                                     <div class="row">
                                         <div class="mb-1 col-12">
@@ -763,7 +948,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div id="social-links" class="content" role="tabpanel" aria-labelledby="social-links-trigger">
+                            <div id="social-links" class="content active" role="tabpanel" aria-labelledby="social-links-trigger">
                                 <div class="content-header">
                                     <h5 class="mb-0">Pricing </h5>
                                     <small>Flat price or prices based on number of people</small>
@@ -771,7 +956,7 @@
 
                                     <div class="row custom-options-checkable g-1 mb-1">
                                         <div class="col-md-6">
-                                            <input class="custom-option-item-check pricing_type" type="radio" name="pricing_type" value="Flat Rate" id="customOptionsCheckableRadios1" @checked(old('pricing_type') == 'Flat Rate')>
+                                            <input class="custom-option-item-check pricing_type" type="radio" name="pricing_type" value="Flat Rate" id="customOptionsCheckableRadios1" @checked(old('pricing_type',$program->pricing_type) == 'Flat Rate')>
                                             <label class="custom-option-item p-1" for="customOptionsCheckableRadios1">
                                                 <span class="d-flex justify-content-between flex-wrap mb-50">
                                                     <span class="fw-bolder">Flat Rate</span>
@@ -782,7 +967,7 @@
                                         </div>
 
                                         <div class="col-md-6">
-                                            <input class="custom-option-item-check pricing_type" type="radio" name="pricing_type" id="customOptionsCheckableRadios2" value="Tiered Pricing" @checked(old('pricing_type') == 'Tiered Pricing')>
+                                            <input class="custom-option-item-check pricing_type" type="radio" name="pricing_type" id="customOptionsCheckableRadios2" value="Tiered Pricing" @checked(old('pricing_type',$program->pricing_type) == 'Tiered Pricing')>
                                             <label class="custom-option-item p-1" for="customOptionsCheckableRadios2">
                                                 <span class="d-flex justify-content-between flex-wrap mb-50">
                                                     <span class="fw-bolder">Tiered Pricing</span>
@@ -799,13 +984,13 @@
 
                                                 <div class="row">
 
-                                                    <div class="col-md-6 tiered_section" style="display:none">
-                                                        </div>
-                                                <div class="col-md-6 flat_section">
+                                                <div class="col-md-6 tiered_section" style="display:{{$program->pricing_type == 'Flat Rate' ? 'none' : 'block'}}">
+                                                </div>
+                                                <div class="col-md-6 flat_section" style="display:{{$program->pricing_type == 'Flat Rate' ? 'block' : 'none'}}">
                                                     <label class="form-label" for="">Flat Price</label>
                                                     <div class="input-group mb-1">
                                                         <span class="input-group-text">USD</span>
-                                                        <input type="number" name="flat_price" value="{{old('flat_price')}}" class="form-control" placeholder="992" aria-label="">
+                                                        <input type="number" name="flat_price" value="{{old('flat_price',$program->flat_price)}}" class="form-control" placeholder="992" aria-label="">
                                                         <span class="input-group-text">per person</span>
                                                     </div>
                                                 </div>
@@ -814,7 +999,7 @@
 
                                                     <div class="input-group mb-1">
                                                         <span class="input-group-text">Before</span>
-                                                        <input type="number" name="product_cutoff" value="{{old('product_cutoff')}}" min="0" class="form-control" placeholder="3" aria-label="">
+                                                        <input type="number" name="product_cutoff" value="{{old('product_cutoff',$program->product_cutoff)}}" min="0" class="form-control" placeholder="3" aria-label="">
                                                         <span class="input-group-text">Days</span>
                                                     </div>
                                                 </div>
@@ -822,8 +1007,38 @@
 
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="tiered_section tiered_main" style="display:none">
-                                                <div class="row">
+                                            <div class="tiered_section tiered_main" style="display:{{$program->pricing_type == 'Tiered Pricing' ? 'block' : 'none'}}">
+                                              @forelse ($program->program_tiered as $key => $tiered)
+                                              <div class="row tiered_child">
+                                                <div class="col-md-3">
+                                                    <label class="form-label" for="iti-tierminpax">Min Pax</label>
+                                                    <input type="number" min="1" id="iti-tierminpax" name="min_pax[]" class="form-control" value="{{$tiered->min_pax ?? ''}}" readonly>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label class="form-label" for="">Max Pax</label>
+
+                                                    <input type="number" min="1" id="iti-flatmaxpax" name="max_pax[]" data-id="1" class="form-control max_pax" value="{{$tiered->max_pax ?? ''}}" placeholder="10">
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <label class="form-label" for="">Tiered Price</label>
+                                                    <div class="input-group mb-1">
+                                                        <span class="input-group-text">USD</span>
+                                                        <input type="number" min="1" class="form-control tiered_price_1" onfocus="tieredFunction(this)" name="tiered_price[]" value="{{$tiered->tiered_price ?? ''}}" placeholder="992" aria-label="">
+                                                        <span class="input-group-text">per person</span>
+                                                    </div>
+                                                </div>
+                                                @if ($key != 0)
+                                                <div class="col-md-1 position-relative">
+                                                    <div style="position: absolute;right: 2px;top: 26px;">
+                                                        <button class="btn btn-outline-danger remove_tiered text-nowrap px-1 waves-effect" data-repeater-delete="" type="button">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x me-25"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                @endif
+                                                </div>
+                                              @empty
+                                              <div class="row">
                                                 <div class="col-md-3">
                                                     <label class="form-label" for="iti-tierminpax">Min Pax</label>
 
@@ -842,7 +1057,10 @@
                                                         <span class="input-group-text">per person</span>
                                                     </div>
                                                 </div>
+
                                                 </div>
+                                              @endforelse
+
                                             </div>
                                         </div>
                                     </div>
@@ -852,6 +1070,45 @@
                                         <h5 class="mb-0">Addon Options</h5>
                                         <div class="mb-1 col-md-8 ">
                                             <div class="addons">
+                                            @forelse ($program->program_addon as $key => $addon)
+                                            <div class="row d-flex align-items-end addon_child_row">
+                                                <div class="col-md-4">
+                                                    <div class="mb-1">
+                                                        <label class="form-label" for="itemname">Addon Name</label>
+                                                        <input type="text" class="form-control" name="addon_name[]" id="itemname" value="{{$addon->name ?? ''}}" aria-describedby="itemname" placeholder="Ex. Mountain Flight">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <label class="form-label" for="">Price</label>
+                                                    <div class="input-group mb-1">
+                                                        <span class="input-group-text">USD</span>
+                                                        <input type="number" min="1" class="form-control" name="addon_price[]" value="{{$addon->price ?? ''}}" placeholder="198" aria-label="">
+                                                        <span class="input-group-text">per item</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <div class="mb-1">
+                                                        <label class="form-label" for="iti-accommodates">Accommodates</label>
+                                                        <div class="input-group">
+                                                            <input type="number" min="1" name="addon_accommodates[]" class="form-control" value="{{$addon->accommodates ?? ''}}" placeholder="1" aria-label="iti-accomodates" value="" aria-describedby="iti-accommodates">
+                                                            <span class="input-group-text" id="iti-accommodates">Pax</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @if ($key != 0)
+                                                <div class="col-md-2">
+                                                    <div class="mb-1">
+                                                        <button class="btn btn-outline-danger remove_addon text-nowrap px-1 waves-effect" data-repeater-delete="" type="button">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x me-25"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                @endif
+                                            </div>
+                                            @empty
                                             <div class="row d-flex align-items-end">
                                                 <div class="col-md-4">
                                                     <div class="mb-1">
@@ -883,6 +1140,8 @@
 
 
                                             </div>
+                                            @endforelse
+
                                             </div>
                                             <button class="btn btn-icon btn-primary" id="add_addon" type="button" data-repeater-create>
                                                 <i data-feather="plus" class="me-25"></i>
@@ -896,17 +1155,69 @@
                                         </div>
                                     </div>
                                     <div class="discounts">
-                                    <div class="row d-flex align-items-end">
+                                    @forelse ($program->program_discount as $key => $discount)
+                                    <div class="row d-flex discount_child_row align-items-end">
 
+                                        <div class="mb-1 col-md-3">
+                                            @if ($key == 0)
+                                            <div class="d-flex flex-column">
+                                                <label class="form-label" for="linkedin">Activate Discounts?</label>
+                                                <div class="form-check form-check-primary form-switch">
+                                                    <input type="checkbox" name="activate_discounts" class="form-check-input active_discount" id="customSwitch3" @checked($program->activate_discounts == true) >
+                                                </div>
+                                            </div>
+                                            @endif
+                                        </div>
+
+                                        <div class="mb-1 col-md-2">
+                                            <label class="form-label" for="linkedin">Discount From</label>
+                                            <input type="text" id="fp-default" class="form-control flatpickr-basic active flatpickr-input" name="discount_from[]" value="{{$discount->discount_from}}" placeholder="YYYY-MM-DD" readonly="readonly">
+                                        </div>
+                                        <div class="mb-1 col-md-2">
+                                            <label class="form-label" for="linkedin">Discount Until</label>
+                                            <input type="text" id="fp-default" class="form-control flatpickr-basic flatpickr-input" name="discount_until[]" value="{{$discount->discount_until}}" placeholder="YYYY-MM-DD" readonly="readonly">
+                                        </div>
+                                        <div class="mb-1 col-md-2">
+                                            <label class="form-label" for="linkedin">Discounts</label>
+                                            <div class="input-group">
+                                                <input type="number" class="form-control" placeholder="10" aria-label="Elevation" name="discounts[]" value="{{$discount->discounts}}" aria-describedby="it-elevation">
+                                                <span class="input-group-text" id="it-elevation">%</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            @if ($key == 0)
+                                            <div class="mb-1">
+                                                <button class="btn btn-primary discounts_input" id="add_discount" type="button" data-repeater-create="">
+                                                    <i data-feather="plus" class="me-25"></i>
+                                                    <span>Add More</span>
+
+                                                </button>
+                                            </div>
+                                            @endif
+                                        </div>
+                                        <div class="col-md-1">
+                                           @if ($key != 0)
+
+                                            <div class="mb-1">
+                                                <button class="btn btn-outline-danger remove_discount text-nowrap px-1 waves-effect" data-repeater-delete="" type="button">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x me-25"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+
+                                                </button>
+                                            </div>
+
+                                           @endif
+                                        </div>
+                                    </div>
+                                    @empty
+                                    <div class="row d-flex align-items-end">
                                         <div class="mb-1 col-md-3">
                                             <div class="d-flex flex-column">
                                                 <label class="form-label" for="linkedin">Activate Discounts?</label>
                                                 <div class="form-check form-check-primary form-switch">
-                                                    <input type="checkbox" name="activate_discounts" class="form-check-input active_discount" id="customSwitch3" >
+                                                    <input type="checkbox" name="activate_discounts" class="form-check-input active_discount" id="customSwitch3" @checked($program->activate_discounts == true) >
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="mb-1 col-md-2">
                                             <label class="form-label" for="discount_from">Discount From</label>
                                             <input type="text" id="discount_from" name="discount_from[]" class="form-control flatpickr-basic flatpickr-input active discounts_date" placeholder="YYYY-MM-DD" readonly="readonly">
@@ -931,18 +1242,67 @@
                                                 </button>
                                             </div>
                                         </div>
-
                                     </div>
+
+                                    @endforelse
                                     </div>
 
                                     <div class="unavailables">
+                                    @forelse ($program->program_unavailable as $key => $unavailable)
+                                    <div class="row unavailable_child_row d-flex align-items-end">
+
+                                        <div class="mb-1 col-md-3">
+                                            @if ($key == 0)
+                                            <div class="d-flex flex-column">
+                                                <label class="form-label" for="unavailable_dates">Unavailable Dates?</label>
+                                                <div class="form-check form-check-primary form-switch">
+                                                    <input type="checkbox" name="unavailable_dates" class="form-check-input unavailable_dates" id="unavailable_dates" @checked($program->unavailable_dates == true)>
+                                                </div>
+                                            </div>
+                                            @endif
+                                        </div>
+
+                                        <div class="mb-1 col-md-3">
+                                            <label class="form-label" for="linkedin">Unavailable From</label>
+                                            <input type="text" id="fp-default" class="form-control flatpickr-basic flatpickr-input active" name="unavailable_from[]" value="{{$unavailable->unavailable_from}}" placeholder="YYYY-MM-DD" readonly="readonly">
+                                        </div>
+                                        <div class="mb-1 col-md-3">
+                                            <label class="form-label" for="linkedin">Unavailable Until</label>
+                                            <input type="text" id="fp-default" class="form-control flatpickr-basic flatpickr-input active" name="unavailable_until[]" value="{{$unavailable->unavailable_until}}" placeholder="YYYY-MM-DD" readonly="readonly">
+                                        </div>
+                                        <div class="col-md-2">
+                                            @if ($key == 0)
+                                            <div class="mb-1">
+                                                <button class="btn btn-primary unavailable_input" id="add_unavailable" type="button" data-repeater-create="">
+                                                    <i data-feather="plus" class="me-25"></i>
+                                                    <span>Add More</span>
+
+                                                </button>
+                                            </div>
+                                            @endif
+                                        </div>
+                                        <div class="col-md-1">
+                                            @if ($key != 0)
+
+                                            <div class="mb-1">
+                                                <button class="btn btn-outline-danger remove_unavailable text-nowrap px-1 waves-effect" data-repeater-delete="" type="button">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x me-25"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+
+                                                </button>
+                                            </div>
+
+                                            @endif
+                                        </div>
+
+                                    </div>
+                                    @empty
                                     <div class="row d-flex align-items-end">
 
                                         <div class="mb-1 col-md-3">
                                             <div class="d-flex flex-column">
                                                 <label class="form-label" for="unavailable_dates">Unavailable Dates?</label>
                                                 <div class="form-check form-check-primary form-switch">
-                                                    <input type="checkbox" name="unavailable_dates" class="form-check-input unavailable_dates" id="unavailable_dates" >
+                                                    <input type="checkbox" name="unavailable_dates" class="form-check-input unavailable_dates" id="unavailable_dates" @checked($program->unavailable_dates == true)>
                                                 </div>
                                             </div>
                                         </div>
@@ -967,6 +1327,7 @@
 
 
                                     </div>
+                                    @endforelse
                                     </div>
                                     <div class="row">
 
@@ -974,7 +1335,7 @@
                                             <div class="d-flex flex-column">
                                                 <label class="form-label" for="is_bookable">Is this Bookable?</label>
                                                 <div class="form-check form-check-primary form-switch">
-                                                    <input type="checkbox" name="is_bookable" class="form-check-input is_bookable" id="is_bookable" >
+                                                    <input type="checkbox" name="is_bookable" class="form-check-input is_bookable" id="is_bookable" @checked($program->is_bookable == true)>
                                                 </div>
                                             </div>
                                         </div>
@@ -1015,7 +1376,7 @@
                                         <div class="col-6">
                                             <label class="form-label" for="title">Meta Title</label>
                                             <div class="form-floating mb-0">
-                                                <textarea data-length="60" name="meta_title" class="form-control char-textarea" id="textarea-counter1" rows="1" placeholder="Meta Title" style="height: 25px">{{old('meta_title')}}</textarea>
+                                                <textarea data-length="60" name="meta_title" class="form-control char-textarea" id="textarea-counter1" rows="1" placeholder="Meta Title" style="height: 25px">{{old('meta_title',$program->meta_title)}}</textarea>
                                             @error('meta_title')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
@@ -1026,7 +1387,7 @@
                                         <div class="col-12">
                                             <label class="form-label" for="textarea">Meta Description</label>
                                             <div class="form-floating mb-0">
-                                                <textarea data-length="158" name="meta_description" class="form-control char-textarea" id="textarea-counter" rows="2" placeholder="Meta Description" style="height: 50px">{{old('meta_description')}}</textarea>
+                                                <textarea data-length="158" name="meta_description" class="form-control char-textarea" id="textarea-counter" rows="2" placeholder="Meta Description" style="height: 50px">{{old('meta_description',$program->meta_description)}}</textarea>
                                             @error('meta_description')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
@@ -1036,7 +1397,7 @@
                                         <div class="col-12">
                                             <label class="form-label" for="textarea">Meta Keywords</label>
                                             <div class="form-floating mb-0">
-                                                <textarea data-length="250" name="meta_keyword" class="form-control char-textarea" id="textarea-counter2" rows="2" placeholder="Meta Keywords" style="height: 50px">{{old('meta_keyword')}}</textarea>
+                                                <textarea data-length="250" name="meta_keyword" class="form-control char-textarea" id="textarea-counter2" rows="2" placeholder="Meta Keywords" style="height: 50px">{{old('meta_keyword',$program->meta_keyword)}}</textarea>
                                             @error('meta_keyword')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror
@@ -1181,7 +1542,7 @@ tiered_key++;
       changeMaxTiered();
      RemoveTiered();
    }
-
+   RemoveTiered()
    function RemoveTiered(){
        $('.remove_tiered').click(function(){
            $(this).parents('.tiered_child').remove();
@@ -1360,7 +1721,7 @@ $(document).ready(function(){
     );
     RemoveTourHighlights();
    });
-
+   RemoveTourHighlights();
    function RemoveTourHighlights(){
    $('.remove_tour_highlight').click(function(){
     $(this).parents('.tour_highlight_child_row').remove();
@@ -1490,7 +1851,7 @@ $(document).ready(function(){
       textEditor();
          mealFunction();
    });
-
+   RemoveDayItinerary();
    function RemoveDayItinerary(){
    $('.remove_day_itinerary').click(function(){
     $(this).parents('.day_itinerary_child_row').remove();
@@ -1665,7 +2026,7 @@ $(document).ready(function(){
        RemoveEquipment();
    });
 
-
+   RemoveEquipment()
    function RemoveEquipment(){
        $('.remove_equipment').click(function(){
            $(this).parents('.equipment_child_row').remove();
@@ -1707,7 +2068,7 @@ $(document).ready(function(){
         faqValidate()
    });
 
-
+   RemoveFaq()
    function RemoveFaq(){
        $('.remove_faq').click(function(){
            $(this).parents('.faq_child_row').remove();
@@ -1783,7 +2144,7 @@ $(document).ready(function(){
        `);
        RemoveAddon();
    });
-
+   RemoveAddon();
 
    function RemoveAddon(){
        $('.remove_addon').click(function(){
@@ -1841,7 +2202,7 @@ $(document).ready(function(){
         $('#social-links').find(".flatpickr-basic").flatpickr({});
    });
 
-
+   RemoveDiscount()
    function RemoveDiscount(){
        $('.remove_discount').click(function(){
            $(this).parents('.discount_child_row').remove();
@@ -1888,7 +2249,7 @@ $(document).ready(function(){
        RemoveUnavailable();
    });
 
-
+   RemoveUnavailable()
    function RemoveUnavailable(){
        $('.remove_unavailable').click(function(){
            $(this).parents('.unavailable_child_row').remove();

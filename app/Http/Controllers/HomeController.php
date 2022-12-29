@@ -30,9 +30,14 @@ class HomeController extends Controller
         }
         return view('frontend.pages.tour_detail',compact('tour'));
     }
-    
-    public function book_now_page(){
-        return view('frontend.pages.book_now_page');
+
+    public function book_now_page($slug){
+        $booking = Program::with(['program_itinerary','program_addon','program_costing','program_discount',
+        'program_faq','program_support','program_unavailable','activity','region','destination'])->where('url_slug',$slug)->first();
+        if($booking != true){
+            abort(404);
+        }
+        return view('frontend.pages.book_now_page',compact('booking'));
     }
 
     public function activities(){

@@ -146,7 +146,7 @@
                                 @endforeach
                             </div>
                         </div>
-                        <!-- <div class="carousel-item">
+                         {{-- <div class="carousel-item">
                             <div class="row m-0">
                                 <div class="col-3"></div>
                                 <div class="col-3">
@@ -173,7 +173,7 @@
                                     <img src="{{asset('assets/images/destination-3.jpg')}}" alt="" />
                                 </div>
                             </div>
-                        </div> -->
+                        </div> --}}
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#card-carousel"
                         data-bs-slide="prev">
@@ -209,47 +209,21 @@
 
                     </div>
                 </div>
+                @foreach ($destinations as $destination)
                 <div class="carousel-item">
                     <div class="row carousel-card-row">
                         <div class="col-1"></div>
                         <div class="col-10 position-relative">
-                            <img class="w-100" src="{{asset('assets/images/destination-1.jpg')}}" alt="" />
-                            <h4>Tibet</h4>
+                            <img class="w-100" src="{{asset($destination->thumbnail->file_name ?? 'assets/images/destination-1.jpg')}}" alt="" />
+                            <h4>{{$destination->title}}</h4>
                             <div class="tours-count">
-                                5 tours
-                            </div>
-                        </div>
-                        <div class="col-1"></div>
-
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="row carousel-card-row">
-
-                        <div class="col-1"></div>
-                        <div class="col-10 position-relative">
-                            <img class="w-100" src="{{asset('assets/images/destination-2.jpg')}}" alt="" />
-                            <h4>India</h4>
-                            <div class="tours-count">
-                                1 tours
+                                {{count($destination->programs)}} tours
                             </div>
                         </div>
                         <div class="col-1"></div>
                     </div>
                 </div>
-                <div class="carousel-item">
-                    <div class="row carousel-card-row">
-                        <div class="col-1"></div>
-                        <div class="col-10 position-relative">
-                            <img class="w-100" src="{{asset('assets/images/destination-3.jpg')}}" alt="" />
-                            <h4>Bhutan</h4>
-                            <div class="tours-count">
-                                3 tours
-                            </div>
-                        </div>
-                        <div class="col-1"></div>
-                    </div>
-                </div>
+                @endforeach
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#card-carousel-1" data-bs-slide="prev">
                 <i class="bi bi-chevron-left"></i>
@@ -369,6 +343,7 @@
                 @foreach ($programs as $program)
 
                 <div class="col-4">
+                    <a href="{{route('tour.detail',$program->url_slug)}}">
                     <div class="deal-card m-3 shadow mb-4">
                         <div class="position-relative">
                             <div class="deal-image">
@@ -426,6 +401,7 @@
                             </div>
                         </div>
                     </div>
+                    </a>
                 </div>
 
                 @endforeach
@@ -454,6 +430,7 @@
                 @foreach ($programs_2 as $key => $program)
                 @if ($key == 0)
                 <div class="col-8">
+                   <a href="{{route('tour.detail',$program->url_slug)}}">
                     <div class="deal-card m-3 mb-0 shadow d-flex">
                         <div class="deal-image position-relative w-100 h-100">
                             <img src="{{asset($program->thumbnail->file_name ?? 'assets/images/amazing-tours-1.jpg')}}" alt="" class="h-100 w-100" />
@@ -533,9 +510,11 @@
                             </div>
                         </div>
                     </div>
+                </a>
                 </div>
                 @else
                 <div class="col-4">
+                    <a href="{{route('tour.detail',$program->url_slug)}}">
                     <div class="deal-card m-3 shadow mb-4">
                         <div class="position-relative">
                             <div class="deal-image">
@@ -595,8 +574,7 @@
                             </div>
                         </div>
                     </div>
-
-
+                    </a>
             </div>
                 @endif
 
@@ -611,6 +589,7 @@
             </div>
             <div id="reviews-carousel" class="reviews-carousel-mobile carousel slide " data-bs-ride="carousel">
                 <div class="carousel-inner" role="listbox">
+                    @foreach ($reviews as $review)
                     <div class="carousel-item active">
                         <div class="row carousel-reviews-row">
                             <div class="col-1"></div>
@@ -618,31 +597,33 @@
                                 <div class="tour-review-container">
                                     <div>
                                         <div class="name-overlay">
-                                            <h5>Akirpoy Rous</h5>
+                                            <h5>{{$review->title}}</h5>
                                             <div>
+                                                @for ($i = 0; $i < $review->rating; $i++)
                                                 <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
+                                                @endfor
+
+                                                @for ($i = 0; $i < 5-$review->rating ; $i++)
+                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
+                                                @endfor
                                             </div>
                                         </div>
                                         <div class="name-with-review-overlay">
                                             <div class="text-center">
 
-                                                <h4>“ Going to the
-                                                    mountains is going
-                                                    home “</h4>
+                                                <h4>“ {!! $review->content !!} “</h4>
                                             </div>
                                             <div class="text-center">
-                                                <h5>- Akirpoy Rous</h5>
+                                                <h5>- {{$review->title}}</h5>
 
                                                 <div>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
+                                                    @for ($i = 0; $i < $review->rating; $i++)
+                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
+                                @endfor
+
+                                @for ($i = 0; $i < 5-$review->rating ; $i++)
+                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
+                                @endfor
                                                 </div>
                                             </div>
                                         </div>
@@ -653,342 +634,7 @@
 
                         </div>
                     </div>
-                    <div class="carousel-item">
-                        <div class="row carousel-reviews-row">
-                            <div class="col-1"></div>
-                            <div class="col-10">
-                                <div class="tour-review-container">
-                                    <div>
-                                        <div class="name-overlay">
-                                            <h5>Carapie Leme</h5>
-                                            <div>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <div class="name-with-review-overlay">
-                                            <div class="text-center">
-
-                                                <h4>“ Going to the
-                                                    mountains is going
-                                                    home “</h4>
-                                            </div>
-                                            <div class="text-center">
-                                                <h5>- Carapie Leme</h5>
-
-                                                <div>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-1"></div>
-
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row carousel-reviews-row">
-                            <div class="col-1"></div>
-                            <div class="col-10">
-                                <div class="tour-review-container">
-                                    <div>
-                                        <div class="name-overlay">
-                                            <h5>Anabelle Clarisie</h5>
-                                            <div>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <div class="name-with-review-overlay">
-                                            <div class="text-center">
-
-                                                <h4>“ Going to the
-                                                    mountains is going
-                                                    home “</h4>
-                                            </div>
-                                            <div class="text-center">
-                                                <h5>- Anabelle Clarisie</h5>
-
-                                                <div>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-1"></div>
-
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row carousel-reviews-row">
-                            <div class="col-1"></div>
-                            <div class="col-10">
-                                <div class="tour-review-container">
-                                    <div>
-                                        <div class="name-overlay">
-                                            <h5>Anoria Koinch</h5>
-                                            <div>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <div class="name-with-review-overlay">
-                                            <div class="text-center">
-
-                                                <h4>“ Going to the
-                                                    mountains is going
-                                                    home “</h4>
-                                            </div>
-                                            <div class="text-center">
-                                                <h5>- Anoria Koinch</h5>
-
-                                                <div>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-1"></div>
-
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row carousel-reviews-row">
-                            <div class="col-1"></div>
-                            <div class="col-10">
-                                <div class="tour-review-container">
-                                    <div>
-                                        <div class="name-overlay">
-                                            <h5>Anoria Koinch</h5>
-                                            <div>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <div class="name-with-review-overlay">
-                                            <div class="text-center">
-
-                                                <h4>“ Going to the
-                                                    mountains is going
-                                                    home “</h4>
-                                            </div>
-                                            <div class="text-center">
-                                                <h5>- Anoria Koinch</h5>
-
-                                                <div>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-1"></div>
-
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row carousel-reviews-row">
-                            <div class="col-1"></div>
-                            <div class="col-10">
-                                <div class="tour-review-container">
-                                    <div>
-                                        <div class="name-overlay">
-                                            <h5>Amitur Lawus</h5>
-                                            <div>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <div class="name-with-review-overlay">
-                                            <div class="text-center">
-
-                                                <h4>“ Going to the
-                                                    mountains is going
-                                                    home “</h4>
-                                            </div>
-                                            <div class="text-center">
-                                                <h5>- Amitur Lawus</h5>
-
-                                                <div>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-1"></div>
-
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row carousel-reviews-row">
-                            <div class="col-1"></div>
-                            <div class="col-10">
-                                <div class="tour-review-container">
-                                    <div>
-                                        <div class="name-overlay">
-                                            <h5>Biraj Gautam</h5>
-                                            <div>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <div class="name-with-review-overlay">
-                                            <div class="text-center">
-
-                                                <h4>“ Going to the
-                                                    mountains is going
-                                                    home “</h4>
-                                            </div>
-                                            <div class="text-center">
-                                                <h5>- Biraj Gautam</h5>
-
-                                                <div>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-1"></div>
-
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row carousel-reviews-row">
-                            <div class="col-1"></div>
-                            <div class="col-10">
-                                <div class="tour-review-container">
-                                    <div>
-                                        <div class="name-overlay">
-                                            <h5>Shiva Timalsina</h5>
-                                            <div>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <div class="name-with-review-overlay">
-                                            <div class="text-center">
-
-                                                <h4>“ Going to the
-                                                    mountains is going
-                                                    home “</h4>
-                                            </div>
-                                            <div class="text-center">
-                                                <h5>- Shiva Timalsina</h5>
-
-                                                <div>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-1"></div>
-
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row carousel-reviews-row">
-                            <div class="col-1"></div>
-                            <div class="col-10">
-                                <div class="tour-review-container">
-                                    <div>
-                                        <div class="name-overlay">
-                                            <h5>Anoria Koinc</h5>
-                                            <div>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <div class="name-with-review-overlay">
-                                            <div class="text-center">
-
-                                                <h4>“ Going to the
-                                                    mountains is going
-                                                    home “</h4>
-                                            </div>
-                                            <div class="text-center">
-                                                <h5>- Anoria Koinc</h5>
-
-                                                <div>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-1"></div>
-
-                        </div>
-                    </div>
+                   @endforeach
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#reviews-carousel"
                     data-bs-slide="prev">
@@ -1052,6 +698,7 @@
               @foreach ($blogs as $blog)
 
                 <div class="col-4">
+                   <a href="{{route('blog.detail',$blog->url_slug)}}">
                     <div class="article-card m-3 shadow section-border mb-4">
                         <img class="w-100" src="{{asset($blog->blog_image->file_name ?? '')}}" alt="" />
                         <div class="article-caption text-white">
@@ -1062,6 +709,7 @@
                             </div>
                         </div>
                     </div>
+                </a>
                 </div>
 
               @endforeach
