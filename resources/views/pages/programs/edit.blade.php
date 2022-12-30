@@ -359,7 +359,7 @@
                                         <div class="mb-1 col-md-6">
                                             <div class="d-flex">
                                                 <a href="#" class="me-25">
-                                                    <img src="{{asset('app-assets/images/slider/10.jpg')}}" id="tour_thumbnail_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="250">
+                                                    <img src="{{asset($program->thumbnail->file_name ?? 'app-assets/images/slider/10.jpg')}}" id="tour_thumbnail_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="250">
                                                 </a>
                                                 <!-- upload and reset button -->
                                                 <div class="d-flex align-items-end mt-75 ms-1">
@@ -380,7 +380,7 @@
                                         <div class="mb-1 col-md-6">
                                             <div class="d-flex">
                                                 <a href="#" class="me-25">
-                                                    <img src="{{asset('app-assets/images/slider/10.jpg')}}" id="tour_banner_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="250">
+                                                    <img src="{{asset($program->banner->file_name ?? 'app-assets/images/slider/10.jpg')}}" id="tour_banner_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="250">
                                                 </a>
                                                 <!-- upload and reset button -->
                                                 <div class="d-flex align-items-end mt-75 ms-1">
@@ -416,6 +416,11 @@
 
                                                         <button type="button" id="account-reset" onclick="resetGalleryImage()" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
                                                         <div id="gallery_div">
+                                                            @if ($program->tour_gallery != null)
+                                                            @foreach (json_decode($program->tour_gallery) as $gallery)
+                                                            <input name="tour_gallery[]" type="hidden" value="{{$gallery}}">
+                                                            @endforeach
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -426,7 +431,7 @@
                                         <div class="mb-1 col-md-6">
                                             <div class="d-flex">
                                                 <a href="#" class="me-25">
-                                                    <img src="{{asset('app-assets/images/slider/10.jpg')}}" id="tour_map_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="250">
+                                                    <img src="{{asset($program->map->file_name ?? 'app-assets/images/slider/10.jpg')}}" id="tour_map_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="250">
                                                 </a>
                                                 <!-- upload and reset button -->
                                                 <div class="d-flex align-items-end mt-75 ms-1">
@@ -551,9 +556,6 @@
                                                                                  <textarea class="tinymceTextEditor" name="itinerary_description[]">
                                                                                     {{$program_itinerary->description ?? ''}}
                                                                             </textarea>
-
-                                                                            </textarea>
-
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -610,7 +612,7 @@
 
                                                                     </div>
 
-                                                                    @if ($key != 0)
+                                                                    @if ($key != 1)
                                                                     <div class="col-md-1">
                                                                         <div class="mb-1">
                                                                             <button class="btn btn-outline-danger remove_day_itinerary text-nowrap px-1 waves-effect" data-repeater-delete="" type="button">
@@ -735,72 +737,172 @@
                                         </div>
                                     </div>
                                     <!--costing starts -->
-                                    <div class="row d-flex align-items-end">
+                                    <div class="includes">
                                         <h6>Costing Section</h6>
-                                        <div class="includes">
-                                        <div class="col-md-11 mb-1">
+                                        @forelse ($program->program_include as $key => $include)
 
-                                            <label class="form-label" for="iti-include1">Cost Includes</label>
-                                            <div class="input-group">
-                                                <button type="button" class="input-group-text add_includes btn btn-outline-secondary border-success text-success"><i data-feather="plus-circle"></i></button>
-                                                <input type="text" id="iti-include1" class="form-control include include_1" name="includes[]" placeholder=" Ex. Airport pickup and drop services on a private vehicle including before and after the trek" data-id="1"/>
-                                                <span id="include_error_1" class="text-danger" style="display:none">Include is Required!</span>
+                                        @if ($key == 0)
+                                        <div class="row d-flex align-items-end">
+
+                                            <div class="col-md-11 mb-1">
+
+                                                <label class="form-label" for="iti-include1">Cost Includes</label>
+                                                <div class="input-group">
+                                                    <button type="button" class="input-group-text add_includes btn btn-outline-secondary border-success text-success"><i data-feather="plus-circle"></i></button>
+                                                    <input type="text" id="iti-include1" class="form-control include include_1" name="includes[]" value="{{$include->includes ?? ''}}" placeholder=" Ex. Airport pickup and drop services on a private vehicle including before and after the trek" data-id="1"/>
+                                                    <span id="include_error_1" class="text-danger" style="display:none">Include is Required!</span>
+                                                </div>
+
                                             </div>
+                                            <div class="col-md-1 mb-1">
 
+
+                                            </div>
+                                            </div>
+                                        <div class="row mb-1">
+                                            <label for="iti-in-caption1" class="col-md-1 col-form-label-sm"><span class="badge rounded-pill bg-success">Caption</span></label>
+                                            <div class="col-md-11">
+                                                <input type="text" class="form-control form-control-sm inc_caption inc_caption_1" name="include_caption[]" value="{{$include->include_caption ?? ''}}" id="iti-in-caption1" placeholder="Ex. 2 transfers for international arrival and 2 transfers for domestic flights" data-id="1">
+                                           <span id="inc_caption_error_1" class="text-danger" style="display:none">Caption is Required!</span>
+                                            </div>
                                         </div>
-                                        <div class="col-md-1 mb-1">
-
-
-                                        </div>
-                                        </div>
-
-
-
-                                    <div class="row mb-1">
-                                        <label for="iti-in-caption1" class="col-md-1 col-form-label-sm"><span class="badge rounded-pill bg-success">Caption</span></label>
-                                        <div class="col-md-11">
-                                            <input type="text" class="form-control form-control-sm inc_caption inc_caption_1" name="include_caption[]" id="iti-in-caption1" placeholder="Ex. 2 transfers for international arrival and 2 transfers for domestic flights" data-id="1">
-                                       <span id="inc_caption_error_1" class="text-danger" style="display:none">Caption is Required!</span>
-                                        </div>
-
-
-                                    </div>
+                                        @else
+                                        <div class="includes_child_row">
+                                            <div class="row d-flex align-items-end">
+                                             <div class="col-md-11 mb-1">
+                                                 <div class="input-group">
+                                                     <button type="button" class="input-group-text add_includes btn btn-outline-secondary border-success text-success">
+                                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                                                     </button>
+                                                     <input type="text" id="" class="form-control include include_2" name="includes[]" value="{{$include->includes ?? ''}}" placeholder=" Ex. Airport pickup and drop services on a private vehicle including before and after the trek" data-id="2">
+                                                <span id="include_error_2" class="text-danger" style="display:none">Include is Required!</span>
+                                                 </div>
+                                             </div>
+                                             <div class="col-md-1 mb-1">
+                                                 <button class="btn btn-outline-danger remove_includes text-nowrap px-1 waves-effect" data-repeater-delete="" type="button">
+                                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x me-25"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                 </button>
+                                             </div>
+                                         </div>
+                                         <div class="row mb-1">
+                                         <label for="iti-in-caption2" class="col-md-1 col-form-label-sm"><span class="badge rounded-pill bg-success">Caption</span></label>
+                                         <div class="col-md-11">
+                                             <input type="text" class="form-control form-control-sm inc_caption inc_caption_2" name="include_caption[]" value="{{$include->include_caption ?? ''}}" id="iti-in-caption2" placeholder="Ex. 2 transfers for international arrival and 2 transfers for domestic flights" data-id="2">
+                                            <span id="inc_caption_error_2" class="text-danger" style="display:none">Caption is Required!</span>
+                                         </div>
                                      </div>
-                                    <!--cost includes end and cost excludes start -->
-                                <div class="excludes">
-                                    <div class="row d-flex align-items-end">
+                                     </div>
+                                        @endif
+                                        @empty
+                                        <div class="row d-flex align-items-end">
 
+                                            <div class="col-md-11 mb-1">
 
-                                        <div class="col-md-11 mb-1">
+                                                <label class="form-label" for="iti-include1">Cost Includes</label>
+                                                <div class="input-group">
+                                                    <button type="button" class="input-group-text add_includes btn btn-outline-secondary border-success text-success"><i data-feather="plus-circle"></i></button>
+                                                    <input type="text" id="iti-include1" class="form-control include include_1" name="includes[]" placeholder=" Ex. Airport pickup and drop services on a private vehicle including before and after the trek" data-id="1"/>
+                                                    <span id="include_error_1" class="text-danger" style="display:none">Include is Required!</span>
+                                                </div>
 
-                                            <label class="form-label" for="iti-exclude1">Cost Excludes</label>
-                                            <div class="input-group">
-                                                <button type="button" class="input-group-text add_excludes btn btn-outline-secondary border-danger text-danger"><i data-feather="plus-circle"></i></button>
-                                                <input type="text" id="iti-exclude1" class="form-control exclude exclude_1" name="excludes[]" placeholder=" Ex. International airfare, Nepal visa fees ( two passport photographs ), travel and medical insurance, emergency evacuation" data-id="1" />
-                                                <span id="exclude_error_1" class="text-danger" style="display:none">Exclude is Required!</span>
                                             </div>
+                                            <div class="col-md-1 mb-1">
 
+
+                                            </div>
+                                            </div>
+                                        <div class="row mb-1">
+                                            <label for="iti-in-caption1" class="col-md-1 col-form-label-sm"><span class="badge rounded-pill bg-success">Caption</span></label>
+                                            <div class="col-md-11">
+                                                <input type="text" class="form-control form-control-sm inc_caption inc_caption_1" name="include_caption[]" id="iti-in-caption1" placeholder="Ex. 2 transfers for international arrival and 2 transfers for domestic flights" data-id="1">
+                                           <span id="inc_caption_error_1" class="text-danger" style="display:none">Caption is Required!</span>
+                                            </div>
                                         </div>
-                                        <div class="col-md-1 mb-1">
-
-
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row mb-1">
-
-                                        <label for="iti-ex-caption1" class="col-md-1 col-form-label-sm"><span class="badge rounded-pill bg-danger">Caption</span></label>
-                                        <div class="col-md-11">
-                                            <input type="text" class="form-control form-control-sm exc_caption exc_caption_1" id="iti-ex-caption1" name="exclude_caption[]" placeholder="Ex. (Nepal via fees; 15 days - USD 30, 30 Days - USD 50, 90 Days - USD 125 | Visa extension - USD 3 per day, Late fine - USD 5 per day)" data-id="1">
-                                       <span id="exc_caption_error_1" class="text-danger" style="display:none">Caption is Required!</span>
-                                        </div>
-
+                                        @endforelse
 
                                     </div>
+                                        <!--cost includes end and cost excludes start -->
+                                    <div class="excludes">
+                                        <label class="form-label" for="iti-exclude1">Cost Excludes</label>
 
-                                    </div>
-                                    <!--costing ends -->
+                                        @forelse ($program->program_exclude as $key => $exclude)
+
+                                        @if ($key == 0)
+                                        <div class="row d-flex align-items-end">
+                                            <div class="col-md-11 mb-1">
+                                                <div class="input-group">
+                                                    <button type="button" class="input-group-text add_excludes btn btn-outline-secondary border-danger text-danger"><i data-feather="plus-circle"></i></button>
+                                                    <input type="text" id="iti-exclude1" class="form-control exclude exclude_1" name="excludes[]" value="{{$exclude->excludes ?? ''}}" placeholder=" Ex. International airfare, Nepal visa fees ( two passport photographs ), travel and medical insurance, emergency evacuation" data-id="1" />
+                                                    <span id="exclude_error_1" class="text-danger" style="display:none">Exclude is Required!</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1 mb-1">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-1">
+                                            <label for="iti-ex-caption1" class="col-md-1 col-form-label-sm"><span class="badge rounded-pill bg-danger">Caption</span></label>
+                                            <div class="col-md-11">
+                                                <input type="text" class="form-control form-control-sm exc_caption exc_caption_1" id="iti-ex-caption1" value="{{$exclude->exclude_caption ?? ''}}" name="exclude_caption[]" placeholder="Ex. (Nepal via fees; 15 days - USD 30, 30 Days - USD 50, 90 Days - USD 125 | Visa extension - USD 3 per day, Late fine - USD 5 per day)" data-id="1">
+                                           <span id="exc_caption_error_1" class="text-danger" style="display:none">Caption is Required!</span>
+                                            </div>
+                                        </div>
+                                        @else
+                                        <div class="excludes_child_row">
+                                            <div class="row d-flex align-items-end">
+                                                  <div class="col-md-11 mb-1">
+                                                      <div class="input-group">
+                                                          <button type="button" class="input-group-text add_excludes btn btn-outline-secondary border-danger text-danger">
+                                                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                                                          </button>
+                                                          <input type="text" id="" class="form-control exclude exclude_2" name="excludes[]" value="{{$exclude->excludes ?? ''}}" placeholder=" Ex. International airfare, Nepal visa fees ( two passport photographs ), travel and medical insurance, emergency evacuation" data-id="2">
+                                                          <span id="exclude_error_2" class="text-danger" style="display:none">Exclude is Required!</span>
+                                                      </div>
+                                                  </div>
+                                                  <div class="col-md-1 mb-1">
+                                                      <button class="btn btn-outline-danger remove_excludes text-nowrap px-1 waves-effect" data-repeater-delete="" type="button">
+                                                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x me-25"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+
+                                                      </button>
+                                                  </div>
+                                              </div>
+                                              <div class="row mb-1">
+                                                  <label for="iti-ex-caption2" class="col-md-1 col-form-label-sm"><span class="badge rounded-pill bg-danger">Caption</span></label>
+                                                  <div class="col-md-11">
+                                                      <input type="text" class="form-control form-control-sm exc_caption exc_caption_2" name="exclude_caption[]" value="{{$exclude->exclude_caption ?? ''}}" id="iti-ex-caption2" placeholder="Ex. (Nepal via fees; 15 days - USD 30, 30 Days - USD 50, 90 Days - USD 125 | Visa extension - USD 3 per day, Late fine - USD 5 per day)" data-id="2">
+                                                      <span id="exc_caption_error_2" class="text-danger" style="display:none">Caption is Required!</span>
+                                                  </div>
+                                              </div>
+                                               </div>
+                                        @endif
+
+                                        @empty
+
+                                        <div class="row d-flex align-items-end">
+                                            <div class="col-md-11 mb-1">
+                                                <div class="input-group">
+                                                    <button type="button" class="input-group-text add_excludes btn btn-outline-secondary border-danger text-danger"><i data-feather="plus-circle"></i></button>
+                                                    <input type="text" id="iti-exclude1" class="form-control exclude exclude_1" name="excludes[]" placeholder=" Ex. International airfare, Nepal visa fees ( two passport photographs ), travel and medical insurance, emergency evacuation" data-id="1" />
+                                                    <span id="exclude_error_1" class="text-danger" style="display:none">Exclude is Required!</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1 mb-1">
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-1">
+                                            <label for="iti-ex-caption1" class="col-md-1 col-form-label-sm"><span class="badge rounded-pill bg-danger">Caption</span></label>
+                                            <div class="col-md-11">
+                                                <input type="text" class="form-control form-control-sm exc_caption exc_caption_1" id="iti-ex-caption1" name="exclude_caption[]" placeholder="Ex. (Nepal via fees; 15 days - USD 30, 30 Days - USD 50, 90 Days - USD 125 | Visa extension - USD 3 per day, Late fine - USD 5 per day)" data-id="1">
+                                           <span id="exc_caption_error_1" class="text-danger" style="display:none">Caption is Required!</span>
+                                            </div>
+                                        </div>
+
+
+                                        @endforelse
+
+                                        </div>
+                                        <!--costing ends -->
 
                                 <div class="d-flex justify-content-between">
                                     <button  type="button" class="btn btn-primary personal-info-prev">
@@ -827,7 +929,7 @@
                                         </div>
                                     </div>
                                     <div class="equipments">
-                                    @forelse ($program->program_support as $support)
+                                    @forelse ($program->program_support as $key => $support)
                                     <div class="row equipment_child_row">
                                         <div class="mb-1 col-md-3">
                                             <input type="text" id="equipment1" name="equipment_1[]" value="{{$support->equipment_1 ?? ''}}" class="form-control" placeholder="Eg. Waterproof trekking boots / Flip Flops" />
@@ -948,7 +1050,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div id="social-links" class="content active" role="tabpanel" aria-labelledby="social-links-trigger">
+                            <div id="social-links" class="content" role="tabpanel" aria-labelledby="social-links-trigger">
                                 <div class="content-header">
                                     <h5 class="mb-0">Pricing </h5>
                                     <small>Flat price or prices based on number of people</small>

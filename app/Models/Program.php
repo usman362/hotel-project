@@ -27,6 +27,16 @@ class Program extends Model
         return $this->hasMany(ProgramCosting::class, 'program_id');
     }
 
+    public function program_include()
+    {
+        return $this->hasMany(ProgramInclude::class, 'program_id');
+    }
+
+    public function program_exclude()
+    {
+        return $this->hasMany(ProgramExclude::class, 'program_id');
+    }
+
     public function program_discount()
     {
         return $this->hasMany(ProgramDiscount::class, 'program_id');

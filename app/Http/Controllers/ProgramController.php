@@ -11,7 +11,9 @@ use App\Models\Activity;
 use App\Models\ProgramAddon;
 use App\Models\ProgramCosting;
 use App\Models\ProgramDiscount;
+use App\Models\ProgramExclude;
 use App\Models\ProgramFaq;
+use App\Models\ProgramInclude;
 use App\Models\ProgramItinerary;
 use App\Models\TieredPrice;
 use App\Models\ProgramSupport;
@@ -141,20 +143,30 @@ class ProgramController extends Controller
                 $i++;
             }
         }
-        if($request->has('includes') || $request->has('excludes')){
-             $c = 0;
+        if($request->has('includes')){
+             $inc = 0;
             foreach($request->includes as $include){
 
-                $cost = new ProgramCosting();
+                $cost = new ProgramInclude();
                 $cost->program_id = $program->id;
                 $cost->includes = $include;
-                $cost->include_caption  = $request->include_caption[$c] != null ? $request->include_caption[$c] : '' ;
-                $cost->excludes  = $request->excludes[$c] != null ? $request->excludes[$c] : '' ;
-                $cost->exclude_caption  = $request->exclude_caption[$c] != null ? $request->exclude_caption[$c] : '' ;
+                $cost->include_caption  = $request->include_caption[$inc] != null ? $request->include_caption[$inc] : '' ;
                 $cost->save();
-                $c++;
+                $inc++;
             }
         }
+        if($request->has('excludes')){
+            $exc = 0;
+           foreach($request->excludes as $exclude){
+
+               $cost = new ProgramExclude();
+               $cost->program_id = $program->id;
+               $cost->excludes = $exclude;
+               $cost->exclude_caption  = $request->exclude_caption[$exc] != null ? $request->exclude_caption[$exc] : '' ;
+               $cost->save();
+               $exc++;
+           }
+       }
         if($request->has('equipment_1')){
              $e = 0;
             foreach($request->equipment_1 as $equipment_1){
@@ -348,20 +360,33 @@ class ProgramController extends Controller
                 $i++;
             }
         }
-        if($request->has('includes') || $request->has('excludes')){
-             $c = 0;
-             ProgramCosting::where('program_id',$program->id)->delete();
-            foreach($request->includes as $include){
-                $cost = new ProgramCosting();
-                $cost->program_id = $program->id;
-                $cost->includes = $include;
-                $cost->include_caption  = $request->include_caption[$c] != null ? $request->include_caption[$c] : '' ;
-                $cost->excludes  = $request->excludes[$c] != null ? $request->excludes[$c] : '' ;
-                $cost->exclude_caption  = $request->exclude_caption[$c] != null ? $request->exclude_caption[$c] : '' ;
-                $cost->save();
-                $c++;
-            }
-        }
+
+        if($request->has('includes')){
+            ProgramInclude::where('program_id',$program->id)->delete();
+            $inc = 0;
+           foreach($request->includes as $include){
+
+               $cost = new ProgramInclude();
+               $cost->program_id = $program->id;
+               $cost->includes = $include;
+               $cost->include_caption  = $request->include_caption[$inc] != null ? $request->include_caption[$inc] : '' ;
+               $cost->save();
+               $inc++;
+           }
+       }
+       if($request->has('excludes')){
+        ProgramExclude::where('program_id',$program->id)->delete();
+           $exc = 0;
+          foreach($request->excludes as $exclude){
+
+              $cost = new ProgramExclude();
+              $cost->program_id = $program->id;
+              $cost->excludes = $exclude;
+              $cost->exclude_caption  = $request->exclude_caption[$exc] != null ? $request->exclude_caption[$exc] : '' ;
+              $cost->save();
+              $exc++;
+          }
+      }
         if($request->has('equipment_1')){
              $e = 0;
              ProgramSupport::where('program_id',$program->id)->delete();
