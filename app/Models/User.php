@@ -28,7 +28,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'first_name',
         'last_name',
         'email',
-        'api_token',
         'password',
     ];
 
@@ -76,24 +75,24 @@ class User extends Authenticatable implements MustVerifyEmail
    public function generateCode()
     {
         $code = rand(100000, 999999);
-  
+
         UserCode::updateOrCreate(
             [ 'user_id' => auth()->user()->id ],
             [ 'code' => $code ]
         );
-    
+
         try {
-  
+
             $details = [
                 'title' => 'Mail from Vuexy',
                 'code' => $code
             ];
-             
+
             Mail::to(auth()->user()->email)->send(new SendCodeMail($details));
-    
+
         } catch (Exception $e) {
             // info("Error: ". $e->getMessage());
-            
+
             return 'Error';
         }
     }

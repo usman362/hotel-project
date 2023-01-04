@@ -2652,7 +2652,7 @@ div:hover>.name-with-review-overlay,
         zoom: 115%;
     }
 
-    /* 
+    /*
     .tour-review-section {
         zoom: 90%;
     }
@@ -3069,7 +3069,7 @@ div:hover>.name-with-review-overlay,
     transform: scale(1.2, 1.2);
 }
 
-/* 
+/*
 .activities .product-details {
     float: right;
 }
@@ -3929,6 +3929,8 @@ button#currencyDropdown:hover {
     transform: translate3d(0, 0, 0px) !important;
     min-width: 90px !important;
     width: 90px !important;
+    height: 100%;
+    color: #fff;
     overflow: hidden;
     border-radius: 0;
     background-color: #3484f5;
@@ -4076,7 +4078,7 @@ input[type="date"i]::-webkit-calendar-picker-indicator {
     cursor: pointer;
 }
 
-/* 
+/*
 .custom-modules {
     display: flex;
     justify-content: center;
@@ -4250,7 +4252,7 @@ input[type="date"i]::-webkit-calendar-picker-indicator {
     position: absolute;
     left: 12px;
 }
-/* 
+/*
 .tour-search-bar .search-input option {
     width: 100%;
     z-index: 1;

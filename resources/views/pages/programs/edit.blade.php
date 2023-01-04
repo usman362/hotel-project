@@ -108,7 +108,7 @@
                                         </div>
                                         <div class="mb-1 col-md-2">
                                             <label class="form-label" for="iti-url">Reference</label>
-                                            <input type="text" name="reference" id="reference" class="form-control" placeholder="TPNRTM" value="{{old('reference',$program->reference)}}" aria-label="reference" readonly="readonly" />
+                                            <input type="text" name="reference" id="" class="form-control" placeholder="TPNRTM" value="{{old('reference',$program->reference)}}" aria-label="reference" readonly="readonly" />
                                               @error('reference')
                                             <span class="text-danger">{{$message}}</span>
                                             @enderror

@@ -194,6 +194,33 @@ $stripe = App\Models\Upload::find(Setting::get('stripe'));
                 $('.logout').click(function(){
             $('#logout').submit();
         });
+
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(".currency-dropdown").change(function(e){
+
+
+        e.preventDefault();
+
+        let currency = $(this).val();
+
+        $.ajax({
+           type:'POST',
+           url:"{{ route('change.currency') }}",
+           data:{currency:currency},
+           success:function(data){
+             console.log(data);
+           }
+        });
+
+    });
+    console.log($('.currency-dropdown').val());
+    localStorage.setItem('currency',$('.currency-dropdown').val());
+
     </script>
 
     @stack('scripts')

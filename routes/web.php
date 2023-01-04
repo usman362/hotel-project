@@ -85,6 +85,7 @@ Route::post('store-newsletter',[HomeController::class,'newsletter'])->name('stor
 Route::post('contact-us',[InquiryController::class,'contact_store'])->name('contact.store');
 
 Route::get('/checkout/{slug}',[HomeController::class,'book_now_page'])->name('book_now_page');
+Route::post('change-currency',[HomeController::class,'change_currency'])->name('change.currency');
 
 
 Route::controller(MoneySetupController::class)->group(function(){
@@ -94,7 +95,8 @@ Route::controller(MoneySetupController::class)->group(function(){
 
 Route::get('paypal-payment', [PayPalController::class,'payment'])->name('payment');
 Route::get('paypal-cancel', [PayPalController::class,'cancel'])->name('payment.cancel');
-Route::get('paypal-payment/success', [PayPalController::class,'success'])->name('payment.success');
+// Route::get('paypal', array('as' => 'status','uses' => 'PaypalController@getPaymentStatus',));
+Route::get('paypal', [PayPalController::class,'getPaymentStatus'])->name('status');
 // Admin Panel Routes....
 
 // Documentations pages

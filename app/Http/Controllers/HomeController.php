@@ -8,12 +8,12 @@ use App\Models\Newsletter;
 use App\Models\Program;
 use App\Models\Review;
 use Illuminate\Http\Request;
-
+use Illuminate\Http\Response;
 class HomeController extends Controller
 {
 
 
-    public function index(){
+    public function index(Request $request){
         $reviews = Review::paginate(9);
         $destinations = Destination::paginate(10);
         $blogs = Blog::orderBy('created_at','desc')->paginate(3);
@@ -116,5 +116,11 @@ class HomeController extends Controller
             $arr = array('msg' => 'Successfully submit form using ajax', 'status' => true);
             }
             return Response()->json($arr);
+    }
+
+    public function change_currency(Request $request){
+        $response = new Response('Currency');
+        $response->withCookie(cookie()->forever('currency', $request->currency));
+        return $response;
     }
 }

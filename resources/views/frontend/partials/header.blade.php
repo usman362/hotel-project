@@ -30,15 +30,16 @@
                     </div>
                 </div>
                 <div class="top-bar-dropdown d-flex">
-                    <div class="dropdown" onmouseenter="dropdownToggle(this)" onmouseleave="dropdownToggle(this)">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="currencyDropdown">
+                    <div class="dropdown" >
+                        {{-- <button class="btn btn-secondary dropdown-toggle" type="button" id="currencyDropdown">
                             EUR
-                        </button>
-                        <ul class="dropdown-menu currency-dropdown" aria-labelledby="currencyDropdown">
-                            <li><a class="dropdown-item" href="#">USD <div></div></a></li>
-                            <li><a class="dropdown-item" href="#">AUD <div></div></a></li>
-                            <li><a class="dropdown-item" href="#">GBP <div></div></a></li>
-                        </ul>
+                        </button> --}}
+                        <select class="currency-dropdown dropdown-toggle" name="" id="">
+                            <option value="USD" @selected(request()->cookie('currency') == 'USD')><li> USD </li></option>
+                            <option value="EUR" @selected(request()->cookie('currency') == 'EUR')><li> EUR </li></option>
+                            <option value="AUD" @selected(request()->cookie('currency') == 'AUD')><li> AUD </li></option>
+                            <option value="GBP" @selected(request()->cookie('currency') == 'GBP')><li> GBP </li></option>
+                        </select>
                     </div>
                     @if (Auth::check())
                     <div class="dropdown" onclick="dropdownToggle(this)">
@@ -83,7 +84,7 @@
                                     <a href="#" id="lost-password"
                                         class="mb-3 d-inline-block text-decoration-none text-white">Lost Your
                                         Password</a>
-                                    <button type="submit" class="login-button mb-3" id="sign-in">SIGN IN</button>
+                                    <button type="button" onclick="$('#login').submit()" class="login-button mb-3" id="sign-in">SIGN IN</button>
                                     <p class="mb-0">Sign in with Facebook or Google+</p>
                                 </form>
 
@@ -92,31 +93,25 @@
                                     @csrf
                                 <div id="fname" class="login-field mb-3">
                                     <i class="fa fa-user" aria-hidden="true"></i>
-                                    <input type="text" placeholder="Full Name" />
+                                    <input type="text" name="first_name" placeholder="First Name" />
                                 </div>
                                 <div id="uname" class="login-field mb-3">
                                     <i class="fa fa-user" aria-hidden="true"></i>
-                                    <input type="text" placeholder="User Name" />
+                                    <input type="text" name="last_name" placeholder="Last Name" />
                                 </div>
                                 <div id="email" class="login-field mb-3">
                                     <i class="fa fa-user" aria-hidden="true"></i>
-                                    <input type="email" placeholder="Email Address" />
-                                </div>
-                                <div id="country" class="login-field mb-3">
-                                    <i class="fa fa-user" aria-hidden="true"></i>
-                                    <input type="text" placeholder="Country" />
+                                    <input type="email" name="email" placeholder="Email Address" />
                                 </div>
                                 <div class="login-field mb-3">
                                     <i class="fa fa-lock" aria-hidden="true"></i>
-                                    <input type="password" placeholder="Password" />
+                                    <input type="password" name="password" placeholder="Password" />
                                 </div>
                                 <div id="cpassword" class="login-field mb-3">
                                     <i class="fa fa-lock" aria-hidden="true"></i>
-                                    <input type="password" placeholder="Confirm Password" />
+                                    <input type="password" name="confirm-password" id="confirm-password" placeholder="Confirm Password" />
                                 </div>
-
-
-                                <button type="submit" class="login-button mb-3 d-none" id="sign-up">SIGN UP</button>
+                                <button type="button" onclick="$('#register').submit()" class="login-button mb-3" id="sign-up">SIGN UP</button>
                                 <p class="mb-0">Sign in with Facebook or Google+</p>
                             </form>
 
@@ -563,19 +558,15 @@
                                 Bhutan
                             </button>
                             <div class="dropdown-menu mega-drop" aria-labelledby="navMenuButton1">
-                                <div class="p-4 d-flex align-items-start justify-content-between">
-                                    <div>
+                                <div class="p-4">
+
                                         <h5>COMPANY RELATED</h5>
                                         <p><a href="#">About Us</a></p>
                                         <p><a href="#">Services</a></p>
                                         <p><a href="#">Financial Security</a></p>
                                         <p><a href="#">Partner With Us</a></p>
-                                    </div>
-                                    <div>
-                                        <h5>GENERAL QUERIES</h5>
-                                        <p><a href="#">Destination Guide</a></p>
-                                        <p><a href="#">TripAdvisor Reviews</a></p>
-                                    </div>
+
+
                                 </div>
                             </div>
                         </div>

@@ -4,7 +4,7 @@
 
 <main>
     <div class="main-banner position-relative tour-details-banner">
-        <img src="{{asset('images/TourBanner/'.$tour->tour_banner)}}" alt="" />
+        <img src="{{asset($tour->thumbnail->file_name ?? 'assets/images/amazing-tours-1.jpg')}}" alt="" />
         <div class="banner-heading justify-content-between align-items-end mx-5">
             <div>
                 <h1 class="mb-4 fs-1">{{$tour->tour_name}}</h1>
@@ -317,18 +317,6 @@
                                                         <div>
                                                             <h5>MEALS</h5>
                                                             <h6>{{$tour->meals}}
-                                                                {{--<span onmouseenter="dropdownToggle(this)"
-                                                                    onmouseleave="dropdownToggle(this)"
-                                                                    class="position-relative popover-main ms-2">
-                                                                    <i
-                                                                        class="bi bi-exclamation-square primarycolor pb-2"></i>
-                                                                    <div class="custom-popover">
-                                                                        <p class="m-0">Require Trekkers to be
-                                                                            active, and
-                                                                            previous trekking experience is a bonus
-                                                                            (Max elevation 5500m.)</p>
-                                                                    </div>
-                                                                </span>--}}
                                                             </h6>
                                                         </div>
                                                     </div>
@@ -340,34 +328,26 @@
                                                             <h6>{{$tour->best_months}}</h6>
                                                         </div>
                                                     </div>
+
                                                     <div class="itineraray-list">
                                                         <img src="{{asset('assets/images/tour-details-images/trip-grade.png')}}"
                                                             alt="" />
                                                         <div>
                                                             <h5>DISTANCE</h5>
-                                                            <h6>{{$tour->distance}} Meter
-                                                                {{-- <span onmouseenter="dropdownToggle(this)"
-                                                                    onmouseleave="dropdownToggle(this)"
-                                                                    class="position-relative popover-main ms-2">
-                                                                    <i
-                                                                        class="bi bi-exclamation-square primarycolor pb-2"></i>
-                                                                    <div class="custom-popover">
-                                                                        <p class="m-0">Require Trekkers to be
-                                                                            active, and
-                                                                            previous trekking experience is a bonus
-                                                                            (Max elevation 5500m.)</p>
-                                                                    </div>
-                                                                </span> --}}
-                                                              (Max elevation 5500m.)</p>
-                                                                    </div>
-                                                                </span>
-our-details-images/group-icon.png')}}"
+                                                            <h6>{{$tour->distance}} {{--Meter--}} </h6>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="itineraray-list">
+                                                        <img src="{{asset('assets/images/tour-details-images/group-icon.png')}}"
                                                             alt="" />
                                                         <div>
                                                             <h5>DAILY ACTIVITY</h5>
                                                             <h6>{{$tour->daily_activity}}</h6>
                                                         </div>
                                                     </div>
+
+
                                                 </div>
                                             </div>
                                         </div>
@@ -380,7 +360,7 @@ our-details-images/group-icon.png')}}"
                                         alt="" />Overview
                                 </div>
                                 <div class="siderbar-box-body p-4">
-                                   {{$tour->tour_overview}}
+                                   {!! $tour->tour_overview !!}
                                 </div>
                             </section>
                         </div>
@@ -487,33 +467,36 @@ our-details-images/group-icon.png')}}"
                                 </div>
                                 <div class="siderbar-box-body p-4">
                                     <h5 class="text-success">What is included in the tour price?</h5>
-                                  @foreach ($tour->program_costing as $costing)
+                                  @forelse ($tour->program_include as $include)
 
                                     <div class="d-flex align-items-center my-3">
                                         <div>
                                             <i class="bi bi-check-circle ms-4 me-3 text-success fs-4"></i>
                                         </div>
                                         <div>
-                                            <p class="m-0">{{$costing->includes}}</p>
-                                            <small class="text-success">({{$costing->include_caption}})</small>
+                                            <p class="m-0">{{$include->includes ?? ''}}</p>
+                                            <small class="text-success">({{$include->include_caption ?? ''}})</small>
                                         </div>
                                     </div>
+                                    @empty
 
-                                    @endforeach
+                                    @endforelse
 
                                     <h5 class="text-danger mt-5">What is excluded in the tour price?</h5>
-                                    @foreach ($tour->program_costing as $costing)
+                                    @forelse ($tour->program_exclude as $exclude)
 
                                     <div class="d-flex align-items-center my-3">
                                         <div>
                                             <i class="bi bi-x-circle ms-4 me-3 text-danger fs-4"></i>
                                         </div>
                                         <div>
-                                            <p class="m-0">{{$costing->excludes}}</p>
-                                            <small class="text-danger">({{$costing->exclude_caption}})</small>
+                                            <p class="m-0">{{$exclude->excludes ?? ''}}</p>
+                                            <small class="text-danger">({{$exclude->exclude_caption ?? ''}})</small>
                                         </div>
                                     </div>
-                                    @endforeach
+                                    @empty
+
+                                    @endforelse
                                 </div>
                             </section>
                         </div>
@@ -538,7 +521,7 @@ our-details-images/group-icon.png')}}"
                                     </div>
                                     <div class="embed-responsive embed-responsive-4by3 section-border">
                                         <div id="myWindow" class="embed-responsive-item">
-                                            <img id="myContent" src="{{asset('images/TourMap/'.$tour->tour_map)}}"
+                                            <img id="myContent" src="{{asset($tour->map->file_name ?? 'assets/images/tour-details-images/map.jpg')}}"
                                                 alt="" />
 
                                         </div>
@@ -561,36 +544,25 @@ our-details-images/group-icon.png')}}"
                                         <img src="{{asset('assets/images/tour-details-images/gear-icon.png')}}" alt="" />Gears
                                     </div>
                                     <div>
-                                        <button><i class="bi bi-file-earmark-pdf"></i> Download Gear List</button>
+                                        {{-- <button><i class="bi bi-file-earmark-pdf"></i> Download Gear List</button> --}}
                                     </div>
                                 </div>
                                 <div class="siderbar-box-body p-4">
                                     <ul>
-                                        <li>Waterproof trekking boots / Flip Flops</li>
-                                        <li>Long sleeve shirts</li>
-                                        <li>Water bottles or camel bag /
-                                            purification or camel bag</li>
-                                        <li>Waterproof trekking boots / Flip Flops</li>
-                                        <li>Long sleeve shirts</li>
-                                        <li>Water bottles or camel bag /
-                                            purification or camel bag</li>
-
-                                        <li>Socks / Undergarments</li>
-                                        <li>Waterproof trekking boots / Flip Flops</li>
-                                        <li>Long sleeve shirts</li>
-                                        <li>Water bottles or camel bag</li>
-                                        <li>Long sleeve shirts</li>
-                                        <li>Waterproof trekking boots / Flip Flops</li>
-                                        <li>Long sleeve shirts</li>
-                                        <li>Water bottles</li>
-                                        <li>Long sleeve shirts</li>
-                                        <li>Waterproof trekking boots / Flip Flops</li>
-                                        <li>Long sleeve shirts</li>
-                                        <li>WWater bottles or camel bag /
-                                            purification or camel bag</li>
-                                        <li>Long sleeve shirts</li>
-                                        <li>WWaterproof trekking boots / Flip Flops</li>
-                                        <li>Long sleeve shirts</li>
+                                        @foreach ($tour->program_support as $support)
+                                        @if ($support->equipment_1 != null)
+                                        <li>{{$support->equipment_1}}</li>
+                                        @endif
+                                        @if ($support->equipment_2 != null)
+                                        <li>{{$support->equipment_2}}</li>
+                                        @endif
+                                        @if ($support->equipment_3 != null)
+                                        <li>{{$support->equipment_3}}</li>
+                                        @endif
+                                        @if ($support->equipment_4 != null)
+                                        <li>{{$support->equipment_4}}</li>
+                                        @endif
+                                        @endforeach
                                     </ul>
                                 </div>
                             </section>
@@ -885,231 +857,58 @@ our-details-images/group-icon.png')}}"
             <div class="col-12 p-0">
                 <div class="sidebar-box bg-white section-border reviews-section-main">
                     <div class="sidebar-box-heading fs-5 d-flex justify-content-between align-items-center">
-                        <div class="ps-4">
+                        <div class="ps-4 pb-4 pt-4">
                             <img src="{{asset('assets/images/tour-details-images/review-icon.png')}}"
                                 style="height: 25px; margin-right: 15px;                                  "
                                 alt="" /> Reviews
                         </div>
-                        <div>
+                        {{-- <div>
                             <span class="primarycolor">Sort :</span>
                             <button class="fw-bold">Rating <i class="fa fa-sort-amount-desc"
                                     aria-hidden="true"></i></button>
                             <button class="fw-bold active">Date <i class="fa fa-sort-amount-desc"
                                     aria-hidden="true"></i></button>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="siderbar-box-body reviews-grid">
                         <div class="row m-0 p-5">
-                            <div class="col-4">
-                                <div class="review-card shadow section-border p-4 py-4">
-                                    <div class="review-user-info">
-                                        <div>
-                                            <img src="{{asset('assets/images/tour-details-images/review-avatar.png')}}"
-                                                alt="" />
-                                            <div class="user-details">
-                                                <h5 class="m-0">Kim Niddery</h5>
-                                                <div>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                </div>
+                           @forelse ($tour->reviews as $key => $review)
+                           <div class="col-6">
+                            <div class="review-card shadow section-border p-4 py-4">
+                                <div class="review-user-info">
+                                    <div>
+                                        <img src="{{asset($review->avatar_image->file_name ?? 'assets/images/tour-details-images/review-avatar.png')}}"
+                                            alt="" />
+                                        <div class="user-details">
+                                            <h5 class="m-0">{{$review->title}}</h5>
+                                            <div>
+                                                @for ($i=0; $i<$review->rating; $i++)
+                                                <i class="fa fa-star primarycolor" aria-hidden="true"></i>
+                                                @endfor
                                             </div>
                                         </div>
-                                        <p>- London</p>
                                     </div>
-                                    <small class="d-block my-4">Great company. Excellent communication. Easy and
-                                        simple with a great value. I would definitely use them
-                                        again!Great company. Excellent communication.</small>
-                                    <div class="d-flex justify-content-between">
-                                        <button>Read more</button>
-                                        <div>
-                                            <img src="{{asset('assets/images/clock-icon.png')}}" alt="" class="me-2" />
-                                            <small class="fst-italic">May 5, 2020</small>
-                                        </div>
-                                    </div>
+                                    {{-- <p>- London</p> --}}
                                 </div>
-                                <div class="review-card shadow section-border p-4 py-4 mt-4">
-                                    <div class="review-user-info">
-                                        <div>
-                                            <img src="{{asset('assets/images/tour-details-images/review-avatar.png')}}"
-                                                alt="" />
-                                            <div class="user-details">
-                                                <h5 class="m-0">Kim Niddery</h5>
-                                                <div>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p>- London</p>
-                                    </div>
-                                    <small class="d-block my-4">Great company. Excellent communication. Easy and
-                                        simple with a great value. I would definitely use them
-                                        again!Great company. Excellent communication.
-                                        Easy and simple with a great value. I would definitely
-                                        use them again!
-                                        <br /><br />
-                                        Great company. Excellent communication. Easy and
-                                        simple with a great value. I would definitely use them
-                                        again!Great company.<br /><br />
-                                        Excellent communication. Easy and simple with a
-                                        great value. I would definitely use them again</small>
-                                    <div class="d-flex justify-content-between">
-                                        <button>Read more</button>
-                                        <div>
-                                            <img src="{{asset('assets/images/clock-icon.png')}}" alt="" class="me-2" />
-                                            <small class="fst-italic">May 5, 2020</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="review-card shadow section-border p-4 py-4">
-                                    <div class="review-user-info">
-                                        <div>
-                                            <img src="{{asset('assets/images/tour-details-images/review-avatar.png')}}"
-                                                alt="" />
-                                            <div class="user-details">
-                                                <h5 class="m-0">Kim Niddery</h5>
-                                                <div>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p>- London</p>
-                                    </div>
-                                    <small class="d-block my-4">Great company. Excellent communication. Easy and
-                                        simple with a great value. I would definitely use them
-                                        again!Great company. Excellent communication.
-                                        Easy and simple with a great value. I would definitely
-                                        use them again!
-                                        <br /><br />
-                                        Great company. Excellent communication. Easy and
-                                        simple with a great value. I would definitely use them
-                                        again!Great company.<br /><br />
-                                        Excellent communication. Easy and simple with a
-                                        great value. I would definitely use them again</small>
-                                    <div class="d-flex justify-content-between">
-                                        <button>Read more</button>
-                                        <div>
-                                            <img src="{{asset('assets/images/clock-icon.png')}}" alt="" class="me-2" />
-                                            <small class="fst-italic">May 5, 2020</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="review-card shadow section-border p-4 py-4 mt-4">
-                                    <div class="review-user-info">
-                                        <div>
-                                            <img src="{{asset('assets/images/tour-details-images/review-avatar.png')}}"
-                                                alt="" />
-                                            <div class="user-details">
-                                                <h5 class="m-0">Kim Niddery</h5>
-                                                <div>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p>- London</p>
-                                    </div>
-                                    <small class="d-block my-4">Great company. Excellent communication. Easy and
-                                        simple with a great value. I would definitely use them
-                                        again!Great company. Excellent communication.</small>
-                                    <div class="d-flex justify-content-between">
-                                        <button>Read more</button>
-                                        <div>
-                                            <img src="{{asset('assets/images/clock-icon.png')}}" alt="" class="me-2" />
-                                            <small class="fst-italic">May 5, 2020</small>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-4">
-                                <div class="review-card shadow section-border p-4 py-4">
-                                    <div class="review-user-info">
-                                        <div>
-                                            <img src="{{asset('assets/images/tour-details-images/review-avatar.png')}}"
-                                                alt="" />
-                                            <div class="user-details">
-                                                <h5 class="m-0">Kim Niddery</h5>
-                                                <div>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p>- London</p>
-                                    </div>
-                                    <small class="d-block my-4">Great company. Excellent communication. Easy and
-                                        simple with a great value. I would definitely use them
-                                        again!Great company. Excellent communication.</small>
-                                    <div class="d-flex justify-content-between">
-                                        <button>Read more</button>
-                                        <div>
-                                            <img src="{{asset('assets/images/clock-icon.png')}}" alt="" class="me-2" />
-                                            <small class="fst-italic">May 5, 2020</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="review-card shadow section-border p-4 py-4 mt-4">
-                                    <div class="review-user-info">
-                                        <div>
-                                            <img src="{{asset('assets/images/tour-details-images/review-avatar.png')}}"
-                                                alt="" />
-                                            <div class="user-details">
-                                                <h5 class="m-0">Kim Niddery</h5>
-                                                <div>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                    <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p>- London</p>
-                                    </div>
-                                    <small class="d-block my-4">Great company. Excellent communication. Easy and
-                                        simple with a great value. I would definitely use them
-                                        again!Great company. Excellent communication.
-                                        Easy and simple with a great value. I would definitely
-                                        use them again!
-                                        <br /><br />
-                                        Great company. Excellent communication. Easy and
-                                        simple with a great value. I would definitely use them
-                                        again!Great company.<br /><br />
-                                        Excellent communication. Easy and simple with a
-                                        great value. I would definitely use them again</small>
-                                    <div class="d-flex justify-content-between">
-                                        <button>Read more</button>
-                                        <div>
-                                            <img src="{{asset('assets/images/clock-icon.png')}}" alt="" class="me-2" />
-                                            <small class="fst-italic">May 5, 2020</small>
-                                        </div>
+                                <div class="d-block my-4">{!! $review->content !!}</div>
+                                <div class="d-flex justify-content-between">
+                                    {{-- <button>Read more</button> --}}
+                                    <div>
+                                        <img src="{{asset('assets/images/clock-icon.png')}}" alt="" class="me-2" />
+                                        <small class="fst-italic"> {{$review->created_at->format('M d, Y')}}</small>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="pb-5 pt-4 text-center">
+                           @empty
+                           <h4 class="text-center">There is no Review for this Trip</h4>
+                           @endforelse
+
+                        </div>
+                        {{-- <div class="pb-5 pt-4 text-center">
                             <button class="load-more-button"><i class="fa fa-spinner" aria-hidden="true"></i> Load
                                 More</button>
-                        </div>
+                        </div> --}}
 
                     </div>
                 </div>

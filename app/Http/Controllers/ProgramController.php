@@ -181,9 +181,9 @@ class ProgramController extends Controller
                 //      $equipment->file = 1;
                 //  }
                 $equipment->equipment_1 = $equipment_1;
-                $equipment->equipment_2  = isset($request->equipment_2[$e]) ? $request->equipment_2[$e] : '' ;
-                $equipment->equipment_3  = isset($request->equipment_3[$e]) ? $request->equipment_3[$e] : '' ;
-                $equipment->equipment_4  = isset($request->equipment_4[$e]) ? $request->equipment_4[$e] : '' ;
+                $equipment->equipment_2  = $request->equipment_2[$e];
+                $equipment->equipment_3  = $request->equipment_3[$e];
+                $equipment->equipment_4  = $request->equipment_4[$e];
                 $equipment->save();
                 $e++;
             }
@@ -310,7 +310,10 @@ class ProgramController extends Controller
 
             $program->tour_brochure = $brochure;
         }
-        $program->tour_gallery = json_encode($request->tour_gallery);
+        if($request->has('tour_gallery')){
+
+            $program->tour_gallery = json_encode($request->tour_gallery);
+        }
         $program->tour_thumbnail = $request->tour_thumbnail;
         $program->tour_banner = $request->tour_banner;
         $program->tour_map = $request->tour_map;
@@ -394,9 +397,9 @@ class ProgramController extends Controller
                 $equipment = new ProgramSupport();
                 $equipment->program_id = $program->id;
                 $equipment->equipment_1 = $equipment_1;
-                $equipment->equipment_2  = isset($request->equipment_2[$e]) ? $request->equipment_2[$e] : '' ;
-                $equipment->equipment_3  = isset($request->equipment_3[$e]) ? $request->equipment_3[$e] : '' ;
-                $equipment->equipment_4  = isset($request->equipment_4[$e]) ? $request->equipment_4[$e] : '' ;
+                $equipment->equipment_2  = $request->equipment_2[$e];
+                $equipment->equipment_3  = $request->equipment_3[$e];
+                $equipment->equipment_4  = $request->equipment_4[$e];
                 $equipment->save();
                 $e++;
             }

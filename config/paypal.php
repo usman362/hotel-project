@@ -4,27 +4,14 @@
  * Created by Raza Mehdi <srmk@outlook.com>.
  */
 
-return [
-    'mode'    => env('PAYPAL_MODE', 'sandbox'), // Can only be 'sandbox' Or 'live'. If empty or invalid, 'live' will be used.
-    'sandbox' => [
-        'username'    => env('PAYPAL_SANDBOX_API_USERNAME', ''),
-        'password'    => env('PAYPAL_SANDBOX_API_PASSWORD', ''),
-        'secret'      => env('PAYPAL_SANDBOX_API_SECRET', ''),
-        'certificate' => env('PAYPAL_SANDBOX_API_CERTIFICATE', ''),
-        'app_id'      => 'APP-80W284485P519543T',
-    ],
-    'live' => [
-        'username'    => env('PAYPAL_LIVE_API_USERNAME', ''),
-        'password'    => env('PAYPAL_LIVE_API_PASSWORD', ''),
-        'secret'      => env('PAYPAL_LIVE_API_SECRET', ''),
-        'certificate' => env('PAYPAL_LIVE_API_CERTIFICATE', ''),
-        'app_id'      => '',
-    ],
-
-    'payment_action' => 'Sale',
-    'currency'       => env('PAYPAL_CURRENCY', 'USD'),
-    'billing_type'   => 'MerchantInitiatedBilling',
-    'notify_url'     => '',
-    'locale'         => '',
-    'validate_ssl'   => false,
+ return [
+    'client_id' => 'AdkzinXCs0dRIHswUn-zJAH-9d2cI6ksuq5o4OmiEL9Ly_04oZ_3GQsHA9F21h0A9J2YMYMidOcFq9xg',
+	'secret' => 'EBRxLAPpaEzoT8LExcq5Q7RQmfNmntru4dTN3Ig__d311BacExvH4zyveVL54weWvBZtYKi5I2eMB1PR',
+    'settings' => array(
+        'mode' => 'sandbox',
+        'http.ConnectionTimeOut' => 1000,
+        'log.LogEnabled' => true,
+        'log.FileName' => storage_path() . '/logs/paypal.log',
+        'log.LogLevel' => 'FINE'
+    ),
 ];

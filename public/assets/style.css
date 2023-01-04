@@ -3939,7 +3939,11 @@ button#currencyDropdown:hover {
     transform: translate3d(0, 0, 0px) !important;
     min-width: 90px !important;
     width: 90px !important;
+    height: 100%;
+    outline:none;
+    color: #fff;
     overflow: hidden;
+    padding: 2px 12px;
     border-radius: 0;
     background-color: #3484f5;
     border: 0 !important;
