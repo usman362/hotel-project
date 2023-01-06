@@ -1,5 +1,37 @@
 @extends('frontend.layouts.app')
 @section('content')
+@push('styles')
+        <!-- Owl Stylesheets -->
+        <link rel="stylesheet" href="{{asset('assets/owlcarousel/assets/owl.carousel.min.css')}}">
+        <link rel="stylesheet" href="{{asset('assets/owlcarousel/assets/owl.theme.default.min.css')}}">
+    <style>
+    .owl-theme .owl-nav [class*=owl-]{
+    width: 40px;
+    height: 40px;
+    border: none;
+    box-shadow: 0 1px 2px rgb(3 54 63 / 40%), 0 -1px 2px rgb(3 54 63 / 4%) !important;
+    border-radius: 50%;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: 16px;
+    text-decoration: none;
+    transition: background-color .1s linear;
+    margin: 2px;
+    outline: 0;
+    -webkit-tap-highlight-color: transparent;
+    margin: 0;
+    appearance: none;
+    user-select: none;
+    touch-action: manipulation;
+    float: left;
+    margin-left: 6px;
+            }
+            .owl-theme .owl-dots{
+                display: none;
+            }
+        </style>
+@endpush
 <main>
     <div class="main-banner position-relative">
         <img src="{{asset('assets/images/contact-banner.jpg')}}" alt="" />
@@ -24,7 +56,7 @@
                             <div class="head--calendar--left">
                                 <div class="head--calendar--left__date-start"><span class="js-date-start--day">Saturday</span>, <span class="js-date-start" data-cy="bnp-departure--start-date">January 7th, 2023</span></div>
                                 <div class="head--calendar--left__date-end">to <span class="js-date-end--day">Saturday</span>, <span class="js-date-end" data-cy="bnp-departure--end-date">January 14th, 2023</span></div>
-                                <a href="#" class="change js-change-date" data-cy="bnp-departure--change-date">Change date</a>
+                                <a href="javascript:void(0)" class="change js-change-date" data-cy="bnp-departure--change-date">Change date</a>
                             </div>
                             <div class="head--calendar--right">
                                 <div class="i icon currency usd" data-cy="bnp-tour-overview--confirm-message">
@@ -33,7 +65,7 @@
                                 <div class="seats icon orange" data-cy="bnp-tour-overview--seats-message"><strong>6 spaces left</strong> and yours is reserved for the next 10 minutes</div>
                                 <div class="icon deal" data-cy="bnp-tour-overview--special-deal">
                                     Up to 50% OFF Saving on the Best of Egypt Tours.
-                                    <a href="#" class="promotionPopup" data-id="921534" data-tour-id="111022" data-variant-id="726456161" data-pax="1" data-cy="bnp-tour-overview--special-deal-link">See details</a>
+                                    <a href="javascript:void(0)" class="promotionPopup" data-id="921534" data-tour-id="111022" data-variant-id="726456161" data-pax="1" data-cy="bnp-tour-overview--special-deal-link">See details</a>
                                 </div>
                             </div>
                         </div>
@@ -1009,7 +1041,7 @@
                             <h3>TourRadar Savings</h3>
                         </div>
                         <ul class="tr-savings__list" data-value="none">
-                            <li class="link tr-savings__redeem-link"><a href="#" data-cy="bnp-tr-savings--redeem-link"> Redeem Promo Code </a></li>
+                            <li class="link tr-savings__redeem-link"><a href="javascript:void(0)" data-cy="bnp-tr-savings--redeem-link"> Redeem Promo Code </a></li>
                             <li class="list text hid">
                                 Select one option to start saving on your tour:
                             </li>
@@ -1028,11 +1060,11 @@
                                             </div>
                                             <p class="js-scout-element__error scout-element__input--error hid" data-cy="bnp-tr-savings--promo-input-input-error"></p>
                                         </div>
-                                        <a href="#" class="but blue" data-cy="bnp-tr-savings--promo-cta">Apply</a>
+                                        <a href="javascript:void(0)" class="but blue" data-cy="bnp-tr-savings--promo-cta">Apply</a>
                                         <div class="error hid"></div>
                                     </div>
                                 </div>
-                                <div class="remove-savings"><a href="#" class="no" data-cy="bnp-tr-savings--remove">Remove saving</a></div>
+                                <div class="remove-savings"><a href="javascript:void(0)" class="no" data-cy="bnp-tr-savings--remove">Remove saving</a></div>
                             </li>
                         </ul>
                     </div>
@@ -1412,9 +1444,9 @@
                                 <label for="terms-agree" class="scout-element__checkbox-label" data-error="'Please" accept="" the="" terms="" &amp;="" conditions&#039;="" data-cy="bnp-payment--terms-conditions-label">
                                     <input id="terms-agree" class="scout-element__checkbox-hidden" placeholder="" name="" type="checkbox" data-cy="bnp-payment--terms-conditions-input" /><span class="scout-element__checkbox-field"></span>
                                     <span class="payment-checkbox__terms">
-                                        I accept TourRadar's <a href="#" class="js-terms-link terms-link" data-id="terms-conditions">Terms &amp; Conditions</a> and
-                                        <a href="#" class="js-terms-link terms-link" data-id="privacy">Privacy Policy</a>; and Beyond The Nile Tours's
-                                        <a href="#" class="terms-link js-terms-link__cancellation-popup" data-id="operator_4037" data-tour-id="111022">payment, cancellation and refund conditions</a>.
+                                        I accept TourRadar's <a href="javascript:void(0)" class="js-terms-link terms-link" data-id="terms-conditions">Terms &amp; Conditions</a> and
+                                        <a href="javascript:void(0)" class="js-terms-link terms-link" data-id="privacy">Privacy Policy</a>; and Beyond The Nile Tours's
+                                        <a href="javascript:void(0)" class="terms-link js-terms-link__cancellation-popup" data-id="operator_4037" data-tour-id="111022">payment, cancellation and refund conditions</a>.
                                     </span>
                                 </label>
                             </div>
@@ -1438,27 +1470,36 @@
                             <div class="customer-feedback__heading-logo"></div>
                         </div>
                         <div class="customer-feedback__carousel">
-                            <ul class="js-customer-feedback__list customer-feedback__list many">
-                                <li data-id="306" class="customer-feedback__item js-customer-feedback__item">
+                            <ul class="customer-feedback__list owl-carousel owl-theme">
+                                @foreach ($booking->reviews as $key => $reviews)
+
+                                <li data-id="306" class="customer-feedback__item item">
                                     <div class="customer-feedback__comment">
-                                        I found a variety of tours for my destination that I can choose. The website provided enough detailed information that I can make decision on which one to book. The reviews from previous travelers are
-                                        also very helpful.
+                                        {!! $reviews->content !!}
                                     </div>
-                                    <div class="customer-feedback__name">
+                                    {{-- <div class="customer-feedback__name">
                                         – Qun
-                                    </div>
+                                    </div> --}}
                                 </li>
+
+                                @endforeach
                             </ul>
-                            <button type="button" class="aa-common-rounded-icon-button aa-common-rounded-icon-button--arrow-left customer-feedback__arrow customer-feedback__arrow js-customer-feedback__arrow"></button>
-                            <button type="button" class="aa-common-rounded-icon-button aa-common-rounded-icon-button--arrow-right customer-feedback__arrow js-customer-feedback__arrow js-customer-feedback__arrow--right"></button>
-                        </div>
+                            {{-- <div class="owl-nav">
+                                <button type="button" role="presentation" class="aa-common-rounded-icon-button aa-common-rounded-icon-button--arrow-left customer-feedback__arrow customer-feedback__arrow owl-prev"></button>
+                                <button type="button" role="presentation" class="aa-common-rounded-icon-button aa-common-rounded-icon-button--arrow-right customer-feedback__arrow owl-next js-customer-feedback__arrow--right"></button>
+                            </div> --}}
+                            </div>
+
+
                     </div>
+
+
                     <div class="block card terms-conditions no-bkg" data-block-type="Terms">
                         <h4>Terms &amp; Conditions</h4>
                         <div class="text">
                             TourRadar is an authorised Agent of Beyond The Nile Tours. Please familiarise yourself with the Beyond The Nile Tours
-                            <a href="#" class="js-terms-link__cancellation-popup" data-id="operator_4037" data-tour-id="111022">payment, cancellation and refund policies</a> and TourRadar Inc.'s
-                            <a href="#" class="js-terms-link" data-id="terms-conditions">Terms &amp; Conditions</a>. TourRadar will charge you in the stated currency and we do not charge any booking fees.
+                            <a href="javascript:void(0)" class="js-terms-link__cancellation-popup" data-id="operator_4037" data-tour-id="111022">payment, cancellation and refund policies</a> and TourRadar Inc.'s
+                            <a href="javascript:void(0)" class="js-terms-link" data-id="terms-conditions">Terms &amp; Conditions</a>. TourRadar will charge you in the stated currency and we do not charge any booking fees.
                         </div>
                         <div class="flex">
                             <div>
@@ -1624,5 +1665,26 @@ $(function() {
 
 });
 </script>
-
+<script src="{{asset('assets/owlcarousel/owl.carousel.js')}}"></script>
+<script>
+    $(document).ready(function() {
+      var owl = $('.owl-carousel');
+      owl.owlCarousel({
+        margin: 10,
+        nav: true,
+        loop: true,
+        responsive: {
+          0: {
+            items: 1
+          },
+          600: {
+            items: 1
+          },
+          1000: {
+            items: 1
+          }
+        }
+      })
+    })
+  </script>
 @endpush

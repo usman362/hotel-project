@@ -150,8 +150,8 @@
                 </li>
                 <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="layers"></i><span class="menu-title text-truncate">Navbar</span></a>
                 </li>
-                <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('widgets.index')}}"><i data-feather="layout"></i><span class="menu-title text-truncate">Widgets</span></a>
-                </li>
+                {{-- <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('widgets.index')}}"><i data-feather="layout"></i><span class="menu-title text-truncate">Widgets</span></a>
+                </li> --}}
                 <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="key"></i><span class="menu-title text-truncate">APIs</span></a>
                 </li>
                 <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="user-check"></i><span class="menu-title text-truncate">Users</span></a>

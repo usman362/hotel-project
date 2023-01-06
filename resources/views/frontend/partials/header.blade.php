@@ -624,9 +624,11 @@
                                     <div class="side-menu-search mb-5">
                                         <h4 class="text-center mb-3">Find Your Destination</h4>
                                         <div>
-                                            <input type="text" placeholder="Search..." />
-                                            <button class="fw-bold"><a href="./search.html"><i
-                                                        class="bi bi-search"></i></a></button>
+                                            <form action="{{route('destinations')}}" method="get">
+                                            <input type="text" name="search" placeholder="Search..." required/>
+                                            <button class="fw-bold" type="submit"><a href="javascript:void(0)"><i
+                                                class="bi bi-search"></i></a></button>
+                                                </form>
                                         </div>
                                     </div>
                                     <div class="side-menu-social">

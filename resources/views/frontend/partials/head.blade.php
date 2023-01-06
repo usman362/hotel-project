@@ -26,5 +26,5 @@
     <style>
      .error{ color:red; }
     </style>
-
+    @stack('styles')
 </head>

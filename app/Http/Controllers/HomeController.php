@@ -45,7 +45,7 @@ class HomeController extends Controller
     }
 
     public function activities2(){
-        return view('frontend.pages.activities-2');
+        return view('frontend.pages.activitiesDetail');
     }
 
     public function blogs(){
@@ -63,12 +63,17 @@ class HomeController extends Controller
         return view('frontend.pages.booking');
     }
 
-    public function destination(){
-        return view('frontend.pages.destination');
+    public function destination(Request $request){
+        if($request->has('search')){
+            $destinations = Destination::where('title','LIKE','%'.$request->search.'%')->paginate(10);
+        }else{
+            $destinations = Destination::paginate(10);
+        }
+        return view('frontend.pages.destination',compact('destinations'));
     }
 
     public function destination2(){
-        return view('frontend.pages.destination-2');
+        return view('frontend.pages.destinationDetail');
     }
 
     public function about(){
