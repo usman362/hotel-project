@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
 use App\Models\Blog;
 use App\Models\Destination;
 use App\Models\Newsletter;
@@ -19,7 +20,8 @@ class HomeController extends Controller
         $blogs = Blog::orderBy('created_at','desc')->paginate(3);
         $programs = Program::paginate(6);
         $programs_2 = Program::paginate(5);
-        return view('frontend.pages.index',compact('reviews','destinations','blogs','programs','programs_2'));
+        $activities = Activity::all();
+        return view('frontend.pages.index',compact('reviews','destinations','blogs','programs','programs_2','activities'));
     }
 
     public function tour_detail($slug){
@@ -104,8 +106,44 @@ class HomeController extends Controller
         return view('frontend.pages.review');
     }
 
-    public function search(){
-        return view('frontend.pages.search');
+    public function tours(Request $request){
+
+        $tour = Program::query();
+        if($request->has('search')){
+            $tour->where('tour_name','LIKE','%'.$request->search.'%');
+        }elseif($request->has('activity')) {
+            $tour->where('activity_id',$request->activity);
+        }elseif($request->has('duration')){
+            if($request->duration == 6){
+                $tour->where('duration','>=','2')->where('duration','<=','6');
+            }elseif($request->duration == 12){
+                $tour->where('duration','>=','7')->where('duration','<=','12');
+            }elseif($request->duration == 20){
+                $tour->where('duration','>=','13')->where('duration','<=','20');
+            }elseif($request->duration == 21){
+                $tour->where('duration','>=','21');
+            }else{
+                $tour->where('duration',$request->duration);
+            }
+        }elseif($request->has('price')){
+            if($request->price == 1000){
+                $tour->where('flat_price','>','500')->where('flat_price','<=','1000');
+            }elseif($request->price == 1600){
+                $tour->where('flat_price','>','1000')->where('flat_price','<=','1600');
+            }elseif($request->price == 2500){
+                $tour->where('flat_price','>','1600')->where('flat_price','<=','2500');
+            }elseif($request->price == 2501){
+                $tour->where('flat_price','>','2500');
+            }else{
+                $tour->where('flat_price','<=',$request->price);
+            }
+        }
+        $tours = $tour->get();
+
+
+        $activities = Activity::all();
+        $destinations = Destination::all();
+        return view('frontend.pages.tours',compact('tours','activities','destinations'));
     }
 
     public function newsletter(Request $request){

@@ -2371,7 +2371,7 @@ div:hover>.name-with-review-overlay,
 }
 
 .login-modal-inner .login-tabs>div {
-    width: 50%;
+    width: 100%;
     text-align: center;
     font-weight: bold;
     color: white;
@@ -2645,9 +2645,27 @@ div:hover>.name-with-review-overlay,
     color: white;
     font-size: 50px;
     position: absolute;
-    top: 25px;
-    right: 45px;
+    top: 18px;
+    right: 80px;
     cursor: pointer;
+}
+
+footer a:hover{
+    color: #798681;
+}
+
+.search_activity_contain span.select2{
+    width: 180px !important;
+    margin-left: 38px;
+}
+
+.search_activity_contain span.select2 span.select2-selection--single{
+background-color: none !important;
+border: none !important;
+}
+
+.select2-container--open{
+    top: 658.556px !important;
 }
 
 @media (max-width : 1440px) {

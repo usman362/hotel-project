@@ -41,7 +41,7 @@
                                         <div class="d-flex">
 
                                            <a href="#" class="me-25">
-                                                <img src="{{asset($region->icon_image->file_name)}}" id="icon_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
+                                                <img src="{{asset($region->icon_image->file_name) ?? asset('app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="icon_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
                                             </a>
 
                                             <!-- upload and reset button -->
@@ -64,7 +64,7 @@
                                         <div class="d-flex">
 
                                             <a href="#" class="me-25">
-                                                <img src="{{asset($region->thumbnail->file_name)}}" id="thumbnail_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
+                                                <img src="{{asset($region->thumbnail->file_name) ?? asset('app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="thumbnail_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
                                             </a>
 
 
@@ -87,7 +87,7 @@
                                         <div class="d-flex">
 
                                             <a href="#" class="me-25">
-                                                <img src="{{asset($region->banner->file_name)}}" id="banner_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
+                                                <img src="{{asset($region->banner->file_name) ?? asset('app-assets/images/portrait/small/avatar-s-11.jpg')}}" id="banner_image_output" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100">
                                             </a>
 
 
@@ -114,7 +114,7 @@
                                     <div class="row">
                                         <div class="col-12 col-md-3 mb-1">
                                             <label class="form-label" for="select2-hide-search">Destination</label>
-                                            <select class="hide-search form-select" name="destination_id" id="select2-hide-search">
+                                            <select class=" form-select" name="destination_id" id="select2-hide-search">
                                                     <option value="" selected>--------</option>
                                                    @foreach ($destinations as $key => $destination)
                                                        <option value="{{$destination->id}}" @selected($destination->id == $region->destination_id)>{{$destination->title}}</option>
@@ -146,7 +146,7 @@
                                                 <label class="form-label" for="iti-daily-activity">Description</label>
                                                 <div id="full-container">
                                                     <textarea class="tinymceTextEditor" name="description">
-
+                                                        {{ $region->description }}
                                                                             </textarea>
                                                 </div>
                                             </div>

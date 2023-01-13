@@ -26,59 +26,36 @@ $stripe = App\Models\Upload::find(Setting::get('stripe'));
             </div>
             <div class="col-2">
                 <div class="footer-list">
-                    <h4>COMPANY</h4>
+                    <h4>Quick Links</h4>
                     <div>
                         <span></span>
-                        <p>About Us</p>
+                        <a href="{{route('home')}}">Home</a>
                     </div>
                     <div>
                         <span></span>
-                        <p>Places</p>
+                        <a href="{{route('faqs')}}">Support</a>
                     </div>
                     <div>
                         <span></span>
-                        <p>Explore</p>
+                        <a href="{{route('blogs')}}">Blogs</a>
                     </div>
                     <div>
                         <span></span>
-                        <p>Blogs</p>
+                        <a href="{{route('contact')}}">Contact</a>
                     </div>
-                    <div>
-                        <span></span>
-                        <p>Career</p>
-                    </div>
-                    <div>
-                        <span></span>
-                        <p>Privacy Policy</p>
-                    </div>
+
                 </div>
             </div>
             <div class="col-2">
                 <div class="footer-list">
-                    <h4>COMPANY</h4>
+
                     <div>
                         <span></span>
-                        <p>About Us</p>
+                        <a href="{{route('destinations')}}">Destinations</a>
                     </div>
                     <div>
                         <span></span>
-                        <p>Places</p>
-                    </div>
-                    <div>
-                        <span></span>
-                        <p>Explore</p>
-                    </div>
-                    <div>
-                        <span></span>
-                        <p>Blogs</p>
-                    </div>
-                    <div>
-                        <span></span>
-                        <p>Career</p>
-                    </div>
-                    <div>
-                        <span></span>
-                        <p>Privacy Policy</p>
+                        <a href="{{route('activities')}}">Activities</a>
                     </div>
                 </div>
             </div>

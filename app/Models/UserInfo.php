@@ -15,6 +15,19 @@ class UserInfo extends Model
      *
      * @return string
      */
+
+    protected $fillable =[
+        'user_id'  ,
+        'avatar'   ,
+        'phone'    ,
+        'dob_day'  ,
+        'dob_month',
+        'dob_year' ,
+        'gender'   ,
+        'zipcode'  ,
+        'language' ,
+    ];
+
     public function getAvatarUrlAttribute()
     {
         // if file avatar exist in storage folder

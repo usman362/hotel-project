@@ -60,8 +60,8 @@
                             <i class="bi bi-x-lg" onclick="toggleLoginModal()" aria-hidden="true"></i>
                             <div class="login-modal-inner">
                                 <div class="login-tabs">
-                                    <div onclick="changeLoginTabs(this)" class="active">LOGIN</div>
-                                    <div onclick="changeLoginTabs(this)">REGISTER</div>
+                                    <div class="">LOGIN</div>
+                                    {{-- <div onclick="changeLoginTabs(this)">REGISTER</div> --}}
                                 </div>
                                 <div class="p-4 pb-3" style="background-color: #f37050;">
                                     <form action="{{route('login')}}" method="post" id="login">
@@ -85,11 +85,12 @@
                                         class="mb-3 d-inline-block text-decoration-none text-white">Lost Your
                                         Password</a>
                                     <button type="button" onclick="$('#login').submit()" class="login-button mb-3" id="sign-in">SIGN IN</button>
-                                    <p class="mb-0">Sign in with Facebook or Google+</p>
+                                     {{-- <p class="mb-0">Sign in with Facebook or Google+</p>  --}}
+                                     <p class="mb-0">No Account? <a href="{{route('register')}}" class="d-inline-block text-decoration-none text-white">Create an account</a></p>
                                 </form>
 
 
-                                <form action="{{route('register')}}" method="post" id="register" class="d-none">
+                                {{-- <form action="{{route('register')}}" method="post" id="register" class="d-none">
                                     @csrf
                                 <div id="fname" class="login-field mb-3">
                                     <i class="fa fa-user" aria-hidden="true"></i>
@@ -113,13 +114,13 @@
                                 </div>
                                 <button type="button" onclick="$('#register').submit()" class="login-button mb-3" id="sign-up">SIGN UP</button>
                                 <p class="mb-0">Sign in with Facebook or Google+</p>
-                            </form>
+                            </form> --}}
 
                                 </div>
-                                <div class="social-login">
+                                {{-- <div class="social-login">
                                     <div>FACEBOOK</div>
                                     <div>GOOGLE+</div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

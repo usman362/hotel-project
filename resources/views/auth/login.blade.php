@@ -69,16 +69,16 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary w-100" tabindex="4">Sign in</button>
                                 </form>
-                                <p class="text-center mt-2"><span>No Account?</span><a href="auth-register-cover.html"><span>&nbsp;Create an account</span></a></p>
-                                <div class="divider my-2">
+                                <p class="text-center mt-2"><span>No Account?</span><a href="{{route('register')}}"><span>&nbsp;Create an account</span></a></p>
+                                {{-- <div class="divider my-2">
                                     <div class="divider-text">or</div>
                                 </div>
                                 <p class="text-center mt-2"><span>Login with</span></p>
                                 <div class="auth-footer-btn d-flex justify-content-center">
                                     <a class="btn btn-google"  href="{{ url('/auth/redirect/google') }}?redirect_uri={{ url()->previous() }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Google"><i data-feather="mail"></i></a>
                                     <a class="btn btn-facebook" href="{{ url('/auth/redirect/facebook') }}?redirect_uri={{ url()->previous() }}" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook"><i data-feather="facebook"></i></a>
-                                   
-                            </div>
+
+                            </div> --}}
                         </div>
                         <!-- /Login-->
                     </div>
@@ -92,7 +92,7 @@
                 console.log( localStorage.getItem("remb-me"));
             }else{
                 localStorage.setItem("remb-me", "0");
-            }  
+            }
         }
     </script>
 @endsection

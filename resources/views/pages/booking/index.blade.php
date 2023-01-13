@@ -1,4 +1,4 @@
-@section('title','Programs')
+@section('title','Bookings')
 
 @extends('layouts.app')
 
@@ -48,35 +48,36 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($bookings as $key => $booking)
                                     <tr>
                                         <td>
-                                            <img src="{{asset('app-assets/images/icons/angular.svg')}}" class="me-75" height="40" width="40" alt="Angular">
-                                            <span class="fw-bold">Everest Base Camp Trek</span>
+                                            <img src="{{asset($booking->tour->thumbnail->file_name ?? 'app-assets/images/icons/angular.svg')}}" class="me-75" height="40" width="40" alt="Angular">
+                                            <span class="fw-bold">{{$booking->reference}}</span>
                                         </td>
 
                                         <td>
-                                            Nepal
+                                            {{$booking->tour->tour_name ?? ''}}
                                         </td>
 
                                         <td>
-                                            13 Aug 2021
+                                            {{$booking->start_date}}
                                         </td>
                                         <td>
-                                           13 USD
+                                            {{$booking->tour->flat_price ?? $booking->tour->tiered_price ?? '0'}} USD
                                         </td>
 
-                                        <td><span class="badge rounded-pill badge-light-success me-1">Active</span></td>
+                                        <td><span class="badge rounded-pill badge-light-success me-1">{{$booking->status}}</span></td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0 waves-effect waves-float waves-light" data-bs-toggle="dropdown">
                                                     <i class="ficon" data-feather="more-horizontal"></i>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="#">
+                                                    <a class="dropdown-item" href="{{route('bookings.edit',$booking->id)}}">
                                                         <i class="ficon" data-feather="edit"></i>
                                                         <span>Edit</span>
                                                     </a>
-                                                    <a class="dropdown-item" href="#">
+                                                    <a class="dropdown-item" href="{{route('bookings.delete',$booking->id)}}">
                                                         <i class="ficon" data-feather="trash-2"></i>
                                                         <span>Delete</span>
                                                     </a>
@@ -84,6 +85,8 @@
                                             </div>
                                         </td>
                                     </tr>
+
+                                @endforeach
 
 
                                 </tbody>

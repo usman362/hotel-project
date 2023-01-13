@@ -45,7 +45,7 @@
                                                         <div class="alert-body"><strong>Icon</strong><code>(Only svg)</code></div>
                                                     </div>
                                                     <label data-bs-toggle="modal" data-bs-target="#new-upload-modal"  data-name="icon" class="btn btn-sm btn-primary mb-75 me-75 uploadModal waves-effect waves-float waves-light">Upload</label>
-                                                    <input type="hidden" name="icon" value="{{$acticity->icon}}">
+                                                    <input type="hidden" name="icon" value="{{$activity->icon}}">
                                                     <button type="button" id="account-reset" onclick="resetIconImage()" class="btn btn-sm btn-outline-secondary mb-75 waves-effect">Reset</button>
                                                 </div>
                                             </div>

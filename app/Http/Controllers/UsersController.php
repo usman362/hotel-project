@@ -15,8 +15,8 @@ class UsersController extends Controller
     public function index()
     {
         $config = theme()->getOption('page');
-
-        return User::all();
+        $users = User::where('role','user')->paginate(10);
+        return view('pages.users.index',compact('users'));
     }
 
     /**
@@ -26,7 +26,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.users.create');
     }
 
     /**
@@ -66,7 +66,7 @@ class UsersController extends Controller
     {
         $config = theme()->getOption('page', 'edit');
 
-        return User::find($id);
+        return view('pages.users.edit');
     }
 
     /**

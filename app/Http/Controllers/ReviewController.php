@@ -20,7 +20,7 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        $reviews = Review::with('avatar')->paginate(10);
+        $reviews = Review::paginate(10);
         return view('pages.review.index', ['reviews'=> $reviews]);
     }
 

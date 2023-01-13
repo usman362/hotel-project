@@ -1,4 +1,4 @@
-@section('title','Teams')
+@section('title','Users')
 
 @extends('layouts.app')
 
@@ -23,9 +23,9 @@
             </div>
             <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
                 <div class="mb-1 breadcrumb-right">
-                    <a href="{{route('team.create')}}" class="btn btn-primary waves-effect waves-float waves-light">
+                    <a href="{{route('users.create')}}" class="btn btn-primary waves-effect waves-float waves-light">
                         <i data-feather="plus" class="me-25"></i>
-                        <span>New Member</span></a>
+                        <span>New User</span></a>
                 </div>
             </div>
         </div>
@@ -35,49 +35,55 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Members List</h4>
+                            <h4 class="card-title">Users List</h4>
                         </div>
-                        <div class="card-body">
-                            <p class="card-text">
-                                Below is the list of <code>available team members.</code> To add a new member <code>click on the button above on the right</code> and then <code>click on + new member</code> submenu. The members <code>can be edited</code> by <code>clicking on the 3 dots below</code> on the last column.
-                            </p>
-                        </div>
+                       
                         <div class="table-responsive">
                             <table class="table table-hover table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Member Name</th>
-                                        <th>Designation</th>
-                                        <th>Joined On</th>
+                                        <th>User Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Country</th>
+                                        <th>Gender</th>
                                         <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($teams as $team)
+                                    @foreach ($users as $user)
                                     <tr>
                                         <td>
-                                            <img src="{{asset($team->avatar->file_name ?? 'app-assets/images/portrait/small/avatar-s-11.jpg')}}" class="me-75" height="40" width="40" alt="Angular">
-                                            <span class="fw-bold">{{$team->name}}</span>
+                                            <img src="{{asset($user->avatar->file_name ?? 'app-assets/images/portrait/small/avatar-s-11.jpg')}}" class="me-75" height="40" width="40" alt="Angular">
+                                            <span class="fw-bold">{{$user->first_name}} {{$user->last_name}}</span>
                                         </td>
-                                        <td>{{$team->designation}}</td>
+                                        <td>{{$user->email}}</td>
 
                                         <td>
-                                            {{$team->joined_on}}
+                                            {{$user->info->phone ?? ''}}
                                         </td>
 
-                                        <td><span class="badge rounded-pill badge-light-primary me-1">{{$team->status}}</span></td>
+                                        <td>
+                                            {{$user->info->country ?? ''}}
+                                        </td>
+
+                                        <td>
+                                            {{$user->info->gender ?? ''}}
+                                        </td>
+
+                                        <td><span class="badge rounded-pill badge-light-primary me-1">Active</span></td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0 waves-effect waves-float waves-light" data-bs-toggle="dropdown">
                                                     <i class="ficon" data-feather="more-horizontal"></i>
                                                 </button>
                                                 <div class="dropdown-menu dropdown-menu-end">
-                                                    <a class="dropdown-item" href="{{route('team.edit',$team->id)}}">
+                                                    <a class="dropdown-item" href="{{route('team.edit',$user->id)}}">
                                                         <i class="ficon" data-feather="edit"></i>
                                                         <span>Edit</span>
                                                     </a>
-                                                    <a class="dropdown-item" href="{{route('team.delete',$team->id)}}">
+                                                    <a class="dropdown-item" href="{{route('team.delete',$user->id)}}">
                                                         <i class="ficon" data-feather="trash-2"></i>
                                                         <span>Delete</span>
                                                     </a>
@@ -91,7 +97,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12"><ul class="pagination url1-links justify-content-end"><li class="page-item first disabled"><a href="" class="page-link">First</a></li><li class="page-item prev disabled"><a href="" class="page-link">Prev</a></li><li class="page-item active"><a href="" class="page-link">1</a></li><li class="page-item"><a href="" class="page-link">2</a></li><li class="page-item"><a href="" class="page-link">3</a></li><li class="page-item"><a href="" class="page-link">4</a></li><li class="page-item"><a href="" class="page-link">5</a></li><li class="page-item next"><a href="" class="page-link">Next</a></li><li class="page-item last"><a href="" class="page-link">Last</a></li></ul></div>
+                <div class="col-md-12">
+                    {{$users->links()}}
+                </div>
             </div>
             <!-- Activity table ends -->
 
@@ -99,5 +107,7 @@
     </div>
 </div>
 <!-- END: Content-->
+
+
 
 @endsection

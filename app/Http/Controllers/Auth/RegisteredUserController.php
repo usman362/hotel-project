@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserInfo;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
@@ -36,26 +37,39 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name'  => 'required|string|max:255',
-            'email'      => 'required|string|email|max:255|unique:users',
-            'password'   => ['required', 'confirmed', Rules\Password::defaults()],
+            'first-name' => 'required|string|max:255',
+            'last-name'  => 'required|string|max:255',
+            // 'email'      => 'required|string|email|max:255|unique:users',
+            // 'password'   => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
-            'first_name' => $request->first_name,
-            'last_name'  => $request->last_name,
-            'email'      => $request->email,
-            'password'   => Hash::make($request->password),
+            'first_name' => request('first-name'),
+            'last_name'  => request('last-name'),
+            'email'      => request('hidden-email'),
+            'password'   => Hash::make(request('hidden-password')),
+            'role'      => 'user',
         ]);
-         $credentials = $request->only('email', 'password');
 
-        event(new Registered($user));
+        $userInfo = UserInfo::create([
+            'user_id' => $user->id,
+            'avatar'  => request('avatar'),
+            'phone'      => request('mobile-number'),
+            'dob_day'      => request('dob-day'),
+            'dob_month'      => request('dob-month'),
+            'dob_year'      => request('dob-year'),
+            'gender'      => request('gender'),
+            'zipcode'      => request('zipcode'),
+            'language'      => 'en',
+        ]);
+         $credentials = $request->only('hidden-email', 'hidden-password');
+
+        //event(new Registered($user));
 
         Auth::login($user);
-       
+
         auth()->user()->generateCode();
-  
+
         return redirect(RouteServiceProvider::HOME);
     }
 

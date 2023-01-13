@@ -122,6 +122,47 @@
                                         </div>
                                         <!-- Additional tabs-->
                                         <div class="row weather_info">
+                                    @forelse ($destination->weather as $key => $weather)
+                                        @if ($key == 0)
+                                            <div class="col-md-3 mb-1">
+
+                                                <label class="form-label" for="">Title</label>
+                                                <input type="text" class="form-control" id="" name="weather_title[]" placeholder="Weather Information" value="{{$weather->weather_title ?? ''}}" data-msg="Please enter text">
+                                            </div>
+                                            <div class="col-md-8 mb-1">
+                                                <div id="full-wrapper">
+                                                    <label class="form-label" for="iti-daily-activity">Description</label>
+                                                    <div id="full-container">
+                                                        <textarea class="tinymceTextEditor" name="weather_description[]">{{$weather->weather_description ?? ''}}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @else
+
+                                        <div class="row weather_info_child">
+                                            <div class="col-md-3 mb-1">
+                                             <label class="form-label" for="">Title</label>
+                                             <input type="text" class="form-control" id="" name="weather_title[]" placeholder="Weather Information" value="{{$weather->weather_title ?? ''}}" data-msg="Please enter text">
+                                         </div>
+                                         <div class="col-md-8 mb-1">
+                                            <div id="full-wrapper">
+                                                <label class="form-label" for="iti-daily-activity">Description</label>
+                                                <div id="full-container">
+                                                    <textarea class="tinymceTextEditor" name="weather_description[]">{{$weather->weather_description ?? ''}}</textarea>
+                                                </div>
+                                            </div>
+                                         </div>
+                                         <div class="col-md-1 position-relative">
+                                                 <div style="position: absolute;right: 2px;top: 26px;">
+                                                     <button class="btn btn-outline-danger remove_weather_info text-nowrap px-1 waves-effect" data-repeater-delete="" type="button">
+                                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x me-25"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                                     </button>
+                                                 </div>
+                                                </div>
+                                         </div>
+                                        @endif
+
+                                        @empty
                                         <div class="col-md-3 mb-1">
 
                                             <label class="form-label" for="">Title</label>
@@ -135,7 +176,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        </div>
+
+                                        @endforelse
+                                     </div>
+
+
                                         <div class="col-12 mb-1">
                                             <button id="add_weather_info" class="btn btn-icon btn-primary" type="button">
                                                 <i data-feather="plus" class="me-25"></i>
@@ -241,7 +286,7 @@ $('#add_weather_info').click(function(){
      RemoveTiered();
    textEditor();
 });
-
+RemoveTiered();
 function RemoveTiered(){
        $('.remove_weather_info').click(function(){
            $(this).parents('.weather_info_child').remove();

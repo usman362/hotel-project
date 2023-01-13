@@ -74,7 +74,7 @@
                                     </div>
                                     <div class="col-12 col-sm-2 mb-1">
                                         <label class="form-label" for="accountLastName">Booking Reference</label>
-                                        <input type="text" class="form-control" id="reference" name="reference" placeholder="" value="{{old('reference',$booking->reference)}}" data-msg="Please enter text" readonly>
+                                        <input type="text" class="form-control" id="" name="reference" placeholder="" value="{{old('reference',$booking->reference)}}" data-msg="Please enter text" readonly>
                                     </div>
                                     <div class="col-12 col-sm-3 mb-1">
                                         <label class="form-label" for="accountLastName">Booking Date</label>

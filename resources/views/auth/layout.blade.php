@@ -36,8 +36,8 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
     <!-- END: Custom CSS-->
-    
-    @stack('custom-style')
+
+    @stack('styles')
 </head>
 <!-- END: Head-->
 
@@ -87,10 +87,10 @@
             }
         })
     </script>
-    
-    @stack('custom-script')
-    
-    
+
+    @stack('scripts')
+
+
 </body>
 <!-- END: Body-->
 

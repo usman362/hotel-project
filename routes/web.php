@@ -79,7 +79,7 @@ Route::get('/general',[HomeController::class,'general'])->name('general');
 Route::get('/our-clients',[HomeController::class,'our_client'])->name('our.client');
 Route::get('/our-teams',[HomeController::class,'our_team'])->name('our.team');
 Route::get('/reviews',[HomeController::class,'review'])->name('reviews');
-Route::get('/search',[HomeController::class,'search'])->name('search');
+Route::get('/tours',[HomeController::class,'tours'])->name('tours');
 Route::get('tour-details/{slug}', [HomeController::class, 'tour_detail'])->name('tour.detail');
 Route::post('store-newsletter',[HomeController::class,'newsletter'])->name('store.newsletter');
 Route::post('contact-us',[InquiryController::class,'contact_store'])->name('contact.store');
@@ -110,7 +110,7 @@ Route::post('2fa', [TwoFAController::class, 'store'])->name('2fa.post');
 Route::get('2fa/reset', [TwoFAController::class, 'resend'])->name('2fa.resend');
 Route::get('2fa', [App\Http\Controllers\TwoFAController::class, 'index'])->name('2fa.index');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','admin'])->group(function () {
     // Settings Routes..
     Route::get('global', [SettingController::class, 'global'])->name('setting.global');
     Route::post('global', [SettingController::class, 'globalPost'])->name('setting.Postglobal');
@@ -133,12 +133,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('navigation/update/{id}', [SettingController::class, 'navUpdate'])->name('setting.nav.update');
     Route::get('navigation/delete/{id}', [SettingController::class, 'navdelete'])->name('setting.nav.delete');
 
-    Route::get('allusers', [SettingController::class, 'users'])->name('setting.users');
-    Route::get('users/add', [SettingController::class, 'AdduserView'])->name('setting.addUser');
-    Route::post('users/add', [SettingController::class, 'AddUser'])->name('setting.addUserPost');
-    Route::get('users/edit/{id}', [SettingController::class, 'EditUser'])->name('setting.EditUser');
-    Route::post('users/update/{id}', [SettingController::class, 'UpdateUser'])->name('setting.UpdateUser');
-    Route::get('users/delete/{id}', [SettingController::class, 'DeleteUser'])->name('setting.DeleteUser');
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::get('users/add', [UserController::class, 'create'])->name('users.create');
+    Route::post('users/add', [UserController::class, 'store'])->name('users.store');
+    Route::get('users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
+    Route::post('users/update/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::get('users/delete/{id}', [UserController::class, 'destroy'])->name('users.delete');
 
 
     //Widgets
@@ -301,9 +301,9 @@ Route::controller(AizUploadController::class)->group(function () {
         Route::resource('system', SystemLogsController::class)->only(['index', 'destroy']);
         Route::resource('audit', AuditLogsController::class)->only(['index', 'destroy']);
     });
+    Route::resource('users', UsersController::class);
 });
 
-Route::resource('users', UsersController::class);
 
 /**
  * Socialite login using Google service

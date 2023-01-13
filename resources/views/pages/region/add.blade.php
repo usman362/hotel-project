@@ -113,7 +113,7 @@
                                     <div class="row">
                                         <div class="col-12 col-md-3 mb-1">
                                             <label class="form-label" for="select2-hide-search">Destination</label>
-                                            <select class="hide-search form-select" name="destination_id" id="select2-hide-search">
+                                            <select class="form-select" name="destination_id" id="select2-hide-search">
                                                     <option value="" selected>--------</option>
                                                    @foreach ($destinations as $key => $destination)
                                                        <option value="{{$destination->id}}">{{$destination->title}}</option>

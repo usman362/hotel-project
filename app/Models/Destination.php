@@ -22,4 +22,8 @@ class Destination extends Model
     public function programs(){
         return $this->hasMany(Program::class,'destination_id','id');
     }
+
+    public function weather(){
+        return $this->hasMany(DestinationWeather::class,'destination_id','id');
+    }
 }

@@ -3,15 +3,15 @@
 
 <main>
     <div class="main-banner position-relative">
-        <img src="./assets/images/destination-banner.jpg" alt="" />
+        <img src="{{asset('assets/images/destination-banner.jpg')}}" alt="" />
         <div class="banner-heading">
-            <div class="search-box">
+            <form action="{{route('tours')}}" class="search-box">
                 <div>
                     <i class="fa fa-map-marker" aria-hidden="true"></i>
-                    <input type="text" placeholder="Where are you going?" />
+                    <input type="text" name="search" placeholder="Where are you going?" value="{{request('search')}}" autocomplete="off"/>
                 </div>
-                <button>Search</button>
-            </div>
+                <button type="submit">Search</button>
+            </form>
         </div>
     </div>
 
@@ -22,7 +22,7 @@
                     <div class="sidebar-box bg-white section-border mb-5">
                         <div class="sidebar-box-heading fs-5 p-4">FILTER BY</div>
                         <div class="siderbar-box-body">
-                            <div class="accordion" id="accordionPanelsStayOpenExample">
+                            <form action="{{route('tours')}}" class="accordion" id="accordionPanelsStayOpenExample">
                                 <div class="accordion-item">
                                     <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
@@ -36,7 +36,7 @@
                                         <div class="accordion-body">
                                             <div class="tour-checks">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="5">
+                                                    <input class="form-check-input" name="rating" type="checkbox" value="5" id="5">
                                                     <label class="form-check-label" for="5">
                                                         <i class="fa fa-star primarycolor" aria-hidden="true"></i>
                                                         <i class="fa fa-star primarycolor" aria-hidden="true"></i>
@@ -46,7 +46,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="4">
+                                                    <input class="form-check-input" name="rating" type="checkbox" value="4" id="4">
                                                     <label class="form-check-label" for="4">
                                                         <i class="fa fa-star primarycolor" aria-hidden="true"></i>
                                                         <i class="fa fa-star primarycolor" aria-hidden="true"></i>
@@ -56,7 +56,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="3">
+                                                    <input class="form-check-input" name="rating" type="checkbox" value="3" id="3">
                                                     <label class="form-check-label" for="3">
                                                         <i class="fa fa-star primarycolor" aria-hidden="true"></i>
                                                         <i class="fa fa-star primarycolor" aria-hidden="true"></i>
@@ -66,7 +66,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="2">
+                                                    <input class="form-check-input" name="rating" type="checkbox" value="2" id="2">
                                                     <label class="form-check-label" for="2">
                                                         <i class="fa fa-star primarycolor" aria-hidden="true"></i>
                                                         <i class="fa fa-star primarycolor" aria-hidden="true"></i>
@@ -76,7 +76,7 @@
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="1">
+                                                    <input class="form-check-input" name="rating" type="checkbox" value="1" id="1">
                                                     <label class="form-check-label" for="1">
                                                         <i class="fa fa-star primarycolor" aria-hidden="true"></i>
                                                         <i class="fa fa-star second-color" aria-hidden="true"></i>
@@ -101,41 +101,15 @@
                                         aria-labelledby="panelsStayOpen-headingTwo">
                                         <div class="accordion-body">
                                             <div class="tour-checks">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="paragliding">
-                                                    <label class="form-check-label" for="paragliding">
-                                                        Paragliding
+                                            @foreach ($activities as $activity)
+                                               <div class="form-check">
+                                                   <input class="form-check-input" name="activity" type="checkbox" value="{{$activity->id}}"
+                                                   id="paragliding">
+                                                   <label class="form-check-label" for="paragliding">
+                                                       {{$activity->name}}
                                                     </label>
                                                 </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="rockClimbing">
-                                                    <label class="form-check-label" for="rockClimbing">
-                                                        Rock Climbing
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="mountainClimbing">
-                                                    <label class="form-check-label" for="mountainClimbing">
-                                                        Mountain Climbing
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="skyDiving">
-                                                    <label class="form-check-label" for="skyDiving">
-                                                        Sky Diving
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="trekking">
-                                                    <label class="form-check-label" for="trekking">
-                                                        Trekking
-                                                    </label>
-                                                </div>
+                                            @endforeach
                                             </div>
 
                                         </div>
@@ -153,41 +127,15 @@
                                         aria-labelledby="panelsStayOpen-destinations">
                                         <div class="accordion-body">
                                             <div class="tour-checks">
+                                                @foreach ($destinations as $destination)
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="india">
-                                                    <label class="form-check-label" for="india">
-                                                        India
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="nepal">
-                                                    <label class="form-check-label" for="nepal">
-                                                        Nepal
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="japan">
-                                                    <label class="form-check-label" for="japan">
-                                                        Japan
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="pakistan">
-                                                    <label class="form-check-label" for="pakistan">
-                                                        Pakistan
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="london">
-                                                    <label class="form-check-label" for="london">
-                                                        London
-                                                    </label>
-                                                </div>
+                                                    <input class="form-check-input" name="destination" type="checkbox" value="{{$destination->id}}"
+                                                    id="paragliding">
+                                                    <label class="form-check-label" for="paragliding">
+                                                        {{$destination->title}}
+                                                     </label>
+                                                 </div>
+                                             @endforeach
                                             </div>
 
                                         </div>
@@ -206,75 +154,49 @@
                                         <div class="accordion-body">
                                             <div class="tour-checks">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
+                                                    <input class="form-check-input" name="duration" type="checkbox" value="1"
                                                         id="1-3">
                                                     <label class="form-check-label" for="1-3">
-                                                        01 - 03 Days
+                                                        Day Tour
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="4-8">
-                                                    <label class="form-check-label" for="4-8">
-                                                        04 - 08 Days
+                                                    <input class="form-check-input" name="duration" type="checkbox" value="6"
+                                                        id="2-6">
+                                                    <label class="form-check-label" for="2-6">
+                                                        02 - 06 Days
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="8-12">
-                                                    <label class="form-check-label" for="8-12">
-                                                        08 - 12 Days
+                                                    <input class="form-check-input" name="duration" type="checkbox" value="12"
+                                                        id="7-12">
+                                                    <label class="form-check-label" for="7-12">
+                                                        07 - 12 Days
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="12-15">
-                                                    <label class="form-check-label" for="12-15">
-                                                        12 - 15 Days
+                                                    <input class="form-check-input" name="duration" type="checkbox" value="20"
+                                                        id="13-20">
+                                                    <label class="form-check-label" for="13-20">
+                                                        13 - 20 Days
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="15-30">
-                                                    <label class="form-check-label" for="15-30">
-                                                        15 - 30 Days
+                                                    <input class="form-check-input" name="duration" type="checkbox" value="21"
+                                                        id="21">
+                                                    <label class="form-check-label" for="21">
+                                                        21+ Days
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="panelsStayOpen-headingFour">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="true"
-                                            aria-controls="panelsStayOpen-collapseFour">
-                                            Language
-                                        </button>
-                                    </h2>
-                                    <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse show"
-                                        aria-labelledby="panelsStayOpen-headingFour">
-                                        <div class="accordion-body">
-                                            <div class="tour-checks">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="english">
-                                                    <label class="form-check-label" for="english">
-                                                        English
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value=""
-                                                        id="tibetian">
-                                                    <label class="form-check-label" for="tibetian">
-                                                        Tibetian
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="search-box" style="width: 100%">
+                                    <button style="width: 100%">Filter</button>
+
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -304,35 +226,38 @@
                         </div>
                     </div>
                     <div class="d-flex align-items-center justify-content-between mt-5">
-                        <p>Tibet: 40 Tours Available</p>
+                        <p>Tibet: {{$tours->count()}} Tours Available</p>
                         <div id="grid-icons" class="grid-icons">
                             <button class="btn" onclick="listView()"><i class="fa fa-list-ul"></i></button>
                             <button class="btn active" onclick="gridView()"><i class="fa fa-th"></i></button>
                         </div>
                     </div>
                     <div class="destination-cards grid mt-1" id="destination-cards">
+                        @foreach ($tours as $key => $tour)
                         <div class="deal-card shadow mb-5">
                             <div class="position-relative">
                                 <div class="deal-image">
-                                    <img src="./assets/images/deal-1.jpg" alt="" class="w-100" />
+                                    <img src="{{ asset('assets/images/deal-1.jpg')}}" alt="" class="w-100" />
+                                    @if ($tour->activate_discounts == true)
                                     <div class="deal-percentage">10% Off</div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="p-4 pt-5">
                                 <div>
-                                    <h5 class="text-black mb-4 fw-bold">Saribung Peak Climbing National</h5>
+                                    <h5 class="text-black mb-4 fw-bold">{{$tour->tour_name}}</h5>
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <div class="d-flex align-items-center">
-                                            <img src="./assets/images/primary-marker.png" alt="" />
-                                            <small class="fw-bold m-0 ms-2">Nepal</small>
+                                            <img src="{{asset('assets/images/primary-marker.png')}}" alt="" />
+                                            <small class="fw-bold m-0 ms-2">{{$tour->destination->title ?? ''}}</small>
                                         </div>
                                         <div class="d-flex align-items-center">
-                                            <img src="./assets/images/primary-clock.png" alt="" />
-                                            <small class="fw-bold m-0 ms-2">5 Days</small>
+                                            <img src="{{asset('assets/images/primary-clock.png')}}" alt="" />
+                                            <small class="fw-bold m-0 ms-2">{{$tour->duration > 1 ? $tour->duration.' Days' : $tour->duration.' Day'}}</small>
                                         </div>
                                         <div class="d-flex align-items-center">
-                                            <img src="./assets/images/primary-filter.png" alt="" />
-                                            <small class="fw-bold m-0 ms-2">Trekking</small>
+                                            <img src="{{asset('assets/images/primary-filter.png')}}" alt="" />
+                                            <small class="fw-bold m-0 ms-2">{{$tour->activity->name ?? ''}}</small>
                                         </div>
                                     </div>
                                     <p class="d-none">Lorem ipsum dolor sit amet consectetur adipisicing elit
@@ -342,285 +267,43 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <button class="details-button">View Details</button>
                                     <div>
+                                       @php
+                                           $avg_review = $tour->reviews->average('rating');
+                                       @endphp
+                                        @for ($i = 0; $i < $avg_review ; $i++)
                                         <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star primarycolor" aria-hidden="true"></i>
+                                        @endfor
+                                        @for ($i = $avg_review; $i < 5 ; $i++)
                                         <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                        <small>(2 review)</small>
+                                        @endfor
+
+
+                                        <small>({{$tour->reviews->count() ?? '0'}} review)</small>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-end">
-                                        <h4 class="m-0 me-2 text-decoration-line-through fw-bold">$350</h4>
+                                        {{-- <h4 class="m-0 me-2 text-decoration-line-through fw-bold">$350</h4> --}}
                                         <div>
                                             <h5 class="m-2 d-block">From</h5>
                                             <div>
-                                                <h4 class="primarycolor m-0 fw-bold">$350</h4>
+                                                <h4 class="primarycolor m-0 fw-bold">${{$tour->flat_price ?? $tour->tiered_price ?? '0'}}</h4>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="deal-card shadow mb-5">
-                            <div class="position-relative">
-                                <div class="deal-image">
-                                    <img src="./assets/images/deal-2.jpg" alt="" class="w-100" />
-                                    <div class="deal-percentage">10% Off</div>
-                                </div>
-                            </div>
-                            <div class="p-4 pt-5">
-                                <div>
-                                    <h5 class="text-black mb-4 fw-bold">Saribung Peak Climbing National</h5>
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <div class="d-flex align-items-center">
-                                            <img src="./assets/images/primary-marker.png" alt="" />
-                                            <small class="fw-bold m-0 ms-2">Nepal</small>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <img src="./assets/images/primary-clock.png" alt="" />
-                                            <small class="fw-bold m-0 ms-2">5 Days</small>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <img src="./assets/images/primary-filter.png" alt="" />
-                                            <small class="fw-bold m-0 ms-2">Trekking</small>
-                                        </div>
-                                    </div>
-                                    <p class="d-none">Lorem ipsum dolor sit amet consectetur adipisicing elit
-                                        sed do eiusmod tempor incididunt ut labore et dolore
-                                        magna aliqua Ut enim ad minim</p>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <button class="details-button">View Details</button>
-                                    <div>
-                                        <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                        <small>(2 review)</small>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-end">
-                                        <h4 class="m-0 me-2 text-decoration-line-through fw-bold">$350</h4>
-                                        <div>
-                                            <h5 class="m-2 d-block">From</h5>
-                                            <div>
-                                                <h4 class="primarycolor m-0 fw-bold">$350</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="deal-card shadow mb-5">
-                            <div class="position-relative">
-                                <div class="deal-image">
-                                    <img src="./assets/images/deal-3.jpg" alt="" class="w-100" />
-                                    <div class="deal-percentage">10% Off</div>
-                                </div>
-                            </div>
-                            <div class="p-4 pt-5">
-                                <div>
-                                    <h5 class="text-black mb-4 fw-bold">Saribung Peak Climbing National</h5>
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <div class="d-flex align-items-center">
-                                            <img src="./assets/images/primary-marker.png" alt="" />
-                                            <small class="fw-bold m-0 ms-2">Nepal</small>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <img src="./assets/images/primary-clock.png" alt="" />
-                                            <small class="fw-bold m-0 ms-2">5 Days</small>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <img src="./assets/images/primary-filter.png" alt="" />
-                                            <small class="fw-bold m-0 ms-2">Trekking</small>
-                                        </div>
-                                    </div>
-                                    <p class="d-none">Lorem ipsum dolor sit amet consectetur adipisicing elit
-                                        sed do eiusmod tempor incididunt ut labore et dolore
-                                        magna aliqua Ut enim ad minim</p>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <button class="details-button">View Details</button>
-                                    <div>
-                                        <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                        <small>(2 review)</small>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-end">
-                                        <h4 class="m-0 me-2 text-decoration-line-through fw-bold">$350</h4>
-                                        <div>
-                                            <h5 class="m-2 d-block">From</h5>
-                                            <div>
-                                                <h4 class="primarycolor m-0 fw-bold">$350</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="deal-card shadow mb-5">
-                            <div class="position-relative">
-                                <div class="deal-image">
-                                    <img src="./assets/images/deal-4.jpg" alt="" class="w-100" />
-                                    <div class="deal-percentage">10% Off</div>
-                                </div>
-                            </div>
-                            <div class="p-4 pt-5">
-                                <div>
-                                    <h5 class="text-black mb-4 fw-bold">Saribung Peak Climbing National</h5>
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <div class="d-flex align-items-center">
-                                            <img src="./assets/images/primary-marker.png" alt="" />
-                                            <small class="fw-bold m-0 ms-2">Nepal</small>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <img src="./assets/images/primary-clock.png" alt="" />
-                                            <small class="fw-bold m-0 ms-2">5 Days</small>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <img src="./assets/images/primary-filter.png" alt="" />
-                                            <small class="fw-bold m-0 ms-2">Trekking</small>
-                                        </div>
-                                    </div>
-                                    <p class="d-none">Lorem ipsum dolor sit amet consectetur adipisicing elit
-                                        sed do eiusmod tempor incididunt ut labore et dolore
-                                        magna aliqua Ut enim ad minim</p>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <button class="details-button">View Details</button>
-                                    <div>
-                                        <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                        <small>(2 review)</small>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-end">
-                                        <h4 class="m-0 me-2 text-decoration-line-through fw-bold">$350</h4>
-                                        <div>
-                                            <h5 class="m-2 d-block">From</h5>
-                                            <div>
-                                                <h4 class="primarycolor m-0 fw-bold">$350</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="deal-card shadow mb-5">
-                            <div class="position-relative">
-                                <div class="deal-image">
-                                    <img src="./assets/images/deal-5.jpg" alt="" class="w-100" />
-                                    <div class="deal-percentage">10% Off</div>
-                                </div>
-                            </div>
-                            <div class="p-4 pt-5">
-                                <div>
-                                    <h5 class="text-black mb-4 fw-bold">Saribung Peak Climbing National</h5>
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <div class="d-flex align-items-center">
-                                            <img src="./assets/images/primary-marker.png" alt="" />
-                                            <small class="fw-bold m-0 ms-2">Nepal</small>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <img src="./assets/images/primary-clock.png" alt="" />
-                                            <small class="fw-bold m-0 ms-2">5 Days</small>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <img src="./assets/images/primary-filter.png" alt="" />
-                                            <small class="fw-bold m-0 ms-2">Trekking</small>
-                                        </div>
-                                    </div>
-                                    <p class="d-none">Lorem ipsum dolor sit amet consectetur adipisicing elit
-                                        sed do eiusmod tempor incididunt ut labore et dolore
-                                        magna aliqua Ut enim ad minim</p>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <button class="details-button">View Details</button>
-                                    <div>
-                                        <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                        <small>(2 review)</small>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-end">
-                                        <h4 class="m-0 me-2 text-decoration-line-through fw-bold">$350</h4>
-                                        <div>
-                                            <h5 class="m-2 d-block">From</h5>
-                                            <div>
-                                                <h4 class="primarycolor m-0 fw-bold">$350</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="deal-card shadow mb-5">
-                            <div class="position-relative">
-                                <div class="deal-image">
-                                    <img src="./assets/images/deal-1.jpg" alt="" class="w-100" />
-                                    <div class="deal-percentage">10% Off</div>
-                                </div>
-                            </div>
-                            <div class="p-4 pt-5">
-                                <div>
-                                    <h5 class="text-black mb-4 fw-bold">Saribung Peak Climbing National</h5>
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <div class="d-flex align-items-center">
-                                            <img src="./assets/images/primary-marker.png" alt="" />
-                                            <small class="fw-bold m-0 ms-2">Nepal</small>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <img src="./assets/images/primary-clock.png" alt="" />
-                                            <small class="fw-bold m-0 ms-2">5 Days</small>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <img src="./assets/images/primary-filter.png" alt="" />
-                                            <small class="fw-bold m-0 ms-2">Trekking</small>
-                                        </div>
-                                    </div>
-                                    <p class="d-none">Lorem ipsum dolor sit amet consectetur adipisicing elit
-                                        sed do eiusmod tempor incididunt ut labore et dolore
-                                        magna aliqua Ut enim ad minim</p>
-                                </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <button class="details-button">View Details</button>
-                                    <div>
-                                        <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o primarycolor" aria-hidden="true"></i>
-                                        <small>(2 review)</small>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-end">
-                                        <h4 class="m-0 me-2 text-decoration-line-through fw-bold">$350</h4>
-                                        <div>
-                                            <h5 class="m-2 d-block">From</h5>
-                                            <div>
-                                                <h4 class="primarycolor m-0 fw-bold">$350</h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-end">
+                        {{-- <ul class="pagination justify-content-end">
                             <li class="page-item active"><a class="page-link" href="#">1</a></li>
                             <li class="page-item"><a class="page-link" href="#">2</a></li>
                             <li class="page-item"><a class="page-link" href="#">3</a></li>
                             <li class="page-item">
                                 <a class="page-link" href="#">Next</a>
                             </li>
-                        </ul>
+                        </ul> --}}
+                       
                     </nav>
                 </div>
             </div>

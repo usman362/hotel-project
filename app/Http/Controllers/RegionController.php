@@ -56,6 +56,7 @@ class RegionController extends Controller
         $region->meta_keywords = $request->meta_keywords;
         $region->thumbnail_image = $request->thumbnail_image;
         $region->banner_image = $request->banner_image;
+        $region->icon = $request->icon;
         $region->save();
         $update = new WebUpdate();
         $update->activity = 'New Region has been Created';
@@ -111,6 +112,7 @@ class RegionController extends Controller
         $region->meta_keywords = $request->meta_keywords;
         $region->thumbnail_image = $request->thumbnail_image;
         $region->banner_image = $request->banner_image;
+        $region->icon = $request->icon;
         $region->save();
         $update = new WebUpdate();
         $update->activity = 'New Region has been Updated';

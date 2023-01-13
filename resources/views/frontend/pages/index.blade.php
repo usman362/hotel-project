@@ -42,43 +42,49 @@
                 <i class="bi bi-arrow-right"></i>
             </button>
 
-            <div class="tour-search-bar d-none d-md-flex">
+            <form class="tour-search-bar d-none d-md-flex" action="{{route('tours')}}">
+                
                 <div class="search-input w-50">
                     <img src="{{asset('assets/images/marker-icon.png')}}" />
-                    <input type="text" placeholder="Where are you going?" />
+                    <input type="text" name="search" placeholder="Where are you going?" autocomplete="off"/>
                 </div>
-                <div class="search-input">
+                <div class="search-input search_activity_contain">
                     <img src="{{asset('assets/images/activities-icon.png')}}" />
-                    <input type="text" placeholder="Activities" />
+                    <select class="search_activity" name="activity">
+                        <option selected disabled>Activities</option>
+                        @foreach ($activities as $key => $activity)
+                            <option value="{{$activity->id}}">{{$activity->name}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="search-input">
                     <img src="{{asset('assets/images/clock-icon-main.png')}}" />
                     <!-- <input type="text" placeholder="Duration" /> -->
-                    <select>
+                    <select name="duration">
                         <option selected disabled>Duration</option>
-                        <option>Day Tour</option>
-                        <option>2 - 6 Days</option>
-                        <option>7 - 12 Days</option>
-                        <option>13 - 20 Days</option>
-                        <option>21+ Days</option>
+                        <option value="1">Day Tour</option>
+                        <option value="6">2 - 6 Days</option>
+                        <option value="12">7 - 12 Days</option>
+                        <option value="20">13 - 20 Days</option>
+                        <option value="21">21+ Days</option>
                     </select>
                 </div>
                 <div class="search-input">
                     <img src="{{asset('assets/images/price-icon.png')}}" />
                     <!-- <input type="text" placeholder="Price Range" /> -->
-                    <select>
+                    <select name="price">
                         <option selected disabled>Price Range</option>
-                        <option>Below $500</option>
-                        <option>$501 - $1000</option>
-                        <option>$1001 - $1600</option>
-                        <option>$1601 - $2500</option>
-                        <option>About $2500</option>
+                        <option value="500">Below $500</option>
+                        <option value="1000">$501 - $1000</option>
+                        <option value="1600">$1001 - $1600</option>
+                        <option value="2500">$1601 - $2500</option>
+                        <option value="2501">Above $2500</option>
                     </select>
                 </div>
-                <button class="search-button">
+                <button type="submit" class="search-button">
                     Search
                 </button>
-            </div>
+            </form>
 
             <div class="carousel-bottom-section d-none d-md-flex justify-content-between">
                 <div class="d-flex align-items-center">
@@ -742,3 +748,11 @@
 
 
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+    $('.search_activity').select2();
+});
+    </script>
+@endpush

@@ -49,7 +49,7 @@ class TeamController extends Controller
         $page->status = $request->status;
         $page->joined_on = $request->joined_on;
         $page->is_featured = isset($request->is_featured) ? true : false;
-        $page->avatar = $request->avatar;
+        $page->avatar_image = $request->avatar;
         $page->meta_title = $request->meta_title;
         $page->meta_keywords = $request->meta_keywords;
         $page->meta_description = $request->meta_description;
@@ -105,7 +105,7 @@ class TeamController extends Controller
         $page->meta_title = $request->meta_title;
         $page->meta_keywords = $request->meta_keywords;
         $page->meta_description = $request->meta_description;
-        $page->avatar = $request->avatar;
+        $page->avatar_image = $request->avatar;
         $page->save();
                 $update = new WebUpdate();
         $update->activity = 'Team has been Updated';

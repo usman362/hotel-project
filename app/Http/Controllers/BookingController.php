@@ -53,6 +53,7 @@ class BookingController extends Controller
         $booking->no_of_people = $request->no_of_people;
         $booking->email = $request->email;
         $booking->country = $request->country;
+        $booking->status = $request->status;
         $booking->duration = $request->duration;
         $booking->price_per_person = $request->price_per_person;
         $booking->deposit = $request->deposit;
@@ -105,11 +106,12 @@ class BookingController extends Controller
         $booking->tour_id = $request->tour_id;
         $booking->custom_tour_name = $request->custom_tour_name;
         $booking->start_date = $request->start_date;
-        $booking->reference = $request->reference;
+        // $booking->reference = $request->reference;
         $booking->booking_date = $request->booking_date;
         $booking->lead_customer_name = $request->lead_customer_name;
         $booking->phone = $request->phone;
         $booking->no_of_people = $request->no_of_people;
+        $booking->status = $request->status;
         $booking->email = $request->email;
         $booking->country = $request->country;
         $booking->duration = $request->duration;

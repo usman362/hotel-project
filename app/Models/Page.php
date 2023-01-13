@@ -11,7 +11,7 @@ class Page extends Model
 
     public function header_image()
     {
-        return $this->belongsTo(Upload::class, 'head_image');
+        return $this->hasOne(Upload::class, 'id','head_image');
     }
 
 
